@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn">
+<head>
+　　<title>change the admin </title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Language" content="zh-CN" />
+	<link type="text/css" rel="stylesheet" href="CSS文件路径" />
+	<script type="text/javascript" src="JS文件路径"></script>
+</head>
+<body>
+	<div class="LoginForm">
+		<form action="{%spUrl c=adUser a=adminSignin%}" method="POST">
+			<input type="text" name="name"/><br/>
+			<input type="password" name="passwd"/><br/>
+			<input type="hidden" name="originConfirm" value="{%$confirm%}" />
+			<h3>{%$confirm%}</h3>
+			<select name="UserLevel">
+				<option value="1">超级管理员</option>
+				<option value="2">频道管理员</option>
+				<option value="3">信息审核员</option>
+				<option value="4">信息发布员</option>
+			</select>
+			<input type="text" name="confirm"/ >
+			<input type="submit" name="submit" value="submit" />
+		</form>
+	</div>
+</body>
+</html>
