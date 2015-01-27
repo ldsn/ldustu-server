@@ -16,6 +16,8 @@ class main extends spController
 		echo  "<a href='".spUrl('article','articleArticle')."'>文章内容页<a>";
 		echo "<br/>";
 		echo  "<a href='".spUrl('article','articleDelete')."'>删除2号文章<a>";
+		echo "<br/>";
+		echo  "<a href='".spUrl('adUser','addUser')."'>增加用户<a>";
 	}
 //文章相关页面
 
