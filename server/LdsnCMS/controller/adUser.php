@@ -8,11 +8,12 @@ class adUser extends spController
 		echo '增加用户页面';
 		$username = 'jason';
 		$password = '123456';
-		$email = '';
-		$ip = '';
+		$repeat_word = '123456';
+		$email = '351192873@qq.com';
 		//获取用户的IP
-
-
+		$userIp = GetIP();
+		
+		
 	}
 	function deleteUser(){ //删除用户
 
