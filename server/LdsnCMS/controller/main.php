@@ -18,8 +18,20 @@ class main extends spController
 		echo  "<a href='".spUrl('article','articleDelete')."'>删除2号文章<a>";
 		echo "<br/>";
 		echo  "<a href='".spUrl('adUser','addUser')."'>增加用户<a>";
+		echo "<br/>";
+		echo  "<a href='".spUrl('adUser','changeUser')."'>用户更改<a>";
 	}
-//文章相关页面
+	//访问功能页面
+	//首页
+	function pageIndex(){
+		//首先取出十篇文章 --可以继续取
+		header("Content-Type:text/html; charset=utf-8");
+		$ldsn_article = $spClass('ldsn_article');
+		
+	}
+
+
+	//文章相关页面
 
 	function pageArticleEdit(){   //发布文章页
 		echo "发布文章页面";
@@ -51,6 +63,13 @@ class main extends spController
 		header("Content-Type:text/html; charset=utf-8");
 		$this->display('pageAddUser.htm');
 
+	}
+	function pageUserLogin(){ //用户登陆页面
+		echo "这是用户登陆页面";
+		header("Content-Type:text/html; charset=utf-8");
+	}
+	function pageChangePassword(){
+		header("Content-Type:text/html; charset=utf-8");
 	}
 
 	
