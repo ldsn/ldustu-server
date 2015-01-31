@@ -1,0 +1,1 @@
+define("ldsn-wap:widget/header/header.js",function(){$(".right-aside").click(function(){console.log(123)})});

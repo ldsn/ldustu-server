@@ -9,10 +9,12 @@
     {%require name="common:static/semantic/css/semantic.css"%}
 
     {%* global js *%}
+    {%require name="common:static/mod.js"%}
     {%require name="common:static/lib/html5.js"%}
-    {%require name="common:static/lib/jquery-1.10.1.js"%}
-    {%require name="common:static/semantic/js/semantic.js"%}
-
+    {%require name="common:static/lib/zepto.min.js"%}
+    {%*
+        {%require name="common:static/semantic/js/semantic.js"%}
+    *%}
 
     {%block name="head"%}{%/block%}
 {%/head%}

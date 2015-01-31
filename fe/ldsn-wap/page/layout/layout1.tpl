@@ -3,17 +3,20 @@
 {%/block%}
 
 {%block name="body"%}
-<header class="ldsn-header">
-	{%block name="header-module"%}{%/block%}
-</header>
 <menu class="ldsn-menu">
-	{%block name="menu-module"%}{%/block%}
+	{%block name="ldsn-menu"%}{%/block%}
 </menu>
-<section class="ldsn-content">
-	{%block name="ldsn-content"%}{%/block%}
-</section>
-<section class="ldsn-right">
-	{%block name="right-aside-module"%}{%/block%}
+
+<section class="ldsn-main">
+	<header class="ldsn-header">
+		{%block name="ldsn-header"%}{%/block%}
+	</header>
+	<section class="ldsn-content">
+		{%block name="ldsn-content"%}{%/block%}
+	</section>
 </section>
 
+<section class="ldsn-right">
+	{%block name="ldsn-right-aside"%}{%/block%}
+</section>
 {%/block%}

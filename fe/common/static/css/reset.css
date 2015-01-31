@@ -101,3 +101,19 @@ hr {
 input, select {
     vertical-align:middle;
 }
+
+a {
+    text-decoration: none;
+}
+
+a {
+    color: #383838;
+}
+
+click {
+    display: block;
+}
+
+ul,li {
+    list-style: none;
+}

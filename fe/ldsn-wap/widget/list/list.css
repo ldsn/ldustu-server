@@ -1,0 +1,117 @@
+
+.module-list {
+    padding: 20px 10px;
+    background: #dcdee3;
+}
+
+.user-topic {
+    width: 50px;
+    height: 50px;
+    float: left;
+	margin-right: 10px;
+}
+
+.article-info {
+    overflow: hidden;
+}
+
+.article-info time {
+    font-size: 14px;
+    color: #777b84;
+}
+
+.item {
+    overflow: hidden;
+}
+
+.article-from {
+    font-size: 18px;
+    line-height: 24px;
+    color: #777b84;
+}
+.article-from em {
+    font-weight: bold;
+    color: #000000;
+}
+
+.item-list .item {
+    background: #FFFFFF;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.item-header {
+    overflow: hidden;
+    margin: 10px 0 10px 0;
+    padding: 0 10px 5px 10px;
+    border-bottom: 1px solid #e9e9e9;
+}
+
+.user-topic {
+    width: 50px;
+    height: 50px;
+    float: left;
+}
+
+.article-title {
+    font-size: 20px;
+    margin: 10px;
+}
+.article-image {
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.article-description {
+    margin: 0 10px 0 10px;
+    font-size: 16px;
+	line-height: 20px;
+    color: #777b84;
+}
+
+.article-handle-info i.icon {
+    margin: 0;
+    font-size: 23px;
+    vertical-align: middle;
+}
+
+.article-handle-info>ul>li {
+    float: left;
+    margin-right: 10px;
+}
+
+.article-handle-info {
+    overflow: hidden;
+    margin: 10px;
+    color: #9a9da3;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+}
+.article-handle i.icon {
+    margin: 0;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.article-handle {
+    overflow: hidden;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    background: #f3f3f3;
+    border-top: 1px solid #CDCDCD;
+    display: -webkit-box;
+	color: #646669;
+}
+
+.article-handle .handle {
+    -webkit-box-flex: 1;
+    text-align: center;
+    border-right: 1px solid #CDCDCD;
+}
+.article-handle .handle:last-child {
+	border-right: none;
+}
