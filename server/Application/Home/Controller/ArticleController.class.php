@@ -3,6 +3,12 @@ namespace Home\Controller;
 use Think\Controller;
 header('Content-Type: text/html; charset=utf-8;');
 class ArticleController extends Controller {
+	/*
+	*文章首页
+	*文章发布页面
+	*文章发布功能
+	*文章内容页
+	*/
 	public function index(){
 		echo "文章首页";
 	}

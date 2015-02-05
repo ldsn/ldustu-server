@@ -3,6 +3,10 @@ namespace Home\Controller;
 use Think\Controller;
 header('Content-Type: text/html; charset=utf-8;');
 class RegisterController extends Controller {
+	/*
+	*注册页面
+	*注册功能
+	*/
 	public function index(){
 		
 		//dump(M('user')->select());

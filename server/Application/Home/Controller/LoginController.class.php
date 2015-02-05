@@ -3,6 +3,11 @@ namespace Home\Controller;
 use Think\Controller;
 header('Content-Type: text/html; charset=utf-8;');
 class LoginController extends Controller {
+	/*
+	*登陆首页
+	*登陆功能页面
+	*退出
+	*/
 	public function index(){
 		$this->display('Login/Login');
 	}
