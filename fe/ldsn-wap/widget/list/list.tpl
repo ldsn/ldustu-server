@@ -29,19 +29,37 @@
 					</li>
 				</ul>
 			</section>
-			<footer class="article-handle">
-				<click class="favour handle">
-					<i class="thumbs up icon"></i>
-					<em class="opa">赞</em>
-				</click>
-				<click class="comment handle">
-					<i class="edit sign icon"></i>
-					<em class="opa">评论</em>
-				</click>
-				<click class="share handle">
-					<i class="share icon"></i>
-					<em class="opa">分享</em>
-				</click>
+			<footer class="article-footer">
+				<section class="article-handle">
+					<click class="favour handle active">
+						<i class="thumbs up icon"></i>
+						<em class="opa">赞</em>
+					</click>
+					<click class="comment handle">
+						<i class="edit sign icon"></i>
+						<em class="opa">评论</em>
+					</click>
+					<click class="share handle">
+						<i class="share icon"></i>
+						<em class="opa">分享</em>
+					</click>
+				</section>
+				<ul class="article-comment">
+					<li class="comment-item">
+						<img src="/static/ldsn-wap/lib/img/topic.png" alt="" class="comment-topic">
+						<section class="comment-detail">
+							<section class="coment-info">
+								<time class="comment-time">03:21</time>
+								<section class="coment-user-info">
+									小眼睛的春天
+								</section>
+							</section>
+							<section class="comment-content">
+								WebAPP和原生APP同为移动端，很少有研究这两项的交互区别，
+							</section>
+						</section>
+					</li>
+				</ul>
 			</footer>
 		</li>
 		<li class="item">

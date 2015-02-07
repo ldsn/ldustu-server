@@ -1,7 +1,7 @@
-var receiver = "http://tp.com:8989/fisp.php";
+var receiver = "http://www.ldsn.com/fisp.php";
 
 fis.config.merge({
-	namespace : 'ldsn-wap',
+	namespace : 'common',
     pack : {
     },
 	deploy: {
@@ -16,7 +16,7 @@ fis.config.merge({
 	                subOnly: true,
 	                //保存到远端机器的/home/fis/www/static目录下
 	                //这个参数会跟随post请求一起发送
-	                to: '/home/wwwroot/tp.com/static',
+	                to: '/data/www/ldustu/ldsn/static',
 	                exclude: /.*\.(?:svn|cvs|tar|rar|psd).*/
 	            },{
 	                //如果配置了receiver，fis会把文件逐个post到接收端上
@@ -27,7 +27,7 @@ fis.config.merge({
 	                subOnly: true,
 	                //保存到远端机器的/home/fis/www/static目录下
 	                //这个参数会跟随post请求一起发送
-	                to: '/home/wwwroot/tp.com/configs',
+	                to: '/data/www/ldustu/ldsn/config',
 	                exclude: /.*\.(?:svn|cvs|tar|rar|psd).*/
 	            },{
 	                //如果配置了receiver，fis会把文件逐个post到接收端上
@@ -38,7 +38,7 @@ fis.config.merge({
 	                subOnly: true,
 	                //保存到远端机器的/home/fis/www/static目录下
 	                //这个参数会跟随post请求一起发送
-	                to: '/home/wwwroot/tp.com/Application/Smarty/Plugins/',
+	                to: '/data/www/ldustu/ldsn/plugin/',
 	                exclude: /.*\.(?:svn|cvs|tar|rar|psd).*/
 	            },{
 	                //如果配置了receiver，fis会把文件逐个post到接收端上
@@ -49,7 +49,7 @@ fis.config.merge({
 	                subOnly: true,
 	                //保存到远端机器的/home/fis/www/static目录下
 	                //这个参数会跟随post请求一起发送
-	                to: '/home/wwwroot/tp.com/Application/Home/View/',
+	                to: '/data/www/ldustu/ldsn/template/',
 	                exclude: /.*\.(?:svn|cvs|tar|rar|psd).*/
 	            },]
         },
