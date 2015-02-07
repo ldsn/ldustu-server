@@ -1,0 +1,15 @@
+<?php
+namespace Home\Model;
+use Think\Model\RelationModel;
+class ArticleModel extends RelationModel{
+	protected $_link = array(
+		'article_detial' =>array(
+				'mapping_type'=>BELONGS_TO,
+				'mapping_name'=>'article_detial',
+				'class_name'=>'article_detial',
+				'foreign_key'=>'art_id',
+				'mapping_fields'=>'de_id,vit_num,art_title,art_des,content,href_pic,source',
+			),
+		);	
+
+} 
