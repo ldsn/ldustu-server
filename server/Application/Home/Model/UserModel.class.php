@@ -20,9 +20,9 @@ class UserModel extends Model{   //用户对象 验证用户名和邮箱方法
 		    }
 		    return $JsonOutput;
 		}
-	public function userip($username){
+	public function userinfo($username){
 		$where['username'] = $username;
 		$result =$this->where($where)->select();
-		return $result['0']['user_id'];
+		return json_encode($result);
 	}
 }
