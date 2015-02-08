@@ -10,6 +10,7 @@
     {%* global js *%}
     {%require name="common:static/mod.js"%}
     {%require name="common:static/lib/zepto.min.js"%}
+    {%require name="common:static/ldev.js"%}
     {%*
         {%require name="common:static/semantic/js/semantic.js"%}
     *%}

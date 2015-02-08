@@ -5,28 +5,25 @@
  * create by fanmingfei 2015-02-01
 */
 
-var Smooth = require("common:widget/smooth/smooth.js");
+var _pri = {
+    node : {
+        ldsnMain: $('section[node-type="ldsn-main"]'),
+        ldsnBox: $('section[node-type="ldsn-box"]')
+    },
+    bindUI: {
 
-var q = {
-	ldsnMain: $('.ldsn-main'),
-	ldsnBox: $('.ldsn-box')
-}
-
-var bindEvent = function () {
-
-}
-
-var renderDom = function () {
-	$('.ldsn-content').css("height",$(window).height()-40);
-	$('.ldsn-box').css("width",$(window).width()+300);
-	$('.ldsn-main').css("width",$(window).width());
-}
-
+    },
+    util: {
+        renderDom: function () {
+            $('.ldsn-content').css("height",$(window).height()-40);
+            $('.ldsn-box').css("width",$(window).width()+300);
+            $('.ldsn-main').css("width",$(window).width());
+        }
+    }
+};
 
 
 var init = function () {
-	renderDom();
-	bindEvent();
+	_pri.util.renderDom();
 }
-
-init()
+init();
