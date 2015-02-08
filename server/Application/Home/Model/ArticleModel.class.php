@@ -24,5 +24,8 @@ class ArticleModel extends RelationModel{
            return  $result1 = json_encode($Output);
            
         	}	
-        	public function 
+        	public function favour($art_id){
+        		$where['art_id'] = $art_id;
+        		$this->where($where)->select();
+        	}
 } 

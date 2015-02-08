@@ -10,6 +10,8 @@ class IndexController extends Controller {
               print_r($user->userinfo($username));
              $article = D('article');
               print_r($article->getArticle(0));
+              $column = D('column');
+              print_r($column ->getall());
 
           }
           
