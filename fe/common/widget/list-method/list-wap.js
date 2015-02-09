@@ -1,17 +1,13 @@
 /**
- * 列表
+ * 事件监听
  * @author fanmingfei
  * @date 2015-02-09
  * @version 1.0.0
  */
 
 var apiCenter = require('common:widget/api/api.js');
-var listTpl = require('ldsn-wap:widget/list/list.tpl.js');
 
 var _pri = {
-    node: {
-        itemList: $('ul[node-type="module-list-item-list"]');
-    }
     conf: {
         order: 'time'
     },
@@ -32,7 +28,6 @@ var _pub = {
         arcList: []
     }
     util: {
-        
         /**
          * 获取文章列表
          * @param  {number} start 开始的id
@@ -58,10 +53,10 @@ var _pub = {
                 }
             });
         },
-
+        
         /**
          * 给文章排序
-         * @param  {thring} order 排序方式
+         * @param  {tring} order 排序方式
          */
         sort: function (order) {
             _pri.conf.order = order;
@@ -70,18 +65,5 @@ var _pub = {
             });
         },
 
-        /**
-         * 渲染列表
-         * @param  {object} data 列表数据
-         */
-        render: function (data) {
-            var tpl = '';
-            data.forEach(function (item){
-                tpl += ldev.tmpl(listTpl, data);
-            });
-            _pri.node.itemList.append($(tpl));
-        }
     }
 };
-
-module.exports = _pub;

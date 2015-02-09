@@ -1,5 +1,5 @@
-<section node-type="module" class="module-list">
-	<ul class="item-list">
+<section node-type="module-list" class="module-list">
+	<ul class="item-list" node-type="module-list-item-list">
 		<li class="item">
 			<header class="item-header">
 				<img src="/static/ldsn-wap/lib/img/topic.png" class="user-topic"/>
