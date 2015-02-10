@@ -1,7 +1,7 @@
     /**
-     * 简介
-     * @author 作者姓名
-     * @date 2015-02-04
+     * 页面标题修改
+     * @author yuxuan
+     * @date 2015-02-08
      * @version 1.0.0
      */
     'use strict';

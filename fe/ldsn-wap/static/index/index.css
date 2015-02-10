@@ -3,6 +3,7 @@
 	overflow: hidden;
 }
 .ldsn-box {
+	margin-left: -200px;
 }
 
 .ldsn-box.menu {
