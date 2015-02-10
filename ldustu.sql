@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 2015-02-05 10:14:27
+-- Generation Time: 2015-02-10 16:11:16
 -- 服务器版本： 5.5.37-log
 -- PHP Version: 5.3.28
 
@@ -30,18 +30,20 @@ CREATE TABLE IF NOT EXISTS `ldsn_article` (
 `art_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `clu_id` int(11) NOT NULL,
-  `art_time` varchar(120) NOT NULL,
+  `vit_num` int(11) NOT NULL DEFAULT '0',
   `ismake` smallint(6) NOT NULL DEFAULT '0',
-  `keyword` text NOT NULL
+  `art_title` varchar(120) NOT NULL,
+  `art_des` text NOT NULL,
+  `art_time` int(11) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- 转存表中的数据 `ldsn_article`
 --
 
-INSERT INTO `ldsn_article` (`art_id`, `user_id`, `clu_id`, `art_time`, `ismake`, `keyword`) VALUES
-(4, 1, 2, '1422949337', 0, 'keyword'),
-(3, 1, 1, '1422175805', 0, 'keyword');
+INSERT INTO `ldsn_article` (`art_id`, `user_id`, `clu_id`, `vit_num`, `ismake`, `art_title`, `art_des`, `art_time`) VALUES
+(4, 1, 2, 0, 1, '', '', 1),
+(3, 1, 1, 0, 1, '', '', 2);
 
 -- --------------------------------------------------------
 
@@ -52,11 +54,7 @@ INSERT INTO `ldsn_article` (`art_id`, `user_id`, `clu_id`, `art_time`, `ismake`,
 CREATE TABLE IF NOT EXISTS `ldsn_article_detial` (
 `de_id` int(11) NOT NULL,
   `art_id` int(11) NOT NULL,
-  `vit_num` int(11) NOT NULL DEFAULT '0',
-  `art_title` varchar(120) NOT NULL,
-  `art_des` varchar(120) NOT NULL,
   `content` text NOT NULL,
-  `href_pic` text NOT NULL,
   `source` varchar(60) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
@@ -64,9 +62,9 @@ CREATE TABLE IF NOT EXISTS `ldsn_article_detial` (
 -- 转存表中的数据 `ldsn_article_detial`
 --
 
-INSERT INTO `ldsn_article_detial` (`de_id`, `art_id`, `vit_num`, `art_title`, `art_des`, `content`, `href_pic`, `source`) VALUES
-(2, 3, 12, '测试文章', '无描述', '简单的内容', '什么测试', '这是一个测试'),
-(3, 4, 6, '标题', '秒速', '内容', '链接', '来源');
+INSERT INTO `ldsn_article_detial` (`de_id`, `art_id`, `content`, `source`) VALUES
+(2, 3, '简单的内容', '这是一个测试'),
+(3, 4, '内容', '来源');
 
 -- --------------------------------------------------------
 
@@ -102,6 +100,28 @@ CREATE TABLE IF NOT EXISTS `ldsn_comment` (
   `art_id` int(11) NOT NULL,
   `coment_content` text NOT NULL,
   `com_time` int(11) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- 转存表中的数据 `ldsn_comment`
+--
+
+INSERT INTO `ldsn_comment` (`com_id`, `user_id`, `beuser_id`, `art_id`, `coment_content`, `com_time`) VALUES
+(2, 0, 0, 4, '', 0),
+(3, 3, 4, 4, '', 1423114120),
+(4, 3, 4, 4, '213789217938点击打我ijo', 1423114135),
+(5, 3, 0, 4, '213789217938点击打我ijo', 1423115365);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ldsn_favour`
+--
+
+CREATE TABLE IF NOT EXISTS `ldsn_favour` (
+`fa_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `art_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -185,6 +205,12 @@ ALTER TABLE `ldsn_comment`
  ADD PRIMARY KEY (`com_id`);
 
 --
+-- Indexes for table `ldsn_favour`
+--
+ALTER TABLE `ldsn_favour`
+ ADD PRIMARY KEY (`fa_id`);
+
+--
 -- Indexes for table `ldsn_power`
 --
 ALTER TABLE `ldsn_power`
@@ -219,7 +245,12 @@ MODIFY `colu_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `ldsn_comment`
 --
 ALTER TABLE `ldsn_comment`
-MODIFY `com_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `com_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `ldsn_favour`
+--
+ALTER TABLE `ldsn_favour`
+MODIFY `fa_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `ldsn_power`
 --
