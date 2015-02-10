@@ -97,72 +97,8 @@ var _pri = {
     }
 };
 
-var init = function () {
-    var data = '{' +
-        '"error": 0,' +
-        '"data": [' +
-            '{' +
-                '"id": "3",' +
-                '"uid": "1",' +
-                '"cid": "1",' +
-                '"visite": "553",' +
-                '"favour": "10",' +
-                '"common": "10",' +
-                '"ismake": "1",' +
-                '"image": "/static/ldsn-wap/lib/img/topic.png",' +
-                '"username": "edire",' +
-                '"category": "2",' +
-                '"source": "人人都是产品经理",' +
-                '"title": "这是一片文章题0",' +
-                '"description": "文章简介",' +
-                '"time": "1423582000"' +
-            '},' +
-            '{' +
-                '"id": "4",' +
-                '"uid": "1",' +
-                '"cid": "1",' +
-                '"visite": "234",' +
-                '"favour": "10",' +
-                '"common": "10",' +
-                '"ismake": "1",' +
-                '"image": "http://www.awer.cn/logo.png",' +
-                '"username": "edire",' +
-                '"category": "2",' +
-                '"source": "人人都是产品经理",' +
-                '"title": "这是一片文章题目啦啦啦1",' +
-                '"description": "文章简介",' +
-                '"time": "1423582123"' +
-            '},' +
-            '{' +
-                '"id": "5",' +
-                '"uid": "1",' +
-                '"cid": "1",' +
-                '"visite": "132",' +
-                '"favour": "10",' +
-                '"common": "10",' +
-                '"ismake": "1",' +
-                '"image": "",'+
-                '"username": "edire",' +
-                '"category": "2",' +
-                '"source": "人人都是产品经理",' +
-                '"title": "这是一片文章题目啦啦啦2",' +
-                '"description": "文章简介",' +
-                '"time": "1423582542"' +
-            '}' +
-        '],' +
-        '"end": true,' +
-        '"listNum": 1' +
-    '}';
-    data = $.parseJSON(data);
-    data = data.data;
-    _pri.conf.arcList = _pri.conf.arcList.concat(data);
-    _pri.util.render();
-};
-
-init();
 
 var _pub = {
-    exports: {
 
         /**
          * 更新排序
@@ -221,7 +157,6 @@ var _pub = {
             var data = _pri.util.getList(_pri.conf.currentPage * _pri.conf.pageSize, _pri.conf.pageSize, _pri.conf.currentCategory, _pri.conf.order);
             _pri.util.render(data);
         }
-    }
 };
 
 module.exports = _pub;
