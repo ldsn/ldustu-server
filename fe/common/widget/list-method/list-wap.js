@@ -28,6 +28,7 @@ var _pub = {
         arcList: []
     }
     util: {
+        
         /**
          * 获取文章列表
          * @param  {number} start 开始的id
@@ -53,7 +54,7 @@ var _pub = {
                 }
             });
         },
-        
+
         /**
          * 给文章排序
          * @param  {tring} order 排序方式

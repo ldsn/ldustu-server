@@ -10,8 +10,8 @@ var listTpl = require('ldsn-wap:widget/list/list.tpl.js');
 
 var _pri = {
     node: {
-        itemList: $('ul[node-type="module-list-item-list"]');
-    }
+        itemList: $('ul[node-type="module-list-item-list"]')
+    },
     conf: {
         order: 'time'
     },
@@ -30,7 +30,7 @@ var _pri = {
 var _pub = {
     conf: {
         arcList: []
-    }
+    },
     util: {
         
         /**
