@@ -1,0 +1,80 @@
+/**
+     * 菜单css
+     * @author yuxuan
+     * @date 2015-02-08
+     * @version 1.0.0
+     */
+   #share .share_img{
+        float: left;
+        width: 70px;
+        height: 65px;
+        /*background-color: #eee;*/
+        background-image: url(/static/ldsn-wap/lib/img/share_ico.png);
+        background-repeat: no-repeat;
+        cursor: pointer;
+        margin: 6px;
+        text-indent: 0;
+        overflow: hidden;
+        color: #3a8ceb;
+        background-size: 210px;
+    }
+    #share_bg{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        right: 0;
+        opacity: 0.3;text-indent: 
+        z-index: 9999;
+        background: rgb(0, 0, 0);
+        bottom: 0;
+    }
+    #share{
+        z-index: 9999;
+        position: fixed;
+        background-color: #E1E1E1;
+        bottom: 0;
+        width: 100%;
+        height: 50%;
+        left: 0;
+        right: 0;
+    }
+    #share_delete{
+        z-index: 9999;
+        position: absolute;
+        bottom: 10px;
+        width: 90%;
+        margin: 2% 5%;
+        height: 8%;
+        font-size: 18px;
+        background-color: #F9F9F9;
+        border-radius:10px;
+        cursor: pointer;
+    }
+    .bdshare{
+        width: 100%;
+        height: 72%;
+        background-color: #F7F7F7;
+        box-shadow: 0px 1px 5px 0px;
+    }
+    #share_box .bds_qzone{
+        background-position: -67px -6px;
+    }
+    #share_box .bds_tsina{
+        background-position: 0px -6px;
+    }
+    #share_box .bds_sqq{
+        background-position: -130px -70px;
+    }
+    #share_box .bds_renren{
+        background-position: 2px -64px;
+    }
+    #share_box .bds_weixin{
+        background-position: -137px -4px;
+    }
+    #share_box .bds_copy{
+        background-position: -65px -65px;
+    }
+    .share_mid{
+        margin: 0 auto;
+        width: 85%;
+    }
