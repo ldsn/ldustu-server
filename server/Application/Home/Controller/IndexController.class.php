@@ -19,6 +19,7 @@ class IndexController extends Controller {
                $column = D('column');
                 print_r($column ->getall());
           }
+
           
 
 

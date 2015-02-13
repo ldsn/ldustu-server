@@ -11,6 +11,10 @@ class CommentController extends Controller { //评论模块
 	public function index(){
 		echo "评论首页";	
 	}
+	public function getComment(){
+              $comment = D('comment');
+              $comment->catchComment($aid = 4,$startid = 0,$count =1);
+        	  }
 	public function comment(){	//评论动作
 		$comment = M('comment');
 		$userid = 3;

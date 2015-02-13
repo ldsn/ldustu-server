@@ -13,14 +13,15 @@ class ArticleModel extends RelationModel{
 		);
 	public function getArticle($startid,$getnum,$cid){ //获取文章页面
             $user = M('user');
+            $comment = M('comment');
             $error = 0;
-            $where = array(
+            $where = array(   //构造取值条件
                 'ismake' => 1,
                 'clu_id' =>$cid,
                );
             $result =  $this->limit($startid,$getnum)->where($where)->order('time desc')->select();
             $listNum = count($result);
-            if($listNum<$getnum){
+            if($listNum<$getnum){   //判断是否能继续再取
               $end = true;
             }else{
               $end = false;
@@ -39,7 +40,12 @@ class ArticleModel extends RelationModel{
                        $new[$key]['from'] = $value['from'];
                        $where['user_id'] = $new[$key]['user_id'];
                        $userinfo = $user->where($where)->field('username')->find();
-                       $new[$key]['username'] = $userinfo['username'] ;
+                       $new[$key]['username'] = $userinfo['username'];
+                       $where1['art_id'] = $new[$key]['art_id'];
+                       $cominfo = $comment->where($where1)->limit(0,3)->order('com_time desc')->select();
+                       $new[$key]['cominfo'] = array(
+                                  $cominfo,
+                        );
             }
             if(!$result||$result ==''){
                $error = 1;
