@@ -1,7 +1,17 @@
 <?php
 namespace Home\Model;
 use Think\Model;
-class UserModel extends Model{   //用户对象 验证用户名和邮箱方法
+class UserModel extends Model{   
+	/*
+	*检查用户名
+	*检查邮箱格式
+	*请求用户信息
+	*/
+	public function userid($username){
+		$where['username'] = $username;
+		$result = $this->where($where)->find();
+		return $result['uid'];
+	}
 	public function checkname($username){
 		$where['username'] = $username;
 		if(!$this->where($where)->count()){

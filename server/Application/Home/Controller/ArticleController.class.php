@@ -4,22 +4,22 @@ use Think\Controller;
 header('Content-Type: text/html; charset=utf-8;');
 Vendor('Test.Readability');
 class ArticleController extends Controller {
-	 // const USER_AGENT = "Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 5.2; Trident/4.0)";
 	/*
-	*文章首页
-	*文章发布页面
-	*文章发布功能
-	*文章内容页
+	*获取文章列表
+	*
 	*/
-	public function index(){
-		echo "文章首页";
+	public function getArticle($startid = 0,$getnum = 10,$cid = 1,$comStartId = 0,$comGetNum = 3){
+	              $article = D('article');
+	              print_r($article->getArticle($startid,$getnum,$cid,$comStartId,$comGetNum));
+        	  }
+        	public function showArticle($aid){//文章内容页
+        		$article = D('article');
+        		$result = $article->articleArticle($aid);
+        		print_r(json_encode($result));
 	}
 	public function Article(){ //发布文章页面
 	   	$username = cookie('username');
     		if($username&&$username!=''){ //判断是否登陆过
-    		$column = M('column');
-		$this->clu_id = $column->select();
-
     		$this->display('Article/Article');
     		}else{
     			redirect('/home/login',2,'请登录');
@@ -28,66 +28,39 @@ class ArticleController extends Controller {
 	   }
 	public function publish(){ //发布文章动作
 		//文章主表 字段构造
-		$user = D('user');
-		$user_id = $user->userip(cookie('username'));
+		$article = D('article');  // 初始化文章模型
+		$user = D('user'); //初始化用户模型
+		$uid =3;// $user->userid(cookie('username'));
+		$cid = 1;//$_POST['cid'];
+		$title = '测试题目123';//$_POST['title'];
+		$content ='测试内容';//$_POST['content'];
+		$description = '测试秒速';//$_POST['description']?$_POST['description']:null;
+		$image ='www.ldustu.com';// $_POST['image']?$_POST['image']:null;
 		$time = time();
-		$keyword = keyword;
-		$art_des = $_POST['description'];
-		$content =$_POST['content'];
-		$href_pic = $_POST['href_pic'];
-		$source = $_POST['source'];
-		$clu_id = $_POST['column'];
-		$article = M('article');  // 初始化文章表
-		$detial = M('article_detial');
-		
-		$articleIn = array(
-			'user_id' =>$user_id,
-			'clu_id' =>$clu_id,
-			'art_time'=>$time,
-			'keywor d'=>$keyword,
+		$from = 'somewhere';//$_POST['from']?$_POST['from']:null;
+		$data = array(
+			'uid'=>$uid ,
+			'cid'=>$cid,
+			'title' =>$title,
+			'description' => $description,
+			'image' =>$image,
+			'time' =>$time,
+			'from' =>$from,
+			'Article_detial'=>array(
+				'content'=>$content,
+				)
 			);
-		$art_id = $article->add($articleIn); //插入文章主表
-		$detialIn = array(
-			'art_id' => $art_id,
-			'art_title' => inject_check($_POST['title']),
-			'art_des' =>$art_des,
-			'content' =>$content,
-			'href_pic' =>$href_pic,
-			'source' =>$source, 
-			);
-		$de_id = $detial->add($detialIn);
-		if($art_id&&$de_id){ //如果存在文章ID和文章细节ID
-			$this->success('文章发布成功','/home/user/index');
+		$result = $article->publishArticle($data);
+
+		if($result){ //如果存在文章ID和文章细节ID
+			print_r(写入成功);
 		}else{
-			$this->error('文章发布失败');
+			print_r(写入失败);
 		}
 	}
-	public function showArticle(){//文章内容页
-		/*$username = cookie('username');
-		if($username&&$username!=''){
-			//判断是否登陆，显示登陆菜单操作
-		}*/
-		$art_id = $_GET['art_id'];
-		$article = M('article');
-		$detial = M('article_detial');
-		$where['art_id']  = $art_id;
-		$result = $article->where($where)->find();
-		$detialResult = $detial->where($where)->find();
-		$data['vit_num'] = $detialResult['vit_num'] +1;
-		$detial->where($where)->save($data);
-		dump($result);
-		dump($detialResult);
-		$this->display('Article/showArticle');
-	}
-
-	public function curlArticle(){
-		
-
 	
 
-
-
-
+	public function curlArticle(){
                   $request_url = getRequestParam("url",  "");
                   echo $request_url;
                   $output_type = strtolower(getRequestParam("type", "html"));
