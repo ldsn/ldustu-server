@@ -10,7 +10,7 @@ class RegisterController extends Controller {
 	public function index(){
 		
 		//dump(M('user')->select());
-		session('name','jason');
+		//session('name','jason');
 		$this->display('Register/Register');
 	}
 	public function Register(){
