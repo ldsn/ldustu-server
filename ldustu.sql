@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 2015-02-10 16:11:16
+-- Generation Time: 2015-02-17 18:01:40
 -- 服务器版本： 5.5.37-log
 -- PHP Version: 5.3.28
 
@@ -27,23 +27,28 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `ldsn_article` (
-`art_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `clu_id` int(11) NOT NULL,
-  `vit_num` int(11) NOT NULL DEFAULT '0',
+`aid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `cid` int(11) NOT NULL,
+  `cnum` int(11) NOT NULL,
+  `favour` int(11) NOT NULL,
+  `visit` int(11) NOT NULL DEFAULT '0',
   `ismake` smallint(6) NOT NULL DEFAULT '0',
-  `art_title` varchar(120) NOT NULL,
-  `art_des` text NOT NULL,
-  `art_time` int(11) NOT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  `title` varchar(120) NOT NULL,
+  `description` text NOT NULL,
+  `image` text NOT NULL,
+  `time` int(11) NOT NULL,
+  `from` text NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- 转存表中的数据 `ldsn_article`
 --
 
-INSERT INTO `ldsn_article` (`art_id`, `user_id`, `clu_id`, `vit_num`, `ismake`, `art_title`, `art_des`, `art_time`) VALUES
-(4, 1, 2, 0, 1, '', '', 1),
-(3, 1, 1, 0, 1, '', '', 2);
+INSERT INTO `ldsn_article` (`aid`, `uid`, `cid`, `cnum`, `favour`, `visit`, `ismake`, `title`, `description`, `image`, `time`, `from`) VALUES
+(5, 5, 1, 0, 1, 0, 1, '测试题目1', '测试描述1', 'www.ldustu.com', 1, ''),
+(3, 1, 1, 0, 0, 0, 1, '测试题目2', '测试描述2', 'www.ldustu.com', 2, ''),
+(6, 3, 1, 0, 0, 0, 0, '测试题目123', '测试秒速', 'www.ldustu.com', 1424100849, 'somewhere');
 
 -- --------------------------------------------------------
 
@@ -54,17 +59,17 @@ INSERT INTO `ldsn_article` (`art_id`, `user_id`, `clu_id`, `vit_num`, `ismake`, 
 CREATE TABLE IF NOT EXISTS `ldsn_article_detial` (
 `de_id` int(11) NOT NULL,
   `art_id` int(11) NOT NULL,
-  `content` text NOT NULL,
-  `source` varchar(60) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  `content` text NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- 转存表中的数据 `ldsn_article_detial`
 --
 
-INSERT INTO `ldsn_article_detial` (`de_id`, `art_id`, `content`, `source`) VALUES
-(2, 3, '简单的内容', '这是一个测试'),
-(3, 4, '内容', '来源');
+INSERT INTO `ldsn_article_detial` (`de_id`, `art_id`, `content`) VALUES
+(2, 3, '简单的内容'),
+(3, 4, '内容'),
+(4, 6, '测试内容');
 
 -- --------------------------------------------------------
 
@@ -74,16 +79,16 @@ INSERT INTO `ldsn_article_detial` (`de_id`, `art_id`, `content`, `source`) VALUE
 
 CREATE TABLE IF NOT EXISTS `ldsn_column` (
 `colu_id` int(11) NOT NULL,
-  `colu_name` varchar(60) NOT NULL,
-  `colu_create_time` varchar(60) NOT NULL,
-  `colu_ps` varchar(120) NOT NULL
+  `name` varchar(60) NOT NULL,
+  `time` varchar(60) NOT NULL,
+  `ps` varchar(120) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- 转存表中的数据 `ldsn_column`
 --
 
-INSERT INTO `ldsn_column` (`colu_id`, `colu_name`, `colu_create_time`, `colu_ps`) VALUES
+INSERT INTO `ldsn_column` (`colu_id`, `name`, `time`, `ps`) VALUES
 (1, '一号栏目', '271893981', '这是第一个测试栏目的相关描述'),
 (2, '二号栏目', '2198378192', '这是第二个栏目的相关描述');
 
@@ -95,22 +100,21 @@ INSERT INTO `ldsn_column` (`colu_id`, `colu_name`, `colu_create_time`, `colu_ps`
 
 CREATE TABLE IF NOT EXISTS `ldsn_comment` (
 `com_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `beuser_id` int(11) NOT NULL,
-  `art_id` int(11) NOT NULL,
-  `coment_content` text NOT NULL,
-  `com_time` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+  `aid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `time` int(11) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- 转存表中的数据 `ldsn_comment`
 --
 
-INSERT INTO `ldsn_comment` (`com_id`, `user_id`, `beuser_id`, `art_id`, `coment_content`, `com_time`) VALUES
-(2, 0, 0, 4, '', 0),
-(3, 3, 4, 4, '', 1423114120),
-(4, 3, 4, 4, '213789217938点击打我ijo', 1423114135),
-(5, 3, 0, 4, '213789217938点击打我ijo', 1423115365);
+INSERT INTO `ldsn_comment` (`com_id`, `aid`, `uid`, `content`, `time`) VALUES
+(3, 3, 3, '', 1423114120),
+(5, 4, 3, '213789217938点击打我ijo', 1423115365),
+(6, 3, 4, '什么鬼', 1424068874),
+(7, 3, 4, '什么鬼', 1424068953);
 
 -- --------------------------------------------------------
 
@@ -120,31 +124,17 @@ INSERT INTO `ldsn_comment` (`com_id`, `user_id`, `beuser_id`, `art_id`, `coment_
 
 CREATE TABLE IF NOT EXISTS `ldsn_favour` (
 `fa_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `art_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+  `uid` int(11) NOT NULL,
+  `aid` int(11) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- 表的结构 `ldsn_power`
+-- 转存表中的数据 `ldsn_favour`
 --
 
-CREATE TABLE IF NOT EXISTS `ldsn_power` (
-`pw_id` int(11) NOT NULL,
-  `pw_level` int(11) NOT NULL,
-  `pw_name` varchar(60) NOT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
-
---
--- 转存表中的数据 `ldsn_power`
---
-
-INSERT INTO `ldsn_power` (`pw_id`, `pw_level`, `pw_name`) VALUES
-(1, 1, '超级管理员'),
-(2, 2, '频道管理员'),
-(3, 3, '信息审核员'),
-(4, 4, '信息发布员');
+INSERT INTO `ldsn_favour` (`fa_id`, `uid`, `aid`) VALUES
+(1, 3, 3),
+(2, 4, 3);
 
 -- --------------------------------------------------------
 
@@ -153,7 +143,7 @@ INSERT INTO `ldsn_power` (`pw_id`, `pw_level`, `pw_name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `ldsn_user` (
-`user_id` int(11) NOT NULL,
+`uid` int(11) NOT NULL,
   `username` varchar(120) NOT NULL,
   `passwd` char(32) NOT NULL,
   `email` varchar(120) NOT NULL,
@@ -167,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `ldsn_user` (
 -- 转存表中的数据 `ldsn_user`
 --
 
-INSERT INTO `ldsn_user` (`user_id`, `username`, `passwd`, `email`, `qq`, `sign_time`, `login_time`, `login_style`) VALUES
+INSERT INTO `ldsn_user` (`uid`, `username`, `passwd`, `email`, `qq`, `sign_time`, `login_time`, `login_style`) VALUES
 (1, 'jason', '123456', '351192873@qq.com', '351192873', 1270, 1422968320, 'computer'),
 (2, 'jason', '123456', '351192873@qq.com', '351192873', 1270, 1422968320, 'computer'),
 (3, 'jason', '123456', '351192873@qq.com', '351192873', 1270, 1422968320, 'computer'),
@@ -184,7 +174,7 @@ INSERT INTO `ldsn_user` (`user_id`, `username`, `passwd`, `email`, `qq`, `sign_t
 -- Indexes for table `ldsn_article`
 --
 ALTER TABLE `ldsn_article`
- ADD PRIMARY KEY (`art_id`);
+ ADD PRIMARY KEY (`aid`);
 
 --
 -- Indexes for table `ldsn_article_detial`
@@ -211,16 +201,10 @@ ALTER TABLE `ldsn_favour`
  ADD PRIMARY KEY (`fa_id`);
 
 --
--- Indexes for table `ldsn_power`
---
-ALTER TABLE `ldsn_power`
- ADD PRIMARY KEY (`pw_id`);
-
---
 -- Indexes for table `ldsn_user`
 --
 ALTER TABLE `ldsn_user`
- ADD PRIMARY KEY (`user_id`);
+ ADD PRIMARY KEY (`uid`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -230,12 +214,12 @@ ALTER TABLE `ldsn_user`
 -- AUTO_INCREMENT for table `ldsn_article`
 --
 ALTER TABLE `ldsn_article`
-MODIFY `art_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `aid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `ldsn_article_detial`
 --
 ALTER TABLE `ldsn_article_detial`
-MODIFY `de_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `de_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `ldsn_column`
 --
@@ -245,22 +229,17 @@ MODIFY `colu_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `ldsn_comment`
 --
 ALTER TABLE `ldsn_comment`
-MODIFY `com_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `com_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `ldsn_favour`
 --
 ALTER TABLE `ldsn_favour`
-MODIFY `fa_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `ldsn_power`
---
-ALTER TABLE `ldsn_power`
-MODIFY `pw_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `fa_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `ldsn_user`
 --
 ALTER TABLE `ldsn_user`
-MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
