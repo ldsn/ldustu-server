@@ -1,1 +1,0 @@
-define("ldsn-wap:widget/right-aside/right-aside.js",function(){});

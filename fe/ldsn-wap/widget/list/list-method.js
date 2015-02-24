@@ -46,7 +46,7 @@ var _pri = {
          * @param  {nuber} cid   取哪个版块
          * @return {object}       获取到的数据
          */
-        getList: function (startid, count, cid, order) {
+        getList: function (startid, count, cid, order, callback) {
             var sendData = {
                 startid: startid,
                 count: count,
@@ -60,7 +60,7 @@ var _pri = {
                 ansyc: false,
                 success: function (data) {
                     _pri.util.getListErr(data);
-                    return data.data;
+                    callback(data);
                 },
                 error: function (xhr, errType, err) {
                     var data = {error:-1,data:err};

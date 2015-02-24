@@ -6,7 +6,8 @@
  */
 
 var api = {
-    getArcList: '/api/getArcList'
+    getArcList: '/api/getArcList',
+    getComment: '/api/getList'
 };
 
 module.exports = api;
