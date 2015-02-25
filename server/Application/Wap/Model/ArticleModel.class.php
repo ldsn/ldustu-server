@@ -8,13 +8,12 @@ class ArticleModel extends RelationModel{
       *获取主页、列表获取文章信息
 
       */
-    
 	protected $_link = array(
 		'Article_detial' =>array(
 				'mapping_type'=>self::HAS_ONE,
 				'mapping_name'=>'Article_detial',
 				'class_name'=>'Article_detial',
-				'foreign_key'=>'art_id',		
+				'foreign_key'=>'aid',		
 			),
 		);
 
@@ -42,9 +41,9 @@ class ArticleModel extends RelationModel{
               $end = false;
             }
             foreach($result as $key=> $value){    
-                       $new[$key]['art_id'] = (int)$value['art_id'];
-                       $new[$key]['user_id'] = (int)$value['user_id'];
-                       $new[$key]['clu_id'] = (int)$value['clu_id'];
+                       $new[$key]['aid'] = (int)$value['id'];
+                       $new[$key]['uid'] = (int)$value['uid'];
+                       $new[$key]['cid'] = (int)$value['cid'];
                        $new[$key]['ismake'] = (int)$value['ismake'];
                        $new[$key]['favour'] = (int)$value['favour'];
                        $new[$key]['visit'] = (int)$value['visit']; 
@@ -54,20 +53,22 @@ class ArticleModel extends RelationModel{
                        $new[$key]['image'] = $value['image'];
                        $new[$key]['time'] = (int)$value['time'];
                        $new[$key]['from'] = $value['from'];
-                       $where['user_id'] = $new[$key]['user_id'];
+                       $where['id'] = $new[$key]['uid'];
                        $userinfo = $user->where($where)->field('username')->find();
                        $new[$key]['username'] = $userinfo['username'];
-                       $where1['art_id'] = $new[$key]['art_id'];
-                       $cominfo = $comment->where($where1)->limit($comStartId,$comGetNum)->order('com_time desc')->select();
+                       $where1['aid'] = $new[$key]['aid'];
+                       $cominfo = $comment->where($where1)->limit($comStartId,$comGetNum)->order('time desc')->select();
+                       $comListNum = count($cominfo);
+                       if($comListNum<=$comGetNum){
+                            $comEnd = true;
+                        }else{
+                          $comEnd = false;
+                        }
                        $new[$key]['cominfo'] = array(
                                   $cominfo,
                         );
-            }
-            $comListNum = count($cominfo);
-            if($comListNum<$comGetNum){
-                $comEnd = true;
-            }else{
-              $comEnd = false;
+                       $new[$key]['comEnd'] = $comEnd;
+                       $new[$key]['comListNum'] = $comListNum;
             }
             if(!$result||$result ==''){
                $error = 1;
@@ -78,8 +79,6 @@ class ArticleModel extends RelationModel{
                       'data' =>$new,
                       'artEnd' =>$end,
                       'artListNum' =>$listNum,
-                      'comEnd' =>$comEnd,
-                      'comListNum' =>$comListNum,
                 );	
 
            return  $result1 = json_encode($Output);

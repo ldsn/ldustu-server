@@ -1,5 +1,5 @@
 <?php
-namespace Home\Model;
+namespace Pc\Model;
 use Think\Model;
 class UserModel extends Model{   
 	/*
@@ -32,7 +32,7 @@ class UserModel extends Model{
 		}
 	public function userinfo($username){
 		$where['username'] = $username;
-		$result =$this->where($where)->select();
+		$result =$this->field('passwd',true)->where($where)->select();
 		return json_encode($result);
 	}
 }

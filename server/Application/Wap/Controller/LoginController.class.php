@@ -1,5 +1,5 @@
 <?php
-namespace Home\Controller;
+namespace Wap\Controller;
 use Think\Controller;
 header('Content-Type: text/html; charset=utf-8;');
 class LoginController extends Controller {
@@ -19,20 +19,21 @@ class LoginController extends Controller {
 			'password'=>$password,
 			);
 		$user = D('user');
-		$result = $user->where($where)->count();
-		cookie('username',$username,3600);
+		$result = $user->where($where)->field('passwd',true)->find();
+		
+		cookie('id',$result['id'],3600);
 		$more['login_time'] = time();
 		$more['login_style'] = LoginStyle();
 		$user->where($where)->data($more)->save();
-		if($result&&$result!=''&&cookie('username')){
+		if($result&&$result!=''&&cookie('id')){
 			//dump($more);
-			$this->success('登陆成功','/home/index/index');
+			$this->success('登陆成功','/Wap/index/index');
 		}else{
 			$this->error('登陆失败');
 		}
 	}
 	public function logout(){
-		cookie('username',null);
+		cookie('id',null);
 		redirect('/home/index/index', 2, ' 退出成功，页面跳转中 ...');
 	}
 }

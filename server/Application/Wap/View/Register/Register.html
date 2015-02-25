@@ -1,0 +1,16 @@
+<html>
+	<head>
+		<title>注册页面</title>
+	</head>
+	<body>
+		<form action="/Home/Register/Register" method="post">
+		姓名<input type="text" name="username" /><br/>
+		密码<input type="password" name="password" /><br/>
+		重复密码<input type="password" name="repassword" /><br/>
+		邮箱<input type="text" name="email"/><br/>
+		Q  Q<input type="text" name="qq" /><br/>
+		验证码<input type="text" name="verify" /> <img src="/home/public/verify" onclick="this.src=this.src+'?'+Math.random()" />
+		<input type="submit" name="submit" value="submit" />
+		</form>
+	</body>
+</html>

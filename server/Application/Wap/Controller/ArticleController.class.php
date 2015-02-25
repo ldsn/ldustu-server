@@ -1,5 +1,5 @@
 <?php
-namespace Home\Controller;
+namespace Wap\Controller;
 use Think\Controller;
 header('Content-Type: text/html; charset=utf-8;');
 Vendor('Test.Readability');
@@ -8,6 +8,17 @@ class ArticleController extends Controller {
 	*获取文章列表
 	*
 	*/
+	public function pageArticle($style){
+		$username = cookie('username');
+		if($username&$username!= ''){
+			if($style == 1){
+				$this->display('Article/index');   //信息填写传文章
+			}else{
+				$this->display('Article/index');   //发表链接传文章
+			}
+		}
+		
+	}
 	public function getArticle($startid = 0,$getnum = 10,$cid = 1,$comStartId = 0,$comGetNum = 3){
 	              $article = D('article');
 	              print_r($article->getArticle($startid,$getnum,$cid,$comStartId,$comGetNum));
@@ -18,26 +29,26 @@ class ArticleController extends Controller {
         		print_r(json_encode($result));
 	}
 	public function Article(){ //发布文章页面
-	   	$username = cookie('username');
-    		if($username&&$username!=''){ //判断是否登陆过
-    		$this->display('Article/Article');
+	   	$id = cookie('id');
+    		if($id&&$id!=''){ //判断是否登陆过
+    			$this->display('Article/Article');
     		}else{
     			redirect('/home/login',2,'请登录');
     		}
-	   	
 	   }
 	public function publish(){ //发布文章动作
 		//文章主表 字段构造
 		$article = D('article');  // 初始化文章模型
 		$user = D('user'); //初始化用户模型
-		$uid =3;// $user->userid(cookie('username'));
-		$cid = 1;//$_POST['cid'];
-		$title = '测试题目123';//$_POST['title'];
-		$content ='测试内容';//$_POST['content'];
-		$description = '测试秒速';//$_POST['description']?$_POST['description']:null;
-		$image ='www.ldustu.com';// $_POST['image']?$_POST['image']:null;
+		$uid = $user->userid(cookie('username'));
+		$cid =$_POST['cid'];
+		$title = $_POST['title'];
+		$content =$_POST['content'];
+		$description = $_POST['description']?$_POST['description']:null;
+		$image =$_POST['image']?$_POST['image']:null;
 		$time = time();
-		$from = 'somewhere';//$_POST['from']?$_POST['from']:null;
+		$from =$_POST['from']?$_POST['from']:null;
+		$tag = $_POST['tag'];
 		$data = array(
 			'uid'=>$uid ,
 			'cid'=>$cid,
@@ -48,6 +59,7 @@ class ArticleController extends Controller {
 			'from' =>$from,
 			'Article_detial'=>array(
 				'content'=>$content,
+				'tag' =>$tag,
 				)
 			);
 		$result = $article->publishArticle($data);
