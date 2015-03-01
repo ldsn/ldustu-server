@@ -1,5 +1,5 @@
 <?php
-namespace Home\Model;
+namespace Wap\Model;
 use Think\Model\RelationModel;
 class ArticleModel extends RelationModel{
       /*
@@ -18,20 +18,36 @@ class ArticleModel extends RelationModel{
 		);
 
       public function articleArticle($aid){
-              $result = $this->relation(true)->find($aid);
-              return $result;
+            if(!isset($aid)){
+                    $returnJson=array(
+                      'error'=>1001,
+                      );
+            }else{
+                 $result = $this->relation(true)->find($aid);
+                 if($result&&$result!=''){
+                      $returnJson=array(
+                      'error'=>0,
+                      );
+                    }else{
+                      $returnJson=array(
+                      'error'=>1002,
+                      );
+                    }
+            }
+            $result['error'] =$returnJson['error'];
+            return $result;
       }
       public function publishArticle($data){
-        $result = $this->relation(true)->add($data);
-        return $result;
+            $result = $this->relation(true)->add($data);
+            return $result;
       }
-	public function getArticle($startid,$getnum,$cid,$comStartId,$comGetNum){ 
+	public function getArticle($startid,$getnum,$cid,$comGetNum){ 
             $user = M('user');
             $comment = M('comment');
             $error = 0;
             $where = array(   //构造取值条件
                 'ismake' => 1,
-                'clu_id' =>$cid,
+                'clu_id' => $cid,
                );
             $result =  $this->limit($startid,$getnum)->where($where)->order('time desc')->select();
             $listNum = count($result);
@@ -57,7 +73,7 @@ class ArticleModel extends RelationModel{
                        $userinfo = $user->where($where)->field('username')->find();
                        $new[$key]['username'] = $userinfo['username'];
                        $where1['aid'] = $new[$key]['aid'];
-                       $cominfo = $comment->where($where1)->limit($comStartId,$comGetNum)->order('time desc')->select();
+                       $cominfo = $comment->where($where1)->limit(0,$comGetNum)->order('time desc')->select();
                        $comListNum = count($cominfo);
                        if($comListNum<=$comGetNum){
                             $comEnd = true;
@@ -70,17 +86,15 @@ class ArticleModel extends RelationModel{
                        $new[$key]['comEnd'] = $comEnd;
                        $new[$key]['comListNum'] = $comListNum;
             }
-            if(!$result||$result ==''){
-               $error = 1;
-               $new = '取不到数据';
-            }
-            $Output = array(
-                      'error'=>$error,
-                      'data' =>$new,
-                      'artEnd' =>$end,
-                      'artListNum' =>$listNum,
-                );	
-
+                        if(!$result||$result ==''){
+                           $error = 1002;
+                        }
+                        $Output = array(
+                                  'error'=>$error,
+                                  'data' =>$new,
+                                  'artEnd' =>$end,
+                                  'artListNum' =>$listNum,
+                            );	
            return  $result1 = json_encode($Output);
            
         	}

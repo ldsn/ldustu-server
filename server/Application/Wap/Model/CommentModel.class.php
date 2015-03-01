@@ -1,32 +1,74 @@
 <?php
-namespace Home\Model;
+namespace Wap\Model;
 use Think\Model;
 class CommentModel extends Model{
-	public function comment($uid,$aid,$content ){	//评论动作
-		$time = time();
-		$data = array(
-			'uid' => $uid,
-			'aid' =>$aid,
-			'content' =>$content,
-			'time' =>$time,
+	public function catchComment($aid,$count){
+		if(!isset($aid)||!isset($count)){
+			$returnJson=array(
+			'error'=>1001,
 			);
-		$result = $this->add($data);
-		if($result){
-			$SmartyOutput = json_encode('评论成功！');
-		}else{
-			$SmartyOutput = json_encode('评论失败！');
+		}else{	
+			$where['aid'] = (int)$aid;
+			$result =$this->limit(0,$count)->where($where)->order('time desc')->select();
+			if($result&&$result!=''){
+				$returnJson = array(
+					'error'=>0,
+				); 
+			}else{
+				$returnJson = array(
+					'error'=>1002,
+				);
+			}
 		}
-		return $SmartyOutput;
+		$result['error'] = $returnJson['error'];
+		return $result;
+	}
+	public function comment($uid,$aid,$content ){	//评论动作
+		if( !isset($uid)||!isset($aid)||!isset($content) ){
+			$returnJson=array(
+			'error'=>1001,
+			);
+		}else{
+			$time = time();
+			$data = array(
+				'uid' => $uid,
+				'aid' =>$aid,
+				'content' =>$content,
+				'time' =>$time,
+				);
+			$result = $this->add($data);
+			if($result&&$result!=''){
+				$returnJson=array(
+				'error'=>0,
+				);
+			}else{
+				$returnJson=array(
+				'error'=>1002,
+				);
+			}
+		}			
+		return $returnJson;
+		
 	}
 	public function deleteComment($com_id){ //删除留言
-		
-		$where['com_id'] = $com_id;
-		$result = $this ->where($where)->delete();
-		if($result){
-			$SmartyOutput = json_encode('删除成功');
+		if(!isset($com_id)){
+			$returnJson=array(
+			'error'=>1001,
+			);
 		}else{
-			$SmartyOutput = json_encode('删除失败');
+			$where['com_id'] = $com_id;
+			$result = $this ->where($where)->delete();
+			if($result&&$result!=''){
+				$returnJson=array(
+				'error'=>0,
+				);
+			}else{
+				$returnJson=array(
+				'error'=>1002,
+				);
+			}
 		}
-		return $SmartyOutput;
+		
+		return $returnJson;
 	}
 }

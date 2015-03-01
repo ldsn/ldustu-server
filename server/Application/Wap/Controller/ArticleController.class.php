@@ -8,18 +8,7 @@ class ArticleController extends Controller {
 	*获取文章列表
 	*
 	*/
-	public function pageArticle($style){
-		$username = cookie('username');
-		if($username&$username!= ''){
-			if($style == 1){
-				$this->display('Article/index');   //信息填写传文章
-			}else{
-				$this->display('Article/index');   //发表链接传文章
-			}
-		}
-		
-	}
-	public function getArticle($startid = 0,$getnum = 10,$cid = 1,$comStartId = 0,$comGetNum = 3){
+	public function getArticle($startid = 0,$getnum = 10,$cid = 1,$comGetNum = 3){
 	              $article = D('article');
 	              print_r($article->getArticle($startid,$getnum,$cid,$comStartId,$comGetNum));
         	  }
@@ -28,14 +17,6 @@ class ArticleController extends Controller {
         		$result = $article->articleArticle($aid);
         		print_r(json_encode($result));
 	}
-	public function Article(){ //发布文章页面
-	   	$id = cookie('id');
-    		if($id&&$id!=''){ //判断是否登陆过
-    			$this->display('Article/Article');
-    		}else{
-    			redirect('/home/login',2,'请登录');
-    		}
-	   }
 	public function publish(){ //发布文章动作
 		//文章主表 字段构造
 		$article = D('article');  // 初始化文章模型
@@ -57,18 +38,18 @@ class ArticleController extends Controller {
 			'image' =>$image,
 			'time' =>$time,
 			'from' =>$from,
-			'Article_detial'=>array(
-				'content'=>$content,
-				'tag' =>$tag,
-				)
+			'content'=>$content,
+			'tag' =>$tag,
+			
 			);
 		$result = $article->publishArticle($data);
 
 		if($result){ //如果存在文章ID和文章细节ID
-			print_r(写入成功);
+			$returnJson['error'] = 0;
 		}else{
-			print_r(写入失败);
+			$returnJson['error'] = 0;
 		}
+		print_r(json_encode($returnJson));
 	}
 	
 

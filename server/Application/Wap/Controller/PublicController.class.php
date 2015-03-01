@@ -27,9 +27,9 @@ class PublicController extends Controller {
 			$data['favour'] = $favourNum-1;
 			$artResult1 = $article->where($where1)->save($data);
 			$favour->where($where)->delete();
-			dump($artResult1);
+			//dump($artResult1);
 			if($artResult1){
-				$outData = '不赞';
+				$outData = '赞';
 			}
 
 		}else{	//echo '否则';
@@ -37,7 +37,7 @@ class PublicController extends Controller {
 			//dump($faResult);
 			$data['favour'] = 1;
 			$artResult1 = $article->where($where1)->save($data);
-			$outData = '赞';
+			$outData = '不赞';
 		}
 		print_r($outData);
 	}

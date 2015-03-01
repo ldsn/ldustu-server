@@ -8,18 +8,25 @@ class UserController extends Controller {
             *获取用户信息
             */
    	      public function index(){		//用户个人中心
-    	             $username = cookie('username');
+    	       $username = cookie('username');
     		if($username&&$username!=''){
           		//执行用户操作
-          			echo $username;
+          		  $returnJson['error'] = 0;
           		}else{
-          			redirect('/home/login',5,'请登录');
+          		  $returnJson['error'] = 1003;
           		}
+              print_r(json_encode($returnJson));
    	      }
             public function userinfo(){
                       $user = D('User');
                       $username =cookie('username');
-                      print_r($user->userinfo($username));
+                      if(isset($username)){
+                          $result = $user->userinfo($username);
+                          $returnJson['error'] = 0;
+                        }else{
+                          $returnJson['error'] = 1003;
+                        }
+                        print_r(json_encode($returnJson));         
             }
 
 	   
