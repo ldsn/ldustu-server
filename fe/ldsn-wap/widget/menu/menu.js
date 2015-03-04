@@ -36,31 +36,40 @@ var data = [
         	mod: $('menu[node-type="ldsn-menu"]'),
         	menuList:$('section[node-type="menu-list"]'),
         	menuClick:$("click[node-type='menu-click']"),
+              rightClick:$("click[node-type='right-click']"),
         	ldsnBox:$("section[node-type='ldsn-box']"),
         	ldsnMainFrame:$("section[node-type='ldsn-main-frame']"),
         },
         //绑定元素事件
         bindUI: function () {
-	_pri.node.menuClick.on("click",_pri.util.leftSlide);//菜单点击事件
-	_pri.node.ldsnMainFrame.on("click",_pri.util.clearLeftSlide)//清除菜单
-	_pri.node.ldsnMainFrame.swipeLeft(function  () { //左滑清除菜单
-          var boxLeft = _pri.node.ldsnBox.css("margin-left");
-          if(boxLeft=="0px"){
-            _pri.util.clearLeftSlide
-          }else{
-            _pri.util.rightSlide
-          }
-  });
-	_pri.node.ldsnBox.swipeRight(_pri.util.leftSlide);//又滑呼出菜单
-	},
+            	_pri.node.menuClick.on("click",_pri.util.leftSlide);//菜单点击事件
+            	_pri.node.ldsnMainFrame.on("click",_pri.util.clearLeftSlide)//清除菜单
+            	
+            	_pri.node.ldsnBox.swipeRight(function (){
+                var menuLeft=_pri.node.ldsnBox.hasClass("slideLock"); 
+                if(!menuLeft){//右滑呼出菜单
+                        _pri.util.leftSlide()
+                }else {//清除左滑菜单
+                        _pri.util.rightSlide()
+                }
+              });
+            	},
         util: {
         	leftSlide: function(){//左滑事件函数
         		_pri.node.ldsnBox.css("margin-left","0px");
-        		_pri.node.ldsnMainFrame.css("display","block")
+                      _pri.node.ldsnMainFrame.css("display","block")
+                      _pri.node.ldsnBox.addClass("slideonLock");
         	},
+              rightSlide: function(){//清除右侧滑事件函数
+                      _pri.node.ldsnBox.removeClass("slideLock"); 
+                      _pri.node.ldsnBox.css("margin-left","-200px");
+                      _pri.node.ldsnMainFrame.css("display","block")
+                      _pri.node.rightClick.css("-webkit-transform","rotateY(0deg)")
+              },
         	clearLeftSlide: function(){//清除菜单函数
         		_pri.node.ldsnBox.css("margin-left","-200px");
         		_pri.node.ldsnMainFrame.css("display","none")
+            console.log(112233)
         	},
         	initMenu: function (){//页面初始化函数
     		_pri.node.mod.css("height", $(window).height());
