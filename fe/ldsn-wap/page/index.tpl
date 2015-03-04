@@ -25,6 +25,9 @@
 {%block name="ldsn-share"%}
 	{%widget name="ldsn-wap:widget/share/share.tpl"%}
 {%/block%}
+{%block name="ldsn-edit-article"%}
+	{%widget name="ldsn-wap:widget/edit-article/edit-article.tpl"%}
+{%/block%}
 {%block name="else"%}
 <div style="display: none">
 <script src="http://s95.cnzz.com/stat.php?id=1254184808&web_id=1254184808" language="JavaScript"></script>
