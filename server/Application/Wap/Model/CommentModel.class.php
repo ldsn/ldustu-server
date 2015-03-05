@@ -56,7 +56,7 @@ class CommentModel extends Model{
 			'error'=>1001,
 			);
 		}else{
-			$where['com_id'] = $com_id;
+			$where['id'] = $com_id;
 			$result = $this ->where($where)->delete();
 			if($result&&$result!=''){
 				$returnJson=array(

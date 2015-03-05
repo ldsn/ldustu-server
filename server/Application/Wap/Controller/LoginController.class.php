@@ -11,16 +11,31 @@ class LoginController extends Controller {
 	public function login(){
 		$username = $_POST['username'];
 		$password = $_POST['password'];
+		$openid = $_POST['openid'];
+		echo $openid;
 		if(!isset($username)||!isset($password)){
-			$returnJson = array(
+			if(!isset($openid)){
+				$returnJson = array(
 				'error' => 1001,
 				);
-		}else{
+			}
+			else{
+				$user = D('user');
+				$where['openid'] = $openid;
+				$userResult = $user->where($where)->find();
+				//dump($userResult);
+				if($userResult&&$userResult!=''){
+					$returnJson['error'] = 0;
+				}else{
+					$returnJson['error'] = 1002;
+				}
+			}
+		}else{	
 			$where = array(
 			'username'=>$username,
 			'password'=>$password,
 			);
-			$user = D('user');
+			
 			$result = $user->where($where)->field('passwd',true)->find();
 			
 			cookie('id',$result['id'],3600);

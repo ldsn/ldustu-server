@@ -24,6 +24,9 @@ class ArticleModel extends RelationModel{
                       );
             }else{
                  $result = $this->relation(true)->find($aid);
+                 $result['content']= $result['Article_detial']['content'];
+                 $result['tag'] = $result['Article_detial']['tag']; 
+                 $result['Article_detial'] = null;
                  if($result&&$result!=''){
                       $returnJson=array(
                       'error'=>0,

@@ -8,8 +8,8 @@ class UserController extends Controller {
             *获取用户信息
             */
    	      public function index(){		//用户个人中心
-    	       $username = cookie('username');
-    		if($username&&$username!=''){
+    	       $id = cookie('id');
+    		if($id&&$id!=''){
           		//执行用户操作
           		  $returnJson['error'] = 0;
           		}else{
@@ -19,15 +19,14 @@ class UserController extends Controller {
    	      }
             public function userinfo(){
                       $user = D('User');
-                      $username =cookie('username');
-                      if(isset($username)){
-                          $result = $user->userinfo($username);
-                          $returnJson['error'] = 0;
+                      cookie('id','3',3600);
+                      $id  = cookie('id');
+                      if(isset($id)){
+                          $result = $user->userinfo($id);
+                          $result['error'] = 0;
                         }else{
-                          $returnJson['error'] = 1003;
+                          $result['error'] = 1003;
                         }
-                        print_r(json_encode($returnJson));         
+                        print_r(json_encode($result));         
             }
-
-	   
 }

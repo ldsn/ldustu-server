@@ -8,7 +8,8 @@ class IndexController extends Controller {
           */
           public function getColumn(){
                $column = D('column');
-                print_r($column ->getall());
+               $this->column = $column ->getall();
+               print_r($column ->getall());
           }
 
           

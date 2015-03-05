@@ -18,27 +18,32 @@ class PublicController extends Controller {
 			);
 		$favour = M('favour');
 		$result = $favour->where($where)->select();
-		//dump($result);
-		$article = M('article');
-		$where1['aid'] = $aid;
+		$whereNum['aid'] = $aid;
+		$resultNum = $favour->where($whereNum)->select();
+		//dump($resultNum);
+		$article = D('article');
+		$where1['id'] = $aid;
+		//dump($where1);
+		$favourNum = count($resultNum);	
 		if($result&&$result!=''){
-			$favourNum = count($result);	
-			//dump($favourNum);			
+			$data['id'] = $aid;		
 			$data['favour'] = $favourNum-1;
-			$artResult1 = $article->where($where1)->save($data);
+			//dump($data);
+			$artResult1 = $article->data($data)->where($where1)->save();
 			$favour->where($where)->delete();
 			//dump($artResult1);
 			if($artResult1){
-				$outData = '赞';
+				$outData['error'] = '1009';
+			}else{
+				$outData['error'] = '1002';
 			}
 
 		}else{	//echo '否则';
 			$faResult = $favour->add($where);
-			//dump($faResult);
-			$data['favour'] = 1;
+			$data['favour'] = $favourNum+1;
 			$artResult1 = $article->where($where1)->save($data);
-			$outData = '不赞';
+			$outData['error'] = '1008';
 		}
-		print_r($outData);
+		print_r(json_encode($outData));
 	}
 }

@@ -55,51 +55,24 @@ class ArticleController extends Controller {
 
 	public function curlArticle(){
                   $request_url = getRequestParam("url",  "");
-                  echo $request_url;
-                  $output_type = strtolower(getRequestParam("type", "html"));
-                  echo $output_type;
-                  if (!preg_match('/^http:\/\//i', $request_url) ||
-	   	 !filter_var($request_url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
-	  	 $this->display('Article/form');
-		    exit;
-		}
-                	// 1. 初始化
-		$ch = curl_init();
-		// 2. 设置选项，包括URL
-		curl_setopt($ch, CURLOPT_URL, $request_url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_HEADER, 0);
-		// 3. 执行并获取HTML文档内容
-		$source = curl_exec($ch);
-		//print_r($source);
-		// 4. 释放curl句柄
-		curl_close($ch);
+                  if($request_url&&$request_url!=''){
+                  	 $output_type = strtolower(getRequestParam("type", "html"));
 
-                  preg_match("/charset=([\w|\-]+);?/", $source, $match);
-                  $charset = isset($match[1]) ? $match[1] : 'utf-8';
-
-                  /**
-                   * 获取 HTML 内容后，解析主体内容
-                   */
-                  $Readability = new \Readability($source,$charset);
-                  /*$Readability->source = $source;
-                  $Readability->input_char = $charset;*/
-                  //$Readability = new Readability($source, $charset);
-                  $Data = $Readability->getContent();
-                  dump($Data);
-                  echo $output_type;
-                  switch($output_type) {
-                      case 'json':
-                          header("Content-type: text/json;charset=utf-8");
-                          $Data['url'] = $request_url;
-                          echo json_encode($Data);
-                          break;
-
-                      case 'html': default:
-                          header("Content-type: text/html;charset=utf-8");
-                          $this->title   = $Data['title'];
-                           $this->content = $Data['content'];
-                         $this->display('Article/test');
+	                  //curl 抓取网页内容
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $request_url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_HEADER, 0);
+			$source = curl_exec($ch);
+			curl_close($ch);
+		     //对抓取的内容进行整理
+	                  preg_match("/charset=([\w|\-]+);?/", $source, $match);
+	                  $charset = isset($match[1]) ? $match[1] : 'utf-8';
+	                  $Readability = new \Readability($source,$charset);
+	                  $Data = $Readability->getContent();
+                  }else{
+                  	$Data['error'] = 1001;
                   }
+                 print_r(json_encode($Data));
             }	
 }
