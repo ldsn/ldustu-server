@@ -63,11 +63,18 @@ var uploader = Qiniu.uploader({
                //队列文件处理完毕后,处理相关的事情
         },
         'Key': function(up, file) {
+          console.log(file);
             // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
             // 该配置必须要在 unique_names: false , save_key: false 时才生效
-            var key = '/userUpload/' + Data.parse(new Date());
-            // do something with key here
-            return key
+            if(file.type == 'image/jpeg' || file.type == 'image/png'){
+              var nameSuffix = file.name.substring(file.name.lastIndexOf('.'));
+              var key = '/userUpload/' + Date.parse(new Date()) + nameSuffix;
+              // do something with key here
+              console.log('ok')
+              return key
+            } else {
+              console.log('shit')
+            }
         }
     }
 });
