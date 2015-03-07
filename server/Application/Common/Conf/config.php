@@ -1,6 +1,11 @@
 <?php
 return array(
 	//'配置项'=>'配置值'
+	'MODULE_ALLOW_LIST'     =>  array(
+		'Pc',
+		'Wap',
+	),
+	'DEFAULT_MODULE'        =>  'Pc',
 	'URL_MODEL'=>1,  //url模式  pathinfo
 	'URL_CASE_INSENSITIVE' => true, //URL不区分大小写
 	'SESSION_AUTO_START' => true,//是否开启session
@@ -12,6 +17,8 @@ return array(
 	'DB_PORT'               =>  '3306',        // 端口
 	'DB_PREFIX'             =>  'ldsn_',    // 数据库表前缀
 	'DB_CHARSET'            =>  'utf8',      // 数据库编码默认采用utf8
+	'TMPL_L_DELIM'=>'{%',
+	'TMPL_R_DELIM'=>'%}',	
 	'TMPL_PARSE_STRING' =>array(
 				),
 );
