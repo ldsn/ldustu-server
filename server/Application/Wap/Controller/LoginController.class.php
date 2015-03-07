@@ -9,10 +9,9 @@ class LoginController extends Controller {
 	*退出
 	*/
 	public function login(){
-		$username = $_POST['username'];
-		$password = $_POST['password'];
-		$openid = $_POST['openid'];
-		echo $openid;
+		$username = I('post.username');
+		$password = I('post.password');
+		$openid = I('post.openid');
 		if(!isset($username)||!isset($password)){
 			if(!isset($openid)){
 				$returnJson = array(
@@ -31,14 +30,11 @@ class LoginController extends Controller {
 				}
 			}
 		}else{	
-			$where = array(
-			'username'=>$username,
-			'password'=>$password,
-			);
-			
-			$result = $user->where($where)->field('passwd',true)->find();
-			
-			cookie('id',$result['id'],3600);
+			$where['username'] = $username;
+			$result = $user->where($where)->find();
+			if($result&&$result['passwd']==md5($password)){
+				session('id',$result['id']);
+			}
 			$more['login_time'] = time();
 			$more['login_style'] = LoginStyle();
 			$user->where($where)->data($more)->save();
@@ -54,17 +50,17 @@ class LoginController extends Controller {
 			}	
 		}
 		
-		print_r(json_encode($returnJson));
+		$this->ajaxReturn($returnJson);
 	}
 	public function logout(){
-		cookie('id',null);
+		session('id',null);
 		$returnJson = array(
 				'error'=>0,
 				);
-		print_r(json_encode($returnJson));
+		$this->ajaxReturn($returnJson);
 	}
 	public function loginJudge(){ 
-	   	$id = cookie('id');
+	   	$id = session('id');
     		if($id&&$id!=''){ //判断是否登陆过
     			$returnJson = array(
     				'error' =>0,
@@ -74,6 +70,6 @@ class LoginController extends Controller {
     				'error' =>1003,
     				);
     		}
-    		print_r(json_encode($returnJson));
+    		$this->ajaxReturn($returnJson);
 	   }
 }

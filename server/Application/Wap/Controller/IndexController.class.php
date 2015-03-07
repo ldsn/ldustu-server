@@ -6,12 +6,13 @@ class IndexController extends Controller {
           /*
           *得到栏目
           */
-          public function getColumn(){
-               $column = D('column');
-               $this->column = $column ->getall();
-               print_r($column ->getall());
+          public function index(){
+          	   $column = D('column');
+               $this->column = json_encode($column ->getall());
+               echo "this is wap index";
+               $this->display('index');
           }
-
+          
           
 
 

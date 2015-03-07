@@ -98,7 +98,7 @@ class ArticleModel extends RelationModel{
                                   'artEnd' =>$end,
                                   'artListNum' =>$listNum,
                             );	
-           return  $result1 = json_encode($Output);
+                         return  $result1;
            
         	}
             

@@ -44,6 +44,6 @@ class PublicController extends Controller {
 			$artResult1 = $article->where($where1)->save($data);
 			$outData['error'] = '1008';
 		}
-		print_r(json_encode($outData));
+		$this->ajaxReturn($outData);
 	}
 }

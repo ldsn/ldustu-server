@@ -10,26 +10,27 @@ class ArticleController extends Controller {
 	*/
 	public function getArticle($startid = 0,$getnum = 10,$cid = 1,$comGetNum = 3){
 	              $article = D('article');
-	              print_r($article->getArticle($startid,$getnum,$cid,$comStartId,$comGetNum));
+	              $result = $article->getArticle($startid,$getnum,$cid,$comStartId,$comGetNum);
+	              $this->ajaxReturn($result);
         	  }
         	public function showArticle($aid){//文章内容页
         		$article = D('article');
         		$result = $article->articleArticle($aid);
-        		print_r(json_encode($result));
+        		$this->ajaxReturn($result);
 	}
 	public function publish(){ //发布文章动作
 		//文章主表 字段构造
 		$article = D('article');  // 初始化文章模型
 		$user = D('user'); //初始化用户模型
 		$uid = $user->userid(cookie('username'));
-		$cid =$_POST['cid'];
-		$title = $_POST['title'];
-		$content =$_POST['content'];
-		$description = $_POST['description']?$_POST['description']:null;
-		$image =$_POST['image']?$_POST['image']:null;
+		$cid =I('post.cid');
+		$title = I('post.title');
+		$content =I('post.content');
+		$description = I('post.description')?I('post.description'):null;
+		$image =I('post.image')?I('post.image'):null;
 		$time = time();
-		$from =$_POST['from']?$_POST['from']:null;
-		$tag = $_POST['tag'];
+		$from =I('post.from')?I('post.from'):null;
+		$tag = I('post.tag');
 		$data = array(
 			'uid'=>$uid ,
 			'cid'=>$cid,
@@ -49,7 +50,7 @@ class ArticleController extends Controller {
 		}else{
 			$returnJson['error'] = 0;
 		}
-		print_r(json_encode($returnJson));
+		$this->ajaxReturn($returnJson);
 	}
 	
 
@@ -73,6 +74,6 @@ class ArticleController extends Controller {
                   }else{
                   	$Data['error'] = 1001;
                   }
-                 print_r(json_encode($Data));
+                 $this->ajaxReturn($Data);
             }	
 }

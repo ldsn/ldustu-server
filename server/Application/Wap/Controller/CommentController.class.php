@@ -11,17 +11,17 @@ class CommentController extends Controller { //评论模块
 	public function getComment($aid,$count){
 	              $comment = D('comment');
 	              $result = $comment->catchComment($aid,$count);
-	              print_r(json_encode($result));
+	              p$this->ajaxReturn($result);
         	  }
 	public function commentin($uid,$aid,$content){
 		$comment = D('comment');
 		$result = $comment->comment($uid,$aid,$content);
-		print_r(json_encode($result));
+		$this->ajaxReturn($result);
 	}
 	public function commentdelete($com_id){
 		$comment = D('comment');
 		$result = $comment->deleteComment($com_id);
-		print_r(json_encode($result));
+		$this->ajaxReturn($result);
 	}
 
 }
