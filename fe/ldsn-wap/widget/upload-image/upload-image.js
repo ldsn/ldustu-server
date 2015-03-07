@@ -40,11 +40,11 @@ var uploader = Qiniu.uploader({
         },
         'UploadProgress': function(up, file) {
 
-          console.log(up,file)
+          console.log(up,file);
                // 每个文件上传时,处理相关的事情
         },
         'FileUploaded': function(up, file, info) {
-          console.log(up,file,info)
+          console.log(up,file,info);
                // 每个文件上传成功后,处理相关的事情
                // 其中 info 是文件上传成功后，服务端返回的json，形式如
                // {
@@ -70,13 +70,11 @@ var uploader = Qiniu.uploader({
               var nameSuffix = file.name.substring(file.name.lastIndexOf('.'));
               var key = '/userUpload/' + Date.parse(new Date()) + nameSuffix;
               // do something with key here
-              console.log('ok')
-              return key
+              console.log('ok');
+              return key;
             } else {
-              console.log('shit')
+              console.log('shit');
             }
         }
     }
 });
-// domain 为七牛空间（bucket)对应的域名，选择某个空间后，可通过"空间设置->基本设置->域名设置"查看获取
-// uploader 为一个plupload对象，继承了所有plupload的方法，参考http://plupload.com/docs

@@ -26,10 +26,6 @@
 				{%block name="ldsn-edit-article"%}{%/block%}
 			</section>
 		</section>
-
-		<section node-type="ldsn-right" class="ldsn-right">
-			{%block name="ldsn-right-aside"%}{%/block%}
-		</section>
 	</section>
 </section>
 {%/block%}

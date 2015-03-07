@@ -21,9 +21,6 @@
 	{%widget name="ldsn-wap:widget/list/list.tpl"%}
 	{%widget name="ldsn-wap:widget/article/article.tpl"%}
 {%/block%}
-{%block name="ldsn-right-aside"%}
-	{%widget name="ldsn-wap:widget/right-aside/right-aside.tpl"%}
-{%/block%}
 {%block name="ldsn-share"%}
 	{%widget name="ldsn-wap:widget/share/share.tpl"%}
 {%/block%}
