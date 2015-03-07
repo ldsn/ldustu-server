@@ -6,8 +6,6 @@
      */
  
    'use strict';
-var qiniu = require("common:widget/qiniu/qiniu.js");
-var qiniu = require("common:widget/qiniu/plupload.full.min.js");
 
     //私有方法
     var _pri = {

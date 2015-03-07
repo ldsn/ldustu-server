@@ -5,7 +5,6 @@
      * @version 1.0.0
      */
     'use strict';
-var Smooth = require("common:widget/smooth/smooth.js");
 
     //私有方法
     var _pri = {

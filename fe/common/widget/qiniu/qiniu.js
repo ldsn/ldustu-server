@@ -1,10 +1,7 @@
-/*global plupload ,mOxie*/
-/*global ActiveXObject */
-/*exported Qiniu */
-
+/**
+ * QiniuJsSDK
+ */
 function QiniuJsSDK() {
-
-
     this.detectIEVersion = function() {
         var v = 4,
             div = document.createElement('div'),
@@ -832,4 +829,4 @@ function QiniuJsSDK() {
 
 }
 
-var Qiniu = new QiniuJsSDK();
+module.exports = new QiniuJsSDK();
