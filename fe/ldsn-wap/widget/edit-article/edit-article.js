@@ -6,12 +6,12 @@
      */
  
    'use strict';
-
     //私有方法
     var _pri = {
         //UI元素集合
         node: {
-              mod: $('menu[node-type="ldsn-menu"]'),
+              mod: $('section[node-type="ldsn-edit-article"]'),
+              editModule: $('section[node-type="module-edit-article"]'),
         },
         //绑定元素事件
         bindUI: function () {
@@ -19,7 +19,7 @@
                     },
         util: {
           initEdit: function (){//页面初始化函数
-        alert(1)
+                        
                     }
               }
     }
@@ -30,7 +30,7 @@
      */
   
       var init = function () {
-        _pri.util.initMenu();
+        _pri.util.initEdit();
         _pri.bindUI();
     }
 

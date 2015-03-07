@@ -10,12 +10,12 @@ var Qiniu = require('common:widget/qiniu/qiniu.js');
 
 var uploader = Qiniu.uploader({
     runtimes: 'html5,flash,html4',    //上传模式,依次退化
-    browse_button: 'pickfiles',       //上传选择的点选按钮，**必需**
+    browse_button: 'upload-img',       //上传选择的点选按钮，**必需**
     //uptoken_url: 'http://www.ldustu.com/some.php',
         //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
-    uptoken : '-whDl59QdzDoavrzKrQy1YOCRWG6Cho_N5i7IYlf:6_FZxnw-f4y69-_A-iXG9VQ_ubM=:eyJzY29wZSI6ImJhaWtldGVzdCIsImRlYWRsaW5lIjoxNDI1NzE4ODQ5fQ==',
+    uptoken : '-whDl59QdzDoavrzKrQy1YOCRWG6Cho_N5i7IYlf:lli6LJxorkWSBkVdj4NPy_e7gKE=:eyJzY29wZSI6Imxkc252NiIsImRlYWRsaW5lIjoxNDI1NzIxOTIzfQ==',
         //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
-    // unique_names: true,
+    //unique_names: true,
         // 默认 false，key为文件名。若开启该选项，SDK会为每个文件自动生成key（文件名）
     // save_key: true,
         // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK在前端将不对key进行任何处理
@@ -39,9 +39,12 @@ var uploader = Qiniu.uploader({
                // 每个文件上传前,处理相关的事情
         },
         'UploadProgress': function(up, file) {
+
+          console.log(up,file)
                // 每个文件上传时,处理相关的事情
         },
         'FileUploaded': function(up, file, info) {
+          console.log(up,file,info)
                // 每个文件上传成功后,处理相关的事情
                // 其中 info 是文件上传成功后，服务端返回的json，形式如
                // {
@@ -62,7 +65,7 @@ var uploader = Qiniu.uploader({
         'Key': function(up, file) {
             // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
             // 该配置必须要在 unique_names: false , save_key: false 时才生效
-            var key = "";
+            var key = '/userUpload/' + Data.parse(new Date());
             // do something with key here
             return key
         }

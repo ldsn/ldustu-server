@@ -6,9 +6,26 @@
      */
 .module-edit-article{
 	background-color: #fff;
-	top: 0;
+	top: 45px;
 	bottom: 0;
 	left: 0;
 	right: 0;
 	position: absolute;
+	display: none;
    }
+.ldsn-edit-article form{
+	width: 90%;
+	height: 100%;
+	padding-top: 10%;
+	margin:0 auto;
+}
+.ldsn-edit-article input{
+	width: 100%
+}
+.ldsn-edit-article textarea{
+	width: 100%;
+	height:50%;
+}
+.ldsn-edit-article p{
+	margin:10px auto;
+}
