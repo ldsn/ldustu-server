@@ -22,6 +22,9 @@
 			<section node-type="ldsn-share" class="ldsn-share">
 				{%block name="ldsn-share"%}{%/block%}
 			</section>
+			<section node-type="ldsn-edit-article" class="ldsn-edit-article">
+				{%block name="ldsn-edit-article"%}{%/block%}
+			</section>
 		</section>
 
 		<section node-type="ldsn-right" class="ldsn-right">
