@@ -26,16 +26,15 @@ var _pri = {
 var _pub = {
     conf: {
         arcList: []
-    }
-    util: {
-        
-        /**
-         * 获取文章列表
-         * @param  {number} start 开始的id
-         * @param  {number} count 取多少文章
-         * @param  {nuber} cid   取哪个版块
-         * @return {object}       获取到的数据
-         */
+    },
+    util: {   
+/**
+ * 获取文章列表
+ * @param  {number} start 开始的id
+ * @param  {number} count 取多少文章
+ * @param  {nuber} cid   取哪个版块
+ * @return {object}       获取到的数据
+ */
         getList: function (startid, count, cid) {
             var sendData = {
                 startid: startid,

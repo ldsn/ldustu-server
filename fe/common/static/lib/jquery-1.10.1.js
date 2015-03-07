@@ -5870,6 +5870,7 @@ jQuery.each({
 		return parent && parent.nodeType !== 11 ? parent : null;
 	},
 	parents: function( elem ) {
+		console.log(123)
 		return jQuery.dir( elem, "parentNode" );
 	},
 	parentsUntil: function( elem, i, until ) {
@@ -5948,6 +5949,7 @@ jQuery.extend({
 	},
 
 	dir: function( elem, dir, until ) {
+		console.log(elem)
 		var matched = [],
 			cur = elem[ dir ];
 

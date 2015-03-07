@@ -826,7 +826,6 @@ function QiniuJsSDK() {
         }
         return false;
     };
-
 }
 
-module.exports = new QiniuJsSDK();
+module.exports = QiniuJsSDK;

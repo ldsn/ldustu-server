@@ -32,6 +32,7 @@
 		</section>
 	</section>
 </section>
+{%block name="ldsn-toast"%}{%/block%}
 {%/block%}
 {%block name="else"%}
 {%/block%}

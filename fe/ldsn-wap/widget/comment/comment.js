@@ -10,13 +10,13 @@ var api = require('common:widget/api/api.js'),
 
 var _pri = {
 	node: {
-		moduleArticle: $('section[node-type="module-article"]');
+		moduleArticle: $('section[node-type="module-article"]')
 	},
 	api: {
-		getComment: api.getComment,
+		getComment: api.getComment
 	},
 	tmpl: {
-		commentTmpl: commentTmpl;
+		commentTmpl: commentTmpl
 	},
     util: {
         getErr: function (data) {
@@ -51,15 +51,14 @@ var _pri = {
 			});
 		},
 		renderArticle: function (data) {
-			data.forEach(item) {
+			data.forEach(function (item) {
 				_pri.node.moduleArticle.find('.article-comment').append(_pri.tmpl.commentTmpl,item);
-			}
+			});
 		}
-
 	}
 };
 
-var _pub = function () {
+var _pub = {
 	util: {
 		renderArticle: function (aid, start, count, order) {
 			_pri.util.getComment(aid, start, count, order, _pri.util.renderArticle);
