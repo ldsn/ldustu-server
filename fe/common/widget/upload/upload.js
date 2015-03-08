@@ -33,7 +33,7 @@ var uploader = qiniu.uploader({
     browse_button: btnId,       //上传选择的点选按钮，**必需**
     //uptoken_url: 'http://www.ldustu.com/some.php',
         //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
-    uptoken : '-whDl59QdzDoavrzKrQy1YOCRWG6Cho_N5i7IYlf:_HEBnWU54qEbPky_XwWN8rZNvUE=:eyJzY29wZSI6Imxkc252NiIsImRlYWRsaW5lIjoxNDI1NzYzNjkzfQ==',
+    uptoken : '-whDl59QdzDoavrzKrQy1YOCRWG6Cho_N5i7IYlf:BhkPZz2AQfp1nIuiRq9pOw5Rokc=:eyJzY29wZSI6Imxkc252NiIsImRlYWRsaW5lIjoxNDI1Nzc0NTM4fQ==',
         //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
     //unique_names: true,
         // 默认 false，key为文件名。若开启该选项，SDK会为每个文件自动生成key（文件名）
@@ -51,38 +51,29 @@ var uploader = qiniu.uploader({
     auto_start: false,                 //选择文件后自动上传，若关闭需要自己绑定事件触发上传
     init: {
         'FilesAdded': function(up, files) {
-            console.log(uploader)
             plupload.each(files, function(file) {
                 //uploader.stop();
                 // 文件添加进队列后,处理相关的事情
             });
             if (event.FilesAdded instanceof Function) {
-                var arguments = Array.prototype.slice.call(arguments);
-                arguments.push(uploader);
                 event.FilesAdded.apply(null,arguments);
             }
         },
         'BeforeUpload': function(up, file) {
            // 每个文件上传前,处理相关的事情
             if (event.BeforeUpload instanceof Function) {
-                var arguments = Array.prototype.slice.call(arguments);
-                arguments.push(uploader);
             	event.BeforeUpload.apply(null,arguments);
             }
         },
         'UploadProgress': function(up, file) {
            // 每个文件上传时,处理相关的事情
             if (event.UploadProgress instanceof Function) {
-                var arguments = Array.prototype.slice.call(arguments);
-                arguments.push(uploader);
             	event.UploadProgress.apply(null,arguments);
             }
         },
         'FileUploaded': function(up, file, info) {
 			// 参考http://developer.qiniu.com/docs/v6/api/overview/up/response/simple-response.html
             if (event.FileUploaded instanceof Function) {
-                var arguments = Array.prototype.slice.call(arguments);
-                arguments.push(uploader);
             	event.FileUploaded.apply(null,arguments);
             }
 			var res = $.parseJSON(info);
@@ -94,23 +85,17 @@ var uploader = qiniu.uploader({
         'Error': function(up, err, errTip) {
                //上传出错时,处理相关的事情
             if (event.Error instanceof Function) {
-                var arguments = Array.prototype.slice.call(arguments);
-                arguments.push(uploader);
             	event.Error.apply(null,arguments);
             }
         },
         'UploadComplete': function() {
            //队列文件处理完毕后,处理相关的事情
             if (event.UploadComplete instanceof Function) {
-                var arguments = Array.prototype.slice.call(arguments);
-                arguments.push(uploader);
             	event.UploadComplete.apply(null,arguments);
             }
         },
         'Key': function(up, file) {
         	if (event.Key instanceof Function) {
-                var arguments = Array.prototype.slice.call(arguments);
-                arguments.push(uploader);
         		return event.Key.apply(null,arguments);
         	}
         }

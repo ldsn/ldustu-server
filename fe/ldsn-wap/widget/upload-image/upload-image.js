@@ -8,30 +8,40 @@
 var upload = require('common:widget/upload/upload.js'),
     toast = require('ldsn-wap:widget/toast/toast.js');
 var event ={
-    'FilesAdded': function(up, files, uploader) {
+    'FilesAdded': function(up, files) {
+        console.log(up)
         plupload.each(files, function(file) {
             if(file.type != 'image/jpeg' && file.type != 'image/jpg' && file.type != 'image/png' && file.type != 'image/gif'){
                 toast('error', '文件类型错误，请上传图片文件', false);
             }
         });
+        up.start();
     },
-    'BeforeUpload': function(up, file, uploader) {
+    'BeforeUpload': function(up, file) {
            // 每个文件上传前,处理相关的事情
     },
-    'UploadProgress': function(up, file, uploader) {
+    'UploadProgress': function(up, file) {
+        // 每个文件上传时,处理相关的事情
 
-           // 每个文件上传时,处理相关的事情
     },
-    'FileUploaded': function(up, file, info, uploader) {
-        
+    'FileUploaded': function(up, file, info) {
+        var domain = up.getOption('domain')
+        var res = $.parseJSON(info);
+        var sourceLink = domain + res.key + '?imageView2/2/w/400/q/80';
+        var img = document.createElement('img');
+        img.src = sourceLink;
+        $(img).appendTo('#editor');
+        $('<div><br/></div>').appendTo('#editor');
+        $($('#editor div').get($('#editor div').length-1)).attr('contenteditable','true');
+        $($('#editor div').get($('#editor div').length-1)).trigger('focus');
     },
-    'Error': function(up, err, errTip, uploader) {
+    'Error': function(up, err, errTip) {
            //上传出错时,处理相关的事情
     },
-    'UploadComplete': function(uploader) {
+    'UploadComplete': function() {
            //队列文件处理完毕后,处理相关的事情
     },
-    'Key': function(up, file, uploader) {
+    'Key': function(up, file) {
         // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
         // 该配置必须要在 unique_names: false , save_key: false 时才生效
         if(file.type == 'image/jpeg' || file.type == 'image/jpg' || file.type == 'image/png' || file.type == 'image/gif'){
@@ -41,5 +51,5 @@ var event ={
           return key
         }
     }
-    };
+};
 upload('upload-img', event);

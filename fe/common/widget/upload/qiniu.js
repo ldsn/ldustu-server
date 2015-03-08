@@ -315,7 +315,6 @@ function QiniuJsSDK() {
         });
 
         var uploader = new plupload.Uploader(option);
-
         uploader.bind('Init', function(up, params) {
             getUpToken();
         });

@@ -38,34 +38,35 @@ var data = [
         	menuClick:$("click[node-type='menu-click']"),
               rightClick:$("click[node-type='right-click']"),
         	ldsnBox:$("section[node-type='ldsn-box']"),
+              editClick:$('click[node-type="right-click"]'),
         	ldsnMainFrame:$("section[node-type='ldsn-main-frame']"),
+              editArticle:$("section[node-type='module-edit-article']")
         },
         //绑定元素事件
         bindUI: function () {
-            	_pri.node.menuClick.on("click",_pri.util.leftSlide);//菜单点击事件
-            	_pri.node.ldsnMainFrame.on("click",_pri.util.clearLeftSlide)//清除菜单
-            	
-            	_pri.node.ldsnBox.swipeRight(function (){
-                var menuLeft=_pri.node.ldsnBox.hasClass("slideLock"); 
-                if(!menuLeft){//右滑呼出菜单
-                        _pri.util.leftSlide()
-                }else {//清除左滑菜单
-                        _pri.util.rightSlide()
-                }
-              });
-            	},
+        	_pri.node.menuClick.on("click",_pri.util.leftSlide);//菜单点击事件
+        	// _pri.node.ldsnMainFrame.on("click",_pri.util.clearLeftSlide)//清除菜单
+        	_pri.node.ldsnBox.swipeRight(_pri.util.leftSlide);
+            _pri.node.ldsnBox.swipeLeft(_pri.util.clearLeftSlide);
+            _pri.node.editClick.on("click",function(){
+                _pri.node.editArticle.css("display","block");
+                window.checkPlupload = false;
+                var script = document.createElement("script");
+                script.src="/static/common/plupload/plupload.min.js";
+                script.type="text/javascript";
+                document.body.appendChild(script);
+                window.setInterval(function () {
+                    if(window.checkPlupload) {
+                        require("ldsn-wap:widget/upload-image/upload-image.js");
+                    }
+                },40)
+            }) 
+        },
         util: {
         	leftSlide: function(){//左滑事件函数
         		_pri.node.ldsnBox.css("margin-left","0px");
-                      _pri.node.ldsnMainFrame.css("display","block")
-                      _pri.node.ldsnBox.addClass("slideonLock");
+                            _pri.node.ldsnMainFrame.css("display","block")
         	},
-              rightSlide: function(){//清除右侧滑事件函数
-                      _pri.node.ldsnBox.removeClass("slideLock"); 
-                      _pri.node.ldsnBox.css("margin-left","-200px");
-                      _pri.node.ldsnMainFrame.css("display","block")
-                      _pri.node.rightClick.css("-webkit-transform","rotateY(0deg)")
-              },
         	clearLeftSlide: function(){//清除菜单函数
         		_pri.node.ldsnBox.css("margin-left","-200px");
         		_pri.node.ldsnMainFrame.css("display","none")
