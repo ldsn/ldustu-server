@@ -6,6 +6,11 @@ return array(
 		'Wap',
 	),
 	'DEFAULT_MODULE'        =>  'Pc',
+	'APP_SUB_DOMAIN_DEPLOY'   =>    1, // 开启子域名或者IP配置
+	'APP_SUB_DOMAIN_RULES'    =>    array(
+		'test.wap.ldustu.com'=>'Wap',
+		'test.ldustu.com'=>'Pc',
+		 ),
 	'URL_MODEL'=>1,  //url模式  pathinfo
 	'URL_CASE_INSENSITIVE' => true, //URL不区分大小写
 	'SESSION_AUTO_START' => true,//是否开启session
