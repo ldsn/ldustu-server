@@ -11,7 +11,7 @@ class CommentController extends Controller { //评论模块
 	public function getComment($aid,$count){
 	              $comment = D('comment');
 	              $result = $comment->catchComment($aid,$count);
-	              p$this->ajaxReturn($result);
+	              $this->ajaxReturn($result);
         	  }
 	public function commentin($uid,$aid,$content){
 		$comment = D('comment');
