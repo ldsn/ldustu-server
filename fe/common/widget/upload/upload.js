@@ -33,7 +33,7 @@ var uploader = qiniu.uploader({
     browse_button: btnId,       //上传选择的点选按钮，**必需**
     //uptoken_url: 'http://www.ldustu.com/some.php',
         //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
-    uptoken : '-whDl59QdzDoavrzKrQy1YOCRWG6Cho_N5i7IYlf:BhkPZz2AQfp1nIuiRq9pOw5Rokc=:eyJzY29wZSI6Imxkc252NiIsImRlYWRsaW5lIjoxNDI1Nzc0NTM4fQ==',
+    uptoken : '-whDl59QdzDoavrzKrQy1YOCRWG6Cho_N5i7IYlf:RddS__V_AsP0ieNW9d4NRiRFwIA=:eyJzY29wZSI6Imxkc252NiIsImRlYWRsaW5lIjoxNDI1ODEwNzIwfQ==',
         //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
     //unique_names: true,
         // 默认 false，key为文件名。若开启该选项，SDK会为每个文件自动生成key（文件名）
@@ -76,11 +76,6 @@ var uploader = qiniu.uploader({
             if (event.FileUploaded instanceof Function) {
             	event.FileUploaded.apply(null,arguments);
             }
-			var res = $.parseJSON(info);
-			var sourceLink = res.key;
-			console.log(res)
-
-
         },
         'Error': function(up, err, errTip) {
                //上传出错时,处理相关的事情

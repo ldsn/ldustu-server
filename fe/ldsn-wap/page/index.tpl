@@ -2,10 +2,9 @@
 
 {%block name="title"%}鲁大学生网{%/block%}
 {%block name="head"%}
+{%require name="ldsn-wap:static/lib/js/zepto.js"%}
 {%require name="ldsn-wap:static/message.js"%}
 {%require name="ldsn-wap:static/index/index.css"%}
-{%*require name="common:static/plupload/moxie.js" *%}
-{%*require name="common:static/plupload/plupload.min.js"*%}
 <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
 {%/block%}
 

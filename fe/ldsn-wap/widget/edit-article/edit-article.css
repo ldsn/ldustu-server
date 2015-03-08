@@ -20,7 +20,11 @@
 	margin:0 auto;
 }
 .ldsn-edit-article .textTitle{
-	width: 100%
+	width: 100%;
+	border: 1px solid #A9A9A9;
+	line-height: 35px;
+	font-size: 20px;
+	text-indent: 11px;
 }
 .ldsn-edit-article #editor{
 	width: 95%;

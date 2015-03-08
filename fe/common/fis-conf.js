@@ -3,6 +3,12 @@ var receiver = "http://tp.com:8989/fisp.php";
 fis.config.merge({
 	namespace : 'common',
     pack : {
+    	'pkg/common-widget.js': /^\/widget\/.*\/(.*\.js)$/i,
+        'pkg/widget.css' : /^\/widget\/.*\/(.*\.css)$/i,
+        'pkg/static.css' : /^\/static\/.*\/(.*\.css)$/i,
+        'pkg/common-static.js': [
+        	'static/ldev.js'
+        ]
     },
 	deploy: {
 	        //使用fis release --dest static来使用这个配置

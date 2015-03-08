@@ -18,22 +18,25 @@ var event ={
         up.start();
     },
     'BeforeUpload': function(up, file) {
-           // 每个文件上传前,处理相关的事情
+       // 每个文件上传前,处理相关的事情
+        toast('tip', '正在上传中，请稍后', false);
     },
     'UploadProgress': function(up, file) {
         // 每个文件上传时,处理相关的事情
-
+        if(file.percent) {
+            toast('tip', '正在上传中 ' + file.percent+'%', false);
+        } else {
+            toast('tip', '正在上传中，请稍后', false);
+        }
     },
     'FileUploaded': function(up, file, info) {
         var domain = up.getOption('domain')
         var res = $.parseJSON(info);
-        var sourceLink = domain + res.key + '?imageView2/2/w/400/q/80';
+        var sourceLink = domain + res.key + '?imageView2/2/w/400/q/50';
         var img = document.createElement('img');
         img.src = sourceLink;
         $(img).appendTo('#editor');
         $('<div><br/></div>').appendTo('#editor');
-        $($('#editor div').get($('#editor div').length-1)).attr('contenteditable','true');
-        $($('#editor div').get($('#editor div').length-1)).trigger('focus');
     },
     'Error': function(up, err, errTip) {
            //上传出错时,处理相关的事情

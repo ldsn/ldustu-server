@@ -3,6 +3,24 @@ var receiver = "http://tp.com:8989/fisp.php";
 fis.config.merge({
 	namespace : 'ldsn-wap',
     pack : {
+    	'pkg/ldsn-wap-all.js': [
+    		'static/lib/js/zepto.js',
+    		'static/message.js',
+
+
+    		'widget/article/*.js',
+    		'widget/comment/*.js',
+    		'widget/edit-article/*.js',
+    		'widget/header/*.js',
+    		'widget/index/*.js',
+    		'widget/list/*.js',
+    		'widget/menu/*.js',
+    		'widget/share/*.js',
+    		'widget/toast/*.js',
+
+    	],
+        'pkg/widget.css' : /^\/widget\/.*\/(.*\.css)$/i,
+        'pkg/static.css' : /^\/static\/.*\/(.*\.css)$/i
     },
 	deploy: {
 	        //使用fis release --dest static来使用这个配置

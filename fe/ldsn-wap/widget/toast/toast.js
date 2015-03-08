@@ -13,6 +13,9 @@ var _pri = {
 	bindUI: function () {
 		_pri.node.close.on('click', _pri.util.hide);
 	},
+	conf: {
+		timeId: ''
+	},
 	util: {
 		slideClose: function (flag) {
 			if(flag){
@@ -27,9 +30,12 @@ var _pri = {
 			_pri.node.toast.addClass(type);
 		},
 		show: function (close) {
+			if (_pri.conf.timeId) {
+				clearTimeout(_pri.conf.timeId);
+			}
 			_pri.node.toast.addClass('show');
 			if (close) {
-				setTimeout(function () {
+				_pri.conf.timeId = setTimeout(function () {
 					_pri.util.hide();
 				},3000);
 			}
