@@ -21,20 +21,36 @@
                 _pri.node.editModule.css("display","none")
             })
             _pri.node.editSubmit.on("click",function(){
-                var articleTitle = $(".textTitle").val();
-                var articleContent = $("#editor").html();
-                if(articleTitle==""){
-                    alert("请填写文章标题!");
-                }else if(articleContent==""){
-                    alert("请填写文章内容!")
-                }else{
-                    var imgSrc = $("#editor").find("img")[0].src;
-                    //此处
-                }
+                _pri.util.articleRelease();
             })
                     },
         util: {
-          initEdit: function (){//页面初始化函数
+              articleRelease:function(){
+                    var articleTitle = $(".textTitle").val();
+                    var articleContent = $("#editor").html();
+                    if(articleTitle==""){
+                        alert("请填写文章标题!");
+                    }else if(articleContent==""){
+                        alert("请填写文章内容!")
+                    }else{
+                        if(articleContent.indexOf("<img") >= 0){
+                                var imgSrc = $("#editor").find("img")[0].src;
+                                console.log([articleTitle,articleContent,imgSrc])
+                        }else{
+                                console.log([articleTitle,articleContent])
+                        }
+                    }
+                    $.ajax({
+                            dataType:'json',
+                            data:'id=10',
+                            jsonp:'callback',
+                            url:'http://www.ldustu.com/',
+                            success:function(){
+                            
+                            },
+                    });
+              },
+              initEdit: function (){//页面初始化函数
                         
                     }
               }
