@@ -13,14 +13,28 @@ class CommentController extends Controller { //评论模块
 	              $result = $comment->catchComment($aid,$count);
 	              $this->ajaxReturn($result);
         	  }
-	public function commentin($uid,$aid,$content){
+	public function commentin($aid,$content){
 		$comment = D('comment');
-		$result = $comment->comment($uid,$aid,$content);
+		$uid = session('id');
+		if($uid&&$uid!=''){
+			$result = $comment->comment($uid,$aid,$content);
+			
+		}else{
+			$result = array(
+				'error'=>1003,
+				);
+		}
 		$this->ajaxReturn($result);
 	}
 	public function commentdelete($com_id){
 		$comment = D('comment');
-		$result = $comment->deleteComment($com_id);
+		if($uid&&$uid!=''){
+			$result = $comment->deleteComment($com_id);
+		}else{
+			$result = array(
+				'error'=>1003,
+				);
+		}
 		$this->ajaxReturn($result);
 	}
 

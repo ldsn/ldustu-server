@@ -12,17 +12,20 @@ class LoginController extends Controller {
 		$username = I('post.username');
 		$password = I('post.password');
 		$openid = I('post.openid');
-		if(!isset($username)||!isset($password)){
+		$user = D('user');
+		if(!$username||!$password){
 			if(!isset($openid)){
 				$returnJson = array(
 				'error' => 1001,
 				);
 			}
 			else{
-				$user = D('user');
+				
 				$where['openid'] = $openid;
 				$userResult = $user->where($where)->find();
 				//dump($userResult);
+				//echo '1';
+				session('id',$userResult['id']);
 				if($userResult&&$userResult!=''){
 					$returnJson['error'] = 0;
 				}else{
@@ -38,7 +41,7 @@ class LoginController extends Controller {
 			$more['login_time'] = time();
 			$more['login_style'] = LoginStyle();
 			$user->where($where)->data($more)->save();
-			if($result&&$result!=''&&cookie('id')){
+			if($result&&$result!=''&&session('id')){
 				//dump($more);
 				$returnJson = array(
 					'error'=>0,

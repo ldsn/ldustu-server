@@ -9,6 +9,16 @@
 		return $LoginWay;
 
 	}
+	function substr_cut($str_cut,$length)   //字符串截取
+	{
+	    if (strlen($str_cut) > $length)
+	    {
+	        for($i=0; $i < $length; $i++)
+	        if (ord($str_cut[$i]) > 128)    $i++;
+	        $str_cut = substr($str_cut,0,$i)."..";
+	    }
+	    return $str_cut;
+	}
 	function inject_check($sql_str) {  //防注入过滤
 		return eregi ( 'select|inert|update|delete|\'|\/\*|\*|\.\.\/|\.\/|UNION|into|load_file|outfile', $sql_str ); 
 	}
