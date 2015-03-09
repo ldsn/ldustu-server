@@ -18,6 +18,9 @@ class ArticleController extends Controller {
         		$result = $article->articleArticle($aid);
         		$this->ajaxReturn($result);
 	}
+	public function test(){
+		$this->display('test/form');
+	}
 	public function publish(){ //发布文章动作
 		//文章主表 字段构造
 		$uid =session('id');
@@ -41,9 +44,10 @@ class ArticleController extends Controller {
 				'image' =>$image,
 				'time' =>$time,
 				'from' =>$from,
-				'content'=>$content,
-				'tag' =>$tag,
-				
+				'Article_detial'=>array(
+					'content'=>$content,
+					'tag' =>$tag,
+					),
 				);
 			$result = $article->publishArticle($data);
 
