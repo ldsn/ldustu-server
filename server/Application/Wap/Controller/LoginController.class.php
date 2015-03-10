@@ -12,20 +12,22 @@ class LoginController extends Controller {
 		$username = I('post.username');
 		$password = I('post.password');
 		$openid = I('post.openid');
+		$cookieTime = I('post.cookieTime');
 		$user = D('user');
 		if(!$username||!$password){
 			if(!isset($openid)){
 				$returnJson = array(
 				'error' => 1001,
 				);
-			}
-			else{
-				
+			}else{
 				$where['openid'] = $openid;
 				$userResult = $user->where($where)->find();
 				//dump($userResult);
 				//echo '1';
 				session('id',$userResult['id']);
+				if($cookieTime&&$cookieTime!=''){
+						cookie('id',$userResult['id'],$cookieTime);
+					}
 				if($userResult&&$userResult!=''){
 					$returnJson['error'] = 0;
 				}else{
@@ -52,27 +54,24 @@ class LoginController extends Controller {
 					);
 			}	
 		}
-		
 		$this->ajaxReturn($returnJson);
 	}
 	public function logout(){
 		session('id',null);
+		cookie('id',null);
 		$returnJson = array(
 				'error'=>0,
 				);
 		$this->ajaxReturn($returnJson);
 	}
-	public function loginJudge(){ 
-	   	$id = session('id');
-    		if($id&&$id!=''){ //判断是否登陆过
-    			$returnJson = array(
-    				'error' =>0,
-    				);
-    		}else{
-    			$returnJson = array(
-    				'error' =>1003,
-    				);
-    		}
-    		$this->ajaxReturn($returnJson);
+	   public function checkLogin(){
+	   	if(isset(session('id'))){
+	   		return true;
+	   	}elseif(isset(cookie('id'))){
+	   		session('id',cookie('id'));
+	   		return true;
+	   	}else{
+	   		$result['error'] = 1003;
+	   	}
 	   }
 }

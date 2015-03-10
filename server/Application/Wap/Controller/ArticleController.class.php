@@ -8,14 +8,19 @@ class ArticleController extends Controller {
 	*获取文章列表
 	*
 	*/
-	public function getArticle($startid = 0,$getnum = 10,$cid = 1,$comGetNum = 3){
+	public function getArticle(){
 	              $article = D('article');
-	              if($getnum<=50 ||$comGetNum<=50){
+	              $startid = I('get.startid')?I('get.startid'):0;
+	              $getnum = I('get.getnum')?I('get.getnum'):10;
+	              $cid =I('get.cid')?I('get.cid'):1;
+	              $comGetNum = I('get.comGetNum')?I('get.comGetNum'):3;
+	              $comStartId = 0;
+	              if($getnum<=50&&$comGetNum<=50){
 	              	 $result = $article->getArticle($startid,$getnum,$cid,$comStartId,$comGetNum);
+
 	              	}else{
 	              		$result['error'] = 1010;
 	              	}
-	             
 	              $this->ajaxReturn($result);
         	  }
         	public function showArticle($aid){//文章内容页
