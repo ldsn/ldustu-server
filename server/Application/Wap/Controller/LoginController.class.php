@@ -26,7 +26,9 @@ class LoginController extends Controller {
 				//echo '1';
 				session('id',$userResult['id']);
 				if($cookieTime&&$cookieTime!=''){
-						cookie('id',$userResult['id'],$cookieTime);
+						$skey  = 'ldsnwangluobu';
+						$data = md5($skey).$userResult['id'];
+						cookie('id',$data,$cookieTime);
 					}
 				if($userResult&&$userResult!=''){
 					$returnJson['error'] = 0;
@@ -65,13 +67,25 @@ class LoginController extends Controller {
 		$this->ajaxReturn($returnJson);
 	}
 	   public function checkLogin(){
+	   	$data = cookie('data');
+	   	$getSkey = substr($data, 0,32);
+	   	$userId = substr($data,32);
+	   	$skey  = 'ldsnwangluobu';
 	   	if(isset(session('id'))){
-	   		return true;
-	   	}elseif(isset(cookie('id'))){
-	   		session('id',cookie('id'));
-	   		return true;
+		   		$result['error'] = 0;
+		   	}elseif($skey == $getSkey){
+		   		$user->M('user');
+		   		$where['id'] = $userId;
+		   		$resultUser = $user->where($where)->field('id')->find();
+		   		if($resultUser&&$resultUser!=''){
+		   			session('id',$resultUser['id'])
+		   			$result['error'] = 0;
+		   		}else{
+		   			$result['error'] = 1003;
+		   		}
 	   	}else{
 	   		$result['error'] = 1003;
 	   	}
+	   	   $this->ajaxReturn($result);
 	   }
 }
