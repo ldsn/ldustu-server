@@ -6,9 +6,9 @@ return array(
     'TMPL_ENGINE_TYPE'=>'Smarty',
     'TMPL_TEMPLATE_SUFFIX'=>'.tpl',
     'TMPL_ENGINE_CONFIG'=>array(
-        'plugins_dir'=>'./Application/Wap/Plugins/',
-        'template_dir'=>'./Application/Wap/Temp/',
-        'config_dir'=>'./Application/Wap/Config/',
+        'plugins_dir'=>'./Application/tmpl/Plugins/',
+        'template_dir'=>'./Application/tmpl/',
+        'config_dir'=>'./Application/tmpl/Config/',
         'left_delimiter'=>'{%',
         'right_delimiter'=>'%}'
     ),
