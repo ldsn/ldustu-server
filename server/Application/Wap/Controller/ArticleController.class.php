@@ -10,16 +10,18 @@ class ArticleController extends Controller {
 	*/
 	public function getArticle($startid = 0,$getnum = 10,$cid = 1,$comGetNum = 3){
 	              $article = D('article');
-	              $result = $article->getArticle($startid,$getnum,$cid,$comStartId,$comGetNum);
+	              if($getnum<=50 ||$comGetNum<=50){
+	              	 $result = $article->getArticle($startid,$getnum,$cid,$comStartId,$comGetNum);
+	              	}else{
+	              		$result['error'] = 1010;
+	              	}
+	             
 	              $this->ajaxReturn($result);
         	  }
         	public function showArticle($aid){//文章内容页
         		$article = D('article');
         		$result = $article->articleArticle($aid);
         		$this->ajaxReturn($result);
-	}
-	public function test(){
-		$this->display('test/form');
 	}
 	public function publish(){ //发布文章动作
 		//文章主表 字段构造
