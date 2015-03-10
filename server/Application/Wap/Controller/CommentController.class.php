@@ -16,7 +16,9 @@ class CommentController extends Controller { //评论模块
 	              $result = $comment->catchComment($aid,$startid,$count);
 	              $this->ajaxReturn($result);
         	  }
-	public function commentin($aid,$content){
+	public function commentin(){
+		$aid = I('get.aid');
+		$content = I('get.content');
 		$comment = D('comment');
 		$uid = session('id');
 		if($uid&&$uid!=''){
@@ -29,7 +31,8 @@ class CommentController extends Controller { //评论模块
 		}
 		$this->ajaxReturn($result);
 	}
-	public function commentdelete($com_id){
+	public function commentdelete(){
+		$com_id = I('get.com_id');
 		$comment = D('comment');
 		if($uid&&$uid!=''){
 			$result = $comment->deleteComment($com_id);
@@ -40,5 +43,4 @@ class CommentController extends Controller { //评论模块
 		}
 		$this->ajaxReturn($result);
 	}
-
 }

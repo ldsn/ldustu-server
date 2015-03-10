@@ -23,9 +23,15 @@ class ArticleController extends Controller {
 	              	}
 	              $this->ajaxReturn($result);
         	  }
-        	public function showArticle($aid){//文章内容页
-        		$article = D('article');
-        		$result = $article->articleArticle($aid);
+        	public function showArticle(){//文章内容页
+        		$aid = I('get.aid');
+        		if($aid&&$aid!=''){
+        			$article = D('article');
+        			$result = $article->articleArticle($aid);
+        		}else{
+        			$result['error'] = 1001;
+        		}
+        		
         		$this->ajaxReturn($result);
 	}
 	public function publish(){ //发布文章动作
