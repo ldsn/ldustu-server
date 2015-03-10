@@ -8,9 +8,12 @@ class CommentController extends Controller { //评论模块
 	*写入评论功能
 	*删除评论功能
 	*/
-	public function getComment($aid,$count){
+	public function getComment(){
 	              $comment = D('comment');
-	              $result = $comment->catchComment($aid,$count);
+	              $aid = I('get.aid');
+	              $startid = I('get.startid');
+	              $count = I('get.count'); 
+	              $result = $comment->catchComment($aid,$startid,$count);
 	              $this->ajaxReturn($result);
         	  }
 	public function commentin($aid,$content){

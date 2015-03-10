@@ -2,22 +2,28 @@
 namespace Wap\Model;
 use Think\Model;
 class CommentModel extends Model{
-	public function catchComment($aid,$count){
+	public function catchComment($aid,$startid = 0,$count = 20){
 		if(!isset($aid)||!isset($count)){
 			$returnJson=array(
 			'error'=>1001,
 			);
 		}else{	
-			$where['aid'] = (int)$aid;
-			$result =$this->limit(0,$count)->where($where)->order('time desc')->select();
-			if($result&&$result!=''){
-				$returnJson = array(
-					'error'=>0,
-				); 
+			if($count <= 50){
+				$where['aid'] = (int)$aid;
+				$result =$this->limit($startid,$count)->where($where)->order('time desc')->select();
+				if($result&&$result!=''){
+					$returnJson = array(
+						'error'=>0,
+					); 
+				}else{
+					$returnJson = array(
+						'error'=>1002,
+					);
+				}
 			}else{
 				$returnJson = array(
-					'error'=>1002,
-				);
+						'error'=>1010,
+					);
 			}
 		}
 		$result['error'] = $returnJson['error'];
