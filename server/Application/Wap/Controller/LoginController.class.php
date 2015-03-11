@@ -26,7 +26,7 @@ class LoginController extends Controller {
 				//echo '1';
 				session('id',$userResult['id']);
 				if($cookieTime&&$cookieTime!=''){
-						$skey  = 'ldsnwangluobu';
+						$skey  = $userResult['username'];
 						$data = md5($skey).$userResult['id'];
 						cookie('data',$data,$cookieTime);
 					}
@@ -70,23 +70,20 @@ class LoginController extends Controller {
 	   	$data = cookie('data');
 	   	$getSkey = substr($data, 0,32);
 	   	$userId = substr($data,32);
-	   	$skey  = md5('ldsnwangluobu');
+	   	//$skey  = md5('ldsnwangluobu');
 	   	if(session('id')){
 		   		$result['error'] = 0;
 		   }else{	
-		   		if($skey == $getSkey){
 		   			$user = M('user');
 			   		$where['id'] = $userId;
-			   		$resultUser = $user->where($where)->field('id')->find();
-			   		if($resultUser&&$resultUser!=''){
+			   		$resultUser = $user->where($where)->field('id,username')->find();
+			   		$skey = md5($resultUser['username']);
+			   		if($skey == $getSkey){
 			   			session('id',$resultUser['id']);
 			   			$result['error'] = 0;
 			   		}else{
 			   			$result['error'] = 1003;
 			   		}	
-		   		}else{
-	   			$result['error'] = 1003;
-	   			}
 	   		}
 	   	   $this->ajaxReturn($result);
 	   }

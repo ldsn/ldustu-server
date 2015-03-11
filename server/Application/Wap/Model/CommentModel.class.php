@@ -8,7 +8,10 @@ class CommentModel extends Model{
 			'error'=>1001,
 			);
 		}else{	
-			if($count <= 50){
+			if($count>50){
+				$count = 50;
+				$returnJson['error'] = 1010;
+			}
 				$where['aid'] = (int)$aid;
 				$result =$this->limit($startid,$count)->where($where)->order('time desc')->select();
 				if($result&&$result!=''){
@@ -20,11 +23,7 @@ class CommentModel extends Model{
 						'error'=>1002,
 					);
 				}
-			}else{
-				$returnJson = array(
-						'error'=>1010,
-					);
-			}
+			
 		}
 		$result['error'] = $returnJson['error'];
 		return $result;

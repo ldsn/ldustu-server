@@ -15,12 +15,16 @@ class ArticleController extends Controller {
 	              $cid =I('get.cid')?I('get.cid'):1;
 	              $comGetNum = I('get.comGetNum')?I('get.comGetNum'):3;
 	              $comStartId = 0;
-	              if($getnum<=50&&$comGetNum<=50){
-	              	 $result = $article->getArticle($startid,$getnum,$cid,$comStartId,$comGetNum);
-
-	              	}else{
-	              		$result['error'] = 1010;
-	              	}
+	              if($getnum>50){
+	              	$getnum = 50;
+	              	$result['error'] = 1010;
+	              }
+	              if($comGetNum>50){
+	              	$comGetNum = 50; 
+	              	$result['error'] = 1010;
+	              }
+	              $result = $article->getArticle($startid,$getnum,$cid,$comStartId,$comGetNum);
+	
 	              $this->ajaxReturn($result);
         	  }
         	public function showArticle(){//文章内容页
@@ -37,12 +41,12 @@ class ArticleController extends Controller {
 	public function publish(){ //发布文章动作
 		//文章主表 字段构造
 		$uid =session('id');
-		if($uid&&$uid!=''){
+		if($uid){
 			$article = D('article');  // 初始化文章模型
 			$user = D('user'); //初始化用户模型
 			$cid =I('post.cid');
 			$title = I('post.title');
-			$content =I('post.content');
+			$content =I('post.content','','HtmlFilter');
 			$contentCut = substr_cut($content,120);
 			$description = I('post.description')?I('post.description'):$contentCut;
 			$image =I('post.image')?I('post.image'):null;
