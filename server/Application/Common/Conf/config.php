@@ -1,6 +1,16 @@
 <?php
 return array(
 	//'配置项'=>'配置值'
+	'TMPL_ENGINE_TYPE'=>'Smarty',
+    'TMPL_TEMPLATE_SUFFIX'=>'.tpl',
+    'TMPL_ENGINE_CONFIG'=>array(
+        'plugins_dir'=>'./Application/Tmpl/Plugins/',
+        'template_dir'=>'./Application/Tmpl/Template/',
+        'config_dir'=>'./Application/Tmpl/Config/',
+        'config_dir'=>'./Application/Tmpl/Caches/',
+        'left_delimiter'=>'{%',
+        'right_delimiter'=>'%}'
+    ),
 	'MODULE_ALLOW_LIST'     =>  array(
 		'Pc',
 		'Wap',
