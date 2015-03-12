@@ -10,7 +10,7 @@ class IndexController extends Controller {
           	   $column = D('column');
                $this->column = json_encode($column ->getall());
                echo "this is wap index";
-               $this->display('index');
+               $this->display('ldsn-wap/page/index');
           }
           
           
