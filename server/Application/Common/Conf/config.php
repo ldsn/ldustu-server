@@ -1,15 +1,10 @@
 <?php
 return array(
 	//'配置项'=>'配置值'
-	'MODULE_ALLOW_LIST'     =>  array(
-		'Pc',
-		'Wap',
-	),
-	'DEFAULT_MODULE'        =>  'Pc',
+	'DEFAULT_MODULE'        =>  'Wap',
 	'APP_SUB_DOMAIN_DEPLOY'   =>    1, // 开启子域名或者IP配置
 	'APP_SUB_DOMAIN_RULES'    =>    array(
 		'test.wap.ldustu.com'=>'Wap',
-		'test.ldustu.com'=>'Pc',
 		 ),
 	'URL_MODEL'=>1,  //url模式  pathinfo
 	'URL_CASE_INSENSITIVE' => true, //URL不区分大小写
@@ -22,8 +17,15 @@ return array(
 	'DB_PORT'               =>  '3306',        // 端口
 	'DB_PREFIX'             =>  'ldsn_',    // 数据库表前缀
 	'DB_CHARSET'            =>  'utf8',      // 数据库编码默认采用utf8
-	'TMPL_L_DELIM'=>'{%',
-	'TMPL_R_DELIM'=>'%}',	
+	 'TMPL_ENGINE_TYPE'=>'Smarty',
+	 'TMPL_TEMPLATE_SUFFIX'=>'.tpl',
+	 'TMPL_ENGINE_CONFIG'=>array(
+	        'plugins_dir'=>'./Application/Tmpl/Plugins/',
+	        'template_dir'=>'./Application/Tmpl/Template/',
+	        'config_dir'=>'./Application/Tmpl/Config/',
+	        'left_delimiter'=>'{%',
+	        'right_delimiter'=>'%}'
+	    ),
 	'TMPL_PARSE_STRING' =>array(
 				),
 );
