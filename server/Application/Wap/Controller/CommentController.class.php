@@ -8,20 +8,39 @@ class CommentController extends Controller { //评论模块
 	*写入评论功能
 	*删除评论功能
 	*/
-	public function getComment($aid,$count){
+	public function getComment(){
 	              $comment = D('comment');
-	              $result = $comment->catchComment($aid,$count);
-	              p$this->ajaxReturn($result);
+	              $aid = I('get.aid');
+	              $startid = I('get.startid');
+	              $count = I('get.count'); 
+	              $result = $comment->catchComment($aid,$startid,$count);
+	              $this->ajaxReturn($result);
         	  }
-	public function commentin($uid,$aid,$content){
+	public function commentin(){
+		$aid = I('get.aid');
+		$content = I('get.content');
 		$comment = D('comment');
-		$result = $comment->comment($uid,$aid,$content);
+		$uid = session('id');
+		if($uid&&$uid!=''){
+			$result = $comment->comment($uid,$aid,$content);
+			
+		}else{
+			$result = array(
+				'error'=>1003,
+				);
+		}
 		$this->ajaxReturn($result);
 	}
-	public function commentdelete($com_id){
+	public function commentdelete(){
+		$com_id = I('get.com_id');
 		$comment = D('comment');
-		$result = $comment->deleteComment($com_id);
+		if($uid&&$uid!=''){
+			$result = $comment->deleteComment($com_id);
+		}else{
+			$result = array(
+				'error'=>1003,
+				);
+		}
 		$this->ajaxReturn($result);
 	}
-
 }
