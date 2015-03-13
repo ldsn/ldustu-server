@@ -41,7 +41,13 @@ class ArticleModel extends RelationModel{
             return $result;
       }
       public function publishArticle($data){
-            $result = $this->relation(true)->add($data);
+            $uid = session('id');
+            if($uid&&$uid!=''){
+              $result = $this->relation(true)->add($data);
+           }else{
+            $resultU['error'] = 1003;
+            $this->ajaxReturn($resultU);
+           }
             return $result;
       }
 	public function getArticle($startid,$getnum,$cid,$comGetNum){ 
@@ -98,7 +104,7 @@ class ArticleModel extends RelationModel{
                                   'artEnd' =>$end,
                                   'artListNum' =>$listNum,
                             );	
-                         return  $result1;
+                         return  $Output;
            
         	}
             

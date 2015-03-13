@@ -9,13 +9,49 @@
 		return $LoginWay;
 
 	}
+	function substr_cut($str_cut,$length)   //字符串截取
+	{
+	    if (strlen($str_cut) > $length)
+	    {
+	        for($i=0; $i < $length; $i++){
+	        	if (ord($str_cut[$i]) > 128)    {
+	        		$i++;
+	        	}
+	        }
+	        
+	        $str_cut = substr($str_cut,0,$i)."..";
+	    }
+	    return $str_cut;
+	}
 	function inject_check($sql_str) {  //防注入过滤
 		return eregi ( 'select|inert|update|delete|\'|\/\*|\*|\.\.\/|\.\/|UNION|into|load_file|outfile', $sql_str ); 
 	}
 	function check_verify($code, $id = ''){
 		$verify = new \Think\Verify();
 		return $verify->check($code, $id);
-	}	 
+	}
+
+	/**
+	 * 对提交的富文本进行过滤 <default7@zbphp.com>
+	 *
+	 * @param $str
+	 *
+	 * @return string
+	 */
+	function HtmlFilter($str)
+	{
+	    $str = stripslashes($str);
+	    $str = preg_replace("/<[\/]{0,1}style([^>]*)>(.*)<\/style>/i", '', $str);
+	    $str = preg_replace("/[\r\n\t ]{3,}/", '\\1', $str); //过滤过长的换行变成1个
+	    $str = preg_replace("/script/i", 'ｓｃｒｉｐｔ', $str);//过滤类似 href="javascript:
+	    $str = preg_replace("/<[\/]{0,1}(link|meta|ifr|fra)[^>]*>/i", '', $str);
+	    $str = preg_replace('/display\s*:\s*none/i', 'ｄｉｓｐｌａｙ:', $str); //过滤 style="display:none
+
+	    return addslashes($str);
+	}
+
+
+	 
 	/**
 	 * 安全获取 GET/POST 的参数
 	 *

@@ -12,17 +12,24 @@ class LoginController extends Controller {
 		$username = I('post.username');
 		$password = I('post.password');
 		$openid = I('post.openid');
-		if(!isset($username)||!isset($password)){
+		$cookieTime = I('post.cookieTime');
+		$user = D('user');
+		if(!$username||!$password){
 			if(!isset($openid)){
 				$returnJson = array(
 				'error' => 1001,
 				);
-			}
-			else{
-				$user = D('user');
+			}else{
 				$where['openid'] = $openid;
 				$userResult = $user->where($where)->find();
 				//dump($userResult);
+				//echo '1';
+				session('id',$userResult['id']);
+				if($cookieTime&&$cookieTime!=''){
+						$skey  = $userResult['username'];
+						$data = md5($skey).$userResult['id'];
+						cookie('data',$data,$cookieTime);
+					}
 				if($userResult&&$userResult!=''){
 					$returnJson['error'] = 0;
 				}else{
@@ -38,7 +45,7 @@ class LoginController extends Controller {
 			$more['login_time'] = time();
 			$more['login_style'] = LoginStyle();
 			$user->where($where)->data($more)->save();
-			if($result&&$result!=''&&cookie('id')){
+			if($result&&$result!=''&&session('id')){
 				//dump($more);
 				$returnJson = array(
 					'error'=>0,
@@ -49,27 +56,35 @@ class LoginController extends Controller {
 					);
 			}	
 		}
-		
 		$this->ajaxReturn($returnJson);
 	}
 	public function logout(){
 		session('id',null);
+		cookie('id',null);
 		$returnJson = array(
 				'error'=>0,
 				);
 		$this->ajaxReturn($returnJson);
 	}
-	public function loginJudge(){ 
-	   	$id = session('id');
-    		if($id&&$id!=''){ //判断是否登陆过
-    			$returnJson = array(
-    				'error' =>0,
-    				);
-    		}else{
-    			$returnJson = array(
-    				'error' =>1003,
-    				);
-    		}
-    		$this->ajaxReturn($returnJson);
+	   public function checkLogin(){
+	   	$data = cookie('data');
+	   	$getSkey = substr($data, 0,32);
+	   	$userId = substr($data,32);
+	   	//$skey  = md5('ldsnwangluobu');
+	   	if(session('id')){
+		   		$result['error'] = 0;
+		   }else{	
+		   			$user = M('user');
+			   		$where['id'] = $userId;
+			   		$resultUser = $user->where($where)->field('id,username')->find();
+			   		$skey = md5($resultUser['username']);
+			   		if($skey == $getSkey){
+			   			session('id',$resultUser['id']);
+			   			$result['error'] = 0;
+			   		}else{
+			   			$result['error'] = 1003;
+			   		}	
+	   		}
+	   	   $this->ajaxReturn($result);
 	   }
 }

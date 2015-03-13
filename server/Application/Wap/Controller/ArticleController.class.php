@@ -8,48 +8,75 @@ class ArticleController extends Controller {
 	*获取文章列表
 	*
 	*/
-	public function getArticle($startid = 0,$getnum = 10,$cid = 1,$comGetNum = 3){
+	public function getArticle(){
 	              $article = D('article');
+	              $startid = I('get.startid')?I('get.startid'):0;
+	              $getnum = I('get.getnum')?I('get.getnum'):10;
+	              $cid =I('get.cid')?I('get.cid'):1;
+	              $comGetNum = I('get.comGetNum')?I('get.comGetNum'):3;
+	              $comStartId = 0;
+	              if($getnum>50){
+	              	$getnum = 50;
+	              	$result['error'] = 1010;
+	              }
+	              if($comGetNum>50){
+	              	$comGetNum = 50; 
+	              	$result['error'] = 1010;
+	              }
 	              $result = $article->getArticle($startid,$getnum,$cid,$comStartId,$comGetNum);
+	
 	              $this->ajaxReturn($result);
         	  }
-        	public function showArticle($aid){//文章内容页
-        		$article = D('article');
-        		$result = $article->articleArticle($aid);
+        	public function showArticle(){//文章内容页
+        		$aid = I('get.aid');
+        		if($aid&&$aid!=''){
+        			$article = D('article');
+        			$result = $article->articleArticle($aid);
+        		}else{
+        			$result['error'] = 1001;
+        		}
+        		
         		$this->ajaxReturn($result);
 	}
 	public function publish(){ //发布文章动作
 		//文章主表 字段构造
-		$article = D('article');  // 初始化文章模型
-		$user = D('user'); //初始化用户模型
-		$uid = $user->userid(cookie('username'));
-		$cid =I('post.cid');
-		$title = I('post.title');
-		$content =I('post.content');
-		$description = I('post.description')?I('post.description'):null;
-		$image =I('post.image')?I('post.image'):null;
-		$time = time();
-		$from =I('post.from')?I('post.from'):null;
-		$tag = I('post.tag');
-		$data = array(
-			'uid'=>$uid ,
-			'cid'=>$cid,
-			'title' =>$title,
-			'description' => $description,
-			'image' =>$image,
-			'time' =>$time,
-			'from' =>$from,
-			'content'=>$content,
-			'tag' =>$tag,
-			
-			);
-		$result = $article->publishArticle($data);
+		$uid =session('id');
+		if($uid){
+			$article = D('article');  // 初始化文章模型
+			$user = D('user'); //初始化用户模型
+			$cid =I('post.cid');
+			$title = I('post.title');
+			$content =I('post.content','','HtmlFilter');
+			$contentCut = substr_cut($content,120);
+			$description = I('post.description')?I('post.description'):$contentCut;
+			$image =I('post.image')?I('post.image'):null;
+			$time = time();
+			$from =I('post.from')?I('post.from'):null;
+			$tag = I('post.tag')?I('post.tag'):null;
+			$data = array(
+				'uid'=>$uid ,
+				'cid'=>$cid,
+				'title' =>$title,
+				'description' => $description,
+				'image' =>$image,
+				'time' =>$time,
+				'from' =>$from,
+				'Article_detial'=>array(
+					'content'=>$content,
+					'tag' =>$tag,
+					),
+				);
+			$result = $article->publishArticle($data);
 
-		if($result){ //如果存在文章ID和文章细节ID
-			$returnJson['error'] = 0;
+			if($result){ //如果存在文章ID和文章细节ID
+				$returnJson['error'] = 0;
+			}else{
+				$returnJson['error'] = 1002;
+			}
 		}else{
-			$returnJson['error'] = 0;
+			$returnJson['error'] = 1003;
 		}
+		
 		$this->ajaxReturn($returnJson);
 	}
 	
