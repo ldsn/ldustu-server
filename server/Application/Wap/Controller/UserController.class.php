@@ -9,16 +9,17 @@ class UserController extends Controller {
             */
    	      public function index(){		//用户个人中心
     	       $id = session('id');
-    		  if($id&&$id!=''){
-          		//执行用户操作
-          		  $returnJson['error'] = 0;
-          		}else{
-          		  $returnJson['error'] = 1003;
-          		}
-              $this->ajaxReturn($returnJson);
-   	      }
-            public function userinfo(){
+        		 if($id&&$id!=''){
+              		//执行用户操作
+              		  $returnJson['error'] = 0;
+              		}else{
+              		  $returnJson['error'] = 1003;
+              		}
+                  $this->ajaxReturn($returnJson);
+       	      }
+          public function userinfo(){
                       $user = D('User');
+                      // session('id',1);
                       $id  = session('id');
                       if(isset($id)){
                           $result = $user->userinfo($id);
@@ -27,5 +28,5 @@ class UserController extends Controller {
                           $result['error'] = 1003;
                         }
                      $this->ajaxReturn($result);        
-            }
+          }
 }

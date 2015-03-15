@@ -23,6 +23,12 @@ class CommentController extends Controller { //评论模块
 		$uid = session('id');
 		if($uid&&$uid!=''){
 			$result = $comment->comment($uid,$aid,$content);
+			if($result == "1"){
+				$result = array(
+				'data'=>'超出字数限制！',
+				'error'=>1011,
+				);
+			}
 			
 		}else{
 			$result = array(
@@ -34,7 +40,13 @@ class CommentController extends Controller { //评论模块
 	public function commentdelete(){
 		$com_id = I('get.com_id');
 		$comment = D('comment');
-		if($uid&&$uid!=''){
+		$comment_info = $comment->where('id='.$com_id)->select();
+		$uid = $comment_info[0][uid];
+		// var_dump($uid);
+		// session('id','3');
+		$id = session('id');
+		var_dump($uid);
+		if($id == $uid && $id != ''){
 			$result = $comment->deleteComment($com_id);
 		}else{
 			$result = array(
