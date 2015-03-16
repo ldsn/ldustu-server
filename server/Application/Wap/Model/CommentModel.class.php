@@ -2,8 +2,17 @@
 namespace Wap\Model;
 use Think\Model;
 class CommentModel extends Model{
+    /**
+     * 获取评论列表
+     * @param   conditions          查询条件
+     * @param   startid             开始条数
+     * @param   count               每页条数
+     * @param   order               排序条件
+     * @return  false|array
+     */
     public function catchComment($conditions=array(), $startid=0, $count=20, $order='id desc'){
-        if(!$conditions)return false;
+        $startid    = (int)$startid;
+        $count      = (int)$count;
         $result     = $this->limit($startid, $count)
                             ->where($conditions)
                             ->order($order)
@@ -11,52 +20,40 @@ class CommentModel extends Model{
         return $result;
     }
 
-    public function comment($uid,$aid,$content ){   //评论动作
+    /**
+     * 添加评论
+     * @param   uid         用户id
+     * @param   aid         目标用户id
+     * @param   content     评论内容
+     * @return  boolean
+     */
+    public function comment($uid, $aid, $content ){
         if( !isset($uid)||!isset($aid)||!isset($content) ){
-            $returnJson=array(
-            'error'=>1001,
-            );
-        }else{
-            $time = time();
-            $data = array(
-                'uid' => $uid,
-                'aid' =>$aid,
-                'content' =>$content,
-                'time' =>$time,
-                );
-            $result = $this->add($data);
-            if($result&&$result!=''){
-                $returnJson=array(
-                'error'=>0,
-                );
-            }else{
-                $returnJson=array(
-                'error'=>1002,
-                );
-            }
-        }           
-        return $returnJson;
-        
+            return false;
+        }
+
+        $time = time();
+        $data = array(
+            'uid'       => $uid,
+            'aid'       => $aid,
+            'content'   => $content,
+            'time'      => $time,
+        );
+        $result = $this->add($data);
+        return $result;
     }
+
+    /**
+     * 添加评论
+     * @param   com_id      评论id
+     * @return  boolean
+     */
     public function deleteComment($com_id){ //删除留言
         if(!isset($com_id)){
-            $returnJson=array(
-            'error'=>1001,
-            );
-        }else{
-            $where['id'] = $com_id;
-            $result = $this ->where($where)->delete();
-            if($result&&$result!=''){
-                $returnJson=array(
-                'error'=>0,
-                );
-            }else{
-                $returnJson=array(
-                'error'=>1002,
-                );
-            }
+            return false;
         }
-        
-        return $returnJson;
+        $where['id'] = $com_id;
+        $result = $this ->where($where)->delete();
+        return $result;
     }
 }
