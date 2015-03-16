@@ -8,7 +8,7 @@ class LoginController extends Controller {
     *登陆功能页面
     *退出
     */
-    public function login(){
+    public function auth(){
         $msgNO          = array(
             'need_params'       => -1,
             'login_failed'      => -2,
@@ -25,20 +25,20 @@ class LoginController extends Controller {
             $where['qqopenid']  = $openid;
             $userResult         = $userModel->where($where)->find();
             if($userResult){
-                unset($userResult['passwd']);
-                $r      = array(
-                    'data'  => $userResult,
-                    'msg'   => 'login_success'
-                    'status' => $msgNO['login_success'],
-                );
-                $_SESSION['user_info']  = $userResult;
                 $sign                   = createSignature($userResult);
                 cookie('signature', $sign, 3600*24*7);
+                unset($userResult['passwd']);
+                $_SESSION['user_info']  = $userResult;
+                $r      = array(
+                    'data'      => $userResult,
+                    'msg'       => 'login_success',
+                    'status'    => $msgNO['login_success']
+                );
             } else {
                 $r      = array(
-                    'data'  => array(),
-                    'msg'   => 'login_failed'
-                    'status' => $msgNO['login_failed'],
+                    'data'      => array(),
+                    'msg'       => 'login_failed',
+                    'status'    => $msgNO['login_failed']
                 );
             }
             $this->ajaxReturn($r);
@@ -46,9 +46,9 @@ class LoginController extends Controller {
 
         if(!$username||!$password){
             $r      = array(
-                'data'  => array(),
-                'msg'   => 'need_params'
-                'status' => $msgNO['need_params'],
+                'data'      => array(),
+                'msg'       => 'need_params',
+                'status'    => $msgNO['need_params']
             );
             $this->ajaxReturn($r);
         }
@@ -57,16 +57,18 @@ class LoginController extends Controller {
         $result             = $userModel->where($where)->find();
         if($result['passwd']!=md5($password)){
             $r      = array(
-                'data'  => array(),
-                'msg'   => 'login_failed'
-                'status' => $msgNO['login_failed'],
+                'data'      => array(),
+                'msg'       => 'login_failed',
+                'status'    => $msgNO['login_failed']
             );
             $this->ajaxReturn($r);
         }
 
-        $_SESSION['user_info']  = $result;
+        
         $sign                   = createSignature($result);
         cookie('signature', $sign, 3600*24*7);
+        unset($result['passwd']);
+        $_SESSION['user_info']  = $result;
 
         $more['login_time']     = time();
         $more['login_style']    = LoginStyle();
@@ -74,20 +76,20 @@ class LoginController extends Controller {
 
         $r      = array(
             'data'      => $result,
-            'msg'       => 'login_success'
-            'status'    => $msgNO['login_success'],
+            'msg'       => 'login_success',
+            'status'    => $msgNO['login_success']
         );
 
         $this->ajaxReturn($r);
     }
-    
+
     public function logout(){
         session('user_info',null);
         cookie('signature',null);
         $r      = array(
             'data'      => array(),
-            'msg'       => 'logout_success'
-            'status'    => 1,
+            'msg'       => 'logout_success',
+            'status'    => 1
         );
         $this->ajaxReturn($r);
     }

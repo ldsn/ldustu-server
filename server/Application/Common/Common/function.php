@@ -41,3 +41,12 @@ function authSignature($signature){
     }
 
 }
+
+/**
+ * 签名
+ * @author  ety001
+ * @return  string
+ */
+function createSignature($arr){
+    return hash('sha256',$arr['username'].$arr['passwd']) . $arr['user_id'];
+}
