@@ -12,6 +12,7 @@ class LoginController extends Controller {
         $msgNO          = array(
             'need_params'       => -1,
             'login_failed'      => -2,
+            'openid_not_reg'    => -3,
             'login_success'     => 1
         );
 
@@ -37,8 +38,8 @@ class LoginController extends Controller {
             } else {
                 $r      = array(
                     'data'      => array(),
-                    'msg'       => 'login_failed',
-                    'status'    => $msgNO['login_failed']
+                    'msg'       => 'openid_not_reg',
+                    'status'    => $msgNO['openid_not_reg']
                 );
             }
             $this->ajaxReturn($r);
