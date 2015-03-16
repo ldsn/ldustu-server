@@ -137,6 +137,29 @@ ALTER TABLE  `ldsn_user` CHANGE  `id`  `user_id` INT( 11 ) NOT NULL AUTO_INCREME
 -- 2015-03-16 23:16
 RENAME TABLE  `ldustu`.`ldsn_article_detial` TO  `ldustu`.`ldsn_article_detail`;
 
+-- 2015-03-17 00:45
+ALTER TABLE  `ldsn_favour` CHANGE  `id`  `favor_id` INT( 11 ) NOT NULL AUTO_INCREMENT ,
+CHANGE  `uid`  `user_id` INT( 11 ) NOT NULL ,
+CHANGE  `aid`  `article_id` INT( 11 ) NOT NULL;
+
+RENAME TABLE  `ldustu`.`ldsn_favour` TO  `ldustu`.`ldsn_favor` ;
+
+ALTER TABLE  `ldsn_article` CHANGE  `id`  `article_id` INT( 11 ) NOT NULL AUTO_INCREMENT ,
+CHANGE  `uid`  `user_id` INT( 11 ) NOT NULL ,
+CHANGE  `cid`  `column_id` INT( 11 ) NOT NULL ,
+CHANGE  `favour`  `favor` INT( 11 ) NOT NULL ,
+CHANGE  `time`  `create_time` INT( 11 ) NOT NULL;
+
+ALTER TABLE  `ldsn_article_detail` CHANGE  `id`  `detail_id` INT( 11 ) NOT NULL AUTO_INCREMENT ,
+CHANGE  `aid`  `article_id` INT( 11 ) NOT NULL;
+
+ALTER TABLE  `ldsn_column` CHANGE  `id`  `column_id` INT( 11 ) NOT NULL AUTO_INCREMENT ,
+CHANGE  `name`  `column_name` VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+CHANGE  `time`  `create_time` INT NOT NULL;
+
+
+
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
