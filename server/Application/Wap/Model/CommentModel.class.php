@@ -1,16 +1,16 @@
 <?php
 namespace Wap\Model;
-use Think\Model;
-class CommentModel extends Model{
+//use Think\Model;
+use Think\Model\RelationModel;
+class CommentModel extends RelationModel{
     protected $_link = array(
-        'UserInfo'=>array(
+            'UserInfo'  => array(
                 'mapping_type'      => self::HAS_ONE,
                 'class_name'        => 'User',
                 'mapping_name'      => 'user_info',
                 'foreign_key'       => 'user_id'
             )
         );
-    );
     /**
      * 获取评论列表
      * @param   conditions          查询条件
@@ -22,10 +22,10 @@ class CommentModel extends Model{
     public function catchComment($conditions=array(), $offset=0, $count=20, $order='comment_id desc'){
         $offset     = (int)$offset;
         $count      = (int)$count;
-        $result     = $this->limit($offset, $count)
+        $result     = $this->relation('UserInfo')
                             ->where($conditions)
                             ->order($order)
-                            ->relation('UserInfo')
+                            ->limit($offset, $count)
                             ->select();
         return $result;
     }
@@ -62,6 +62,7 @@ class CommentModel extends Model{
             return false;
         }
         $where['comment_id']    = $comment_id;
+        $where['user_id']       = $_SESSION['user_info']['user_id'];        
         $result                 = $this->where($where)->delete();
         return $result;
     }

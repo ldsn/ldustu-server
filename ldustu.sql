@@ -134,6 +134,9 @@ CHANGE  `time`  `create_time` INT( 11 ) NOT NULL;
 ALTER TABLE  `ldsn_user` CHANGE  `id`  `user_id` INT( 11 ) NOT NULL AUTO_INCREMENT;
 
 
+-- 2015-03-16 23:16
+RENAME TABLE  `ldustu`.`ldsn_article_detial` TO  `ldustu`.`ldsn_article_detail`;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
