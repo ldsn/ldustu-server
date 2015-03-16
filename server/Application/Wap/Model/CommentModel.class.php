@@ -2,58 +2,67 @@
 namespace Wap\Model;
 use Think\Model;
 class CommentModel extends Model{
+    protected $_link = array(
+        'UserInfo'=>array(
+                'mapping_type'      => self::HAS_ONE,
+                'class_name'        => 'User',
+                'mapping_name'      => 'user_info',
+                'foreign_key'       => 'user_id'
+            )
+        );
+    );
     /**
      * 获取评论列表
      * @param   conditions          查询条件
-     * @param   startid             开始条数
+     * @param   offset              开始条数
      * @param   count               每页条数
      * @param   order               排序条件
      * @return  false|array
      */
-    public function catchComment($conditions=array(), $startid=0, $count=20, $order='id desc'){
-        $startid    = (int)$startid;
+    public function catchComment($conditions=array(), $offset=0, $count=20, $order='comment_id desc'){
+        $offset     = (int)$offset;
         $count      = (int)$count;
-        $result     = $this->limit($startid, $count)
+        $result     = $this->limit($offset, $count)
                             ->where($conditions)
                             ->order($order)
+                            ->relation('UserInfo')
                             ->select();
         return $result;
     }
 
     /**
      * 添加评论
-     * @param   uid         用户id
-     * @param   aid         目标用户id
-     * @param   content     评论内容
+     * @param   user_id         用户id
+     * @param   article_id      文章id
+     * @param   content         评论内容
      * @return  boolean
      */
-    public function comment($uid, $aid, $content ){
-        if( !isset($uid)||!isset($aid)||!isset($content) ){
+    public function addComment($user_id, $article_id, $content ){
+        if( !isset($user_id)||!isset($article_id)||!isset($content) ){
             return false;
         }
-
         $time = time();
         $data = array(
-            'uid'       => $uid,
-            'aid'       => $aid,
-            'content'   => $content,
-            'time'      => $time,
+            'user_id'           => $user_id,
+            'article_id'        => $article_id,
+            'content'           => $content,
+            'create_time'       => $time,
         );
         $result = $this->add($data);
         return $result;
     }
 
     /**
-     * 添加评论
-     * @param   com_id      评论id
+     * 删除评论
+     * @param   comment_id      评论id
      * @return  boolean
      */
-    public function deleteComment($com_id){ //删除留言
-        if(!isset($com_id)){
+    public function deleteComment($comment_id){ //删除留言
+        if(!isset($comment_id)){
             return false;
         }
-        $where['id'] = $com_id;
-        $result = $this ->where($where)->delete();
+        $where['comment_id']    = $comment_id;
+        $result                 = $this->where($where)->delete();
         return $result;
     }
 }
