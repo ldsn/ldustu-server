@@ -89,9 +89,7 @@ class ArticleModel extends RelationModel{
                         }else{
                           $comEnd = false;
                         }
-                       $new[$key]['cominfo'] = array(
-                                  $cominfo,
-                        );
+                       $new[$key]['cominfo'] = $cominfo;
                        $new[$key]['comEnd'] = $comEnd;
                        $new[$key]['comListNum'] = $comListNum;
             }
