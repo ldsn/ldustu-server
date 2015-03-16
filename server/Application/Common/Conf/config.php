@@ -16,8 +16,8 @@ return array(
     'DEFAULT_MODULE'        =>  'Pc',
     'APP_SUB_DOMAIN_DEPLOY'   =>    1, // 开启子域名或者IP配置
     'APP_SUB_DOMAIN_RULES'    =>    array(
-        'test.wap.ldustu.com'=>'Wap',
-        'test.ldustu.com'=>'Pc',
+        $_SERVER['LDSN_WAP_URL']=>'Wap',
+        $_SERVER['LDSN_PC_URL']=>'Pc',
     ),
     'URL_MODEL'=>1,  //url模式  pathinfo
     'URL_CASE_INSENSITIVE' => true, //URL不区分大小写

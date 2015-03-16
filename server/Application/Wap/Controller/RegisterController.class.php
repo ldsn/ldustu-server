@@ -3,76 +3,113 @@ namespace Wap\Controller;
 use Think\Controller;
 header('Content-Type: text/html; charset=utf-8;');
 class RegisterController extends Controller {
-	/*
-	*注册页面
-	*注册功能
-	*/
-	public function Register(){
-		if(check_verify(I('post.verify'))){ //判断验证码
-			$password =  I('post.password');
-			$repassword = I('post.repassword');
-			if($password == $repassword){
-				$mailResult = checkMail(I('post.mail'));
-				if($mailResult&&$mailResult!=''){
-					$username = I('post.username');
-					$qq = I('post.qq');
-					$time = time();
-					$loginWay = LoginStyle();
-					$data = array(
-						'username' =>$username,
-						'passwd' =>md5($password),
-						'email' =>$email,
-						'qq' =>$qq,
-						'sign_time' =>$time,
-						'login_time'=>$time,
-						'login_style'=>$loginWay,
-						);
-					$user = D('user');
-					$result = $user->data($data)->add();
-				}else{
-					$returnJson['error'] = 1007;
-				}
-				
-			}else{
-				$returnJson['error'] = 1006;
-			}
-			
-		}else{
-			$returnJson['error'] = 1005;
-		}
-		$this->ajaxReturn($returnJson);
-	}
-	public function checkName(){
-		$username  = I('get.username');
-		$user = D('user');
-		$where['username'] = $username; 
-		$result = $user->where($where)->count();
-		if($result&&$result!=''){
-			$returnJson['error'] = 0;
-		}else{
-			$returnJson['error'] = 1002;
-		}
-		$this->ajaxReturn($returnJson);
-	}
-	public function checkMail($mail){
-		$pattern_test = "/([a-z0-9]*[-_.]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[.][a-z]{2,3}([.][a-z]{2})?/i";
-		$result = preg_match($pattern_test,$mail);
-		if($result = 1){
-			$returnJson['error'] = 0;
-		}else{
-			$returnJson['error'] = 1007;
-		}
-		$this->ajaxReturn($returnJson);
-	}
-	public function checkPswd(){
-		$password = I('post.password');
-		$repassword  =I('post.repassword');
-		if($password == $repassword){
-			$returnJson['error'] = 0;
-		}else{
-			$returnJson['error'] = 1006;
-		}
-		$this->ajaxReturn($returnJson);
-	}
+    /*
+    *注册页面
+    *注册功能
+    */
+    public function save(){
+        $msgNO      = array(
+            'auth_code_err'         => -1,
+            'need_auth_code'        => -2,
+            'repassword_err'        => -3,
+            'email_err'             => -4,
+            'email_has_existed'     => -5,
+            'username_has_existed'  => -6,
+            'need_password'         => -7,
+            'pass_not_long'         => -8,//密码不够长
+            'reg_failed'            => -9,
+            'reg_success'           => 1
+        );
+
+        $arr['verify']          = I('post.verify');
+        $arr['password']        = I('post.password');
+        $arr['repassword']      = I('post.repassword');
+        $arr['email']           = I('post.email');
+        $arr['username']        = I('post.username');
+        $arr['qq']              = I('post.qq');
+        $arr['qqopenid']        = I('post.openid');
+        $user_model             = D('user');
+
+        //数据验证
+        $auth       = $user_model->create($arr);
+        if(!$auth){
+            $err    = $user_model->getError();
+            $r      = array(
+                'data'      => array(),
+                'msg'       => $err,
+                'status'    => $msgNO[$err]
+            );
+            $this->ajaxReturn($r);
+        }
+
+        $info       = $user_model->add($arr);
+        if($info){
+            $r      = array(
+                'data'      => $info,
+                'msg'       => 'reg_success',
+                'status'    => $msgNO['reg_success']
+            );
+        } else {
+            $r      = array(
+                'data'      => array(),
+                'msg'       => 'reg_failed',
+                'status'    => $msgNO['reg_failed']
+            );
+        }
+        $this->ajaxReturn($r);
+    }
+
+    public function checkName(){
+        $username           = I('post.username');
+        $user_model         = D('user');
+        $where['username']  = $username; 
+        $result             = $user_model->where($where)->count();
+        if($result){
+            $r  = array(
+                'data'      => array(),
+                'msg'       => 'username_has_existed',
+                'status'    => -1
+            );
+        }else{
+            $r  = array(
+                'data'      => array(),
+                'msg'       => 'can_reg',
+                'status'    => 1
+            );
+        }
+        $this->ajaxReturn($r);
+    }
+
+    public function checkMail(){
+        $email          = I('post.email');
+        $pattern_test   = "/([a-z0-9]*[-_.]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[.][a-z]{2,3}([.][a-z]{2})?/i";
+        $result         = preg_match($pattern_test,$email);
+        if(!$result){
+            $r  = array(
+                'data'      => array(),
+                'msg'       => 'email_err',//格式不对
+                'status'    => -1
+            );
+            $this->ajaxReturn($r);
+        }
+        $user_model             = D('user');
+        $where['email']         = $email; 
+        $result                 = $user_model->where($where)->count();
+
+        if($result){
+            $r  = array(
+                'data'      => array(),
+                'msg'       => 'email_has_existed',
+                'status'    => -1
+            );
+        }else{
+            $r  = array(
+                'data'      => array(),
+                'msg'       => 'can_reg',
+                'status'    => 1
+            );
+        }
+        $this->ajaxReturn($r);
+    }
 
 }

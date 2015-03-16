@@ -1,79 +1,69 @@
 <?php
 namespace Wap\Model;
-use Think\Model;
-class CommentModel extends Model{
-	public function catchComment($aid,$startid = 0,$count = 20){
-		if(!isset($aid)||!isset($count)){
-			$returnJson=array(
-			'error'=>1001,
-			);
-		}else{	
-			if($count>50){
-				$count = 50;
-				$returnJson['error'] = 1010;
-			}
-				$where['aid'] = (int)$aid;
-				$result =$this->limit($startid,$count)->where($where)->order('time desc')->select();
-				if($result&&$result!=''){
-					$returnJson = array(
-						'error'=>0,
-					); 
-				}else{
-					$returnJson = array(
-						'error'=>1002,
-					);
-				}
-			
-		}
-		$result['error'] = $returnJson['error'];
-		return $result;
-	}
-	public function comment($uid,$aid,$content ){	//评论动作
-		if( !isset($uid)||!isset($aid)||!isset($content) ){
-			$returnJson=array(
-			'error'=>1001,
-			);
-		}else{
-			$time = time();
-			$data = array(
-				'uid' => $uid,
-				'aid' =>$aid,
-				'content' =>$content,
-				'time' =>$time,
-				);
-			$result = $this->add($data);
-			if($result&&$result!=''){
-				$returnJson=array(
-				'error'=>0,
-				);
-			}else{
-				$returnJson=array(
-				'error'=>1002,
-				);
-			}
-		}			
-		return $returnJson;
-		
-	}
-	public function deleteComment($com_id){ //删除留言
-		if(!isset($com_id)){
-			$returnJson=array(
-			'error'=>1001,
-			);
-		}else{
-			$where['id'] = $com_id;
-			$result = $this ->where($where)->delete();
-			if($result&&$result!=''){
-				$returnJson=array(
-				'error'=>0,
-				);
-			}else{
-				$returnJson=array(
-				'error'=>1002,
-				);
-			}
-		}
-		
-		return $returnJson;
-	}
+//use Think\Model;
+use Think\Model\RelationModel;
+class CommentModel extends RelationModel{
+    protected $_link = array(
+            'UserInfo'  => array(
+                'mapping_type'      => self::HAS_ONE,
+                'class_name'        => 'User',
+                'mapping_name'      => 'user_info',
+                'foreign_key'       => 'user_id'
+            )
+        );
+    /**
+     * 获取评论列表
+     * @param   conditions          查询条件
+     * @param   offset              开始条数
+     * @param   count               每页条数
+     * @param   order               排序条件
+     * @return  false|array
+     */
+    public function catchComment($conditions=array(), $offset=0, $count=20, $order='comment_id desc'){
+        $offset     = (int)$offset;
+        $count      = (int)$count;
+        $result     = $this->relation('UserInfo')
+                            ->where($conditions)
+                            ->order($order)
+                            ->limit($offset, $count)
+                            ->select();
+        return $result;
+    }
+
+    /**
+     * 添加评论
+     * @param   user_id         用户id
+     * @param   article_id      文章id
+     * @param   content         评论内容
+     * @return  boolean
+     */
+    public function addComment($user_id, $article_id, $content ){
+        if( !isset($user_id)||!isset($article_id)||!isset($content) ){
+            return false;
+        }
+        $time = time();
+        $data = array(
+            'user_id'           => $user_id,
+            'article_id'        => $article_id,
+            'content'           => $content,
+            'create_time'       => $time,
+        );
+        $result = $this->add($data);
+        return $result;
+    }
+
+    /**
+     * 删除评论
+     * @param   comment_id      评论id
+     * @return  boolean
+     */
+    public function deleteComment($comment_id){ //删除留言
+        if(!isset($comment_id)){
+            return false;
+        }
+        $where['comment_id']    = $comment_id;
+        $where['user_id']       = $_SESSION['user_info']['user_id'];        
+        $result                 = $this->where($where)->delete();
+        return $result;
+    }
 }
