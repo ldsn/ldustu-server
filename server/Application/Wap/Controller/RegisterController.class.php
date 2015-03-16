@@ -21,13 +21,14 @@ class RegisterController extends Controller {
             'reg_success'           => 1
         );
 
-        $arr['verify']         = I('post.verify');
-        $arr['password']       = I('post.password');
-        $arr['repassword']     = I('post.repassword');
-        $arr['email']          = I('post.email');
-        $arr['username']       = I('post.username');
-        $arr['qq']             = I('post.qq');
-        $user_model            = D('user');
+        $arr['verify']          = I('post.verify');
+        $arr['password']        = I('post.password');
+        $arr['repassword']      = I('post.repassword');
+        $arr['email']           = I('post.email');
+        $arr['username']        = I('post.username');
+        $arr['qq']              = I('post.qq');
+        $arr['qqopenid']        = I('post.openid');
+        $user_model             = D('user');
 
         //数据验证
         $auth       = $user_model->create($arr);
