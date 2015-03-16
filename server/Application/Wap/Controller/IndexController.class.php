@@ -26,19 +26,14 @@ class IndexController extends Controller {
                
           // }
           public function index(){
+               session('id',5);
                $id = session('id');
-               $cookie_id = cookie('data');
-               if($id||$cookie_id){
+               if($id){
                     $user = D('user');
                     $where['id'] = isset($id) ? $id : $cookie_id;
                     $userResult = $user->where($where)->select();
                     $userInfo = $userResult[0];
                     unset($userInfo['passwd']);
-                    session('id',$userResult['id']);
-                    if($cookieTime){
-                              $data = $userResult['id'];
-                              cookie('data',$data,$cookieTime);
-                         }
                     if($userResult&&$userResult!=''){
                          $returnJson['error'] = 0;
                          $returnJson['userResult'] = $userInfo;
