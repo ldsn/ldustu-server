@@ -12,7 +12,6 @@ class IndexController extends Controller {
             $this->assign('user_info', $user_info);
         }
         $this->assign('column', $column);
-        var_dump(getenv('debug'));die();
         if(getenv('debug')==1){
             $this->display('index/index.tpl');
         } else {
