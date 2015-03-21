@@ -9,11 +9,11 @@ class IndexController extends Controller {
         if($_SESSION['user_info']['user_id']){
             $user_info          = $_SESSION['user_info'];
             unset($user_info['passwd']);
-            $this->assign('user_info', $user_info);
+            $this->assign('user_info', json_encode($user_info));
         }
-        $this->assign('column', $column);
+        $this->assign('column', json_encode($column));
         if(getenv('debug')==1){
-            $this->display('index/index.tpl');
+            $this->display('index/index');
         } else {
             $this->display('ldsn-wap/page/index');
         }
