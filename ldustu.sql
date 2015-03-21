@@ -158,6 +158,10 @@ CHANGE  `name`  `column_name` VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_gene
 CHANGE  `time`  `create_time` INT NOT NULL;
 
 
+-- 2015-03-21 14:50
+RENAME TABLE  `ldustu`.`ldsn_favor` TO  `ldustu`.`ldsn_favour` ;
+ALTER TABLE  `ldsn_favour` CHANGE  `favor_id`  `favour_id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+
 
 
 
