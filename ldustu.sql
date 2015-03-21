@@ -162,7 +162,8 @@ CHANGE  `time`  `create_time` INT NOT NULL;
 RENAME TABLE  `ldustu`.`ldsn_favor` TO  `ldustu`.`ldsn_favour` ;
 ALTER TABLE  `ldsn_favour` CHANGE  `favor_id`  `favour_id` INT( 11 ) NOT NULL AUTO_INCREMENT;
 
-
+-- 2015-03-21 15:10
+ALTER TABLE  `ldsn_user` CHANGE  `passwd`  `password` CHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
