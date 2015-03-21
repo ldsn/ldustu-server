@@ -12,6 +12,11 @@ class IndexController extends Controller {
             $this->assign('user_info', $user_info);
         }
         $this->assign('column', $column);
-        $this->display('ldsn-wap/page/index');
+        var_dump(getenv('debug'));die();
+        if(getenv('debug')==1){
+            $this->display('index/index.tpl');
+        } else {
+            $this->display('ldsn-wap/page/index');
+        }
     }
 }
