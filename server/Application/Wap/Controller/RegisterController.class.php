@@ -55,7 +55,7 @@ class RegisterController extends Controller {
 
         $more['login_time']     = time();
         $more['login_style']    = LoginStyle();
-        $userModel->where($where)->save($more);
+        $user_model->where($where)->save($more);
 
         if($info){
             $r      = array(
