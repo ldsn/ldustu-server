@@ -28,6 +28,9 @@ class RegisterController extends Controller {
         $arr['username']        = I('post.username');
         $arr['qq']              = I('post.qq');
         $arr['qqopenid']        = I('post.openid');
+        $arr['head_pic']        = I('post.head_pic');
+        $arr['sign_time']       = I('post.sign_time');
+        $arr['telphone']        = I('post.telphone');
         $user_model             = D('user');
 
         //数据验证
@@ -41,8 +44,19 @@ class RegisterController extends Controller {
             );
             $this->ajaxReturn($r);
         }
-
         $info       = $user_model->add($arr);
+
+        $arr['user_id']     = $info;     
+        $sign                   = createSignature($arr);
+        cookie('signature', $sign, 3600*24*7);
+        unset($arr['password']);
+        unset($arr['repassword']);
+        $_SESSION['user_info']  = $arr;
+
+        $more['login_time']     = time();
+        $more['login_style']    = LoginStyle();
+        $userModel->where($where)->save($more);
+
         if($info){
             $r      = array(
                 'data'      => $info,
