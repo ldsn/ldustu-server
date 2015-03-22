@@ -53,16 +53,23 @@ class ArticleController extends Controller {
      * @author ety001
      */
     public function show(){//文章内容页
-        $article_id         = I('get.aid');
-        
-        if($aid&&$aid!=''){
-            $article = D('article');
-            $result = $article->articleArticle($aid);
-        }else{
-            $result['error'] = 1001;
+        $msgNO          = array(
+            'article_id_empty'          => -1,
+            'no_article'                => 0,
+            'get_article_success'       => 1
+        );
+        $article_id         = I('post.aid',0,'int');
+        if(!$article_id){
+            ajaxReturn(array(), 'article_id_empty', $msgNO['article_id_empty']);
         }
 
-        $this->ajaxReturn($result);
+        $article_model      = D('Article');
+        $result             = $article_model->getDetail($article_id);
+        if($result){
+            ajaxReturn($result, 'get_article_success', $msgNO['get_article_success']);
+        } else {
+            ajaxReturn(array(), 'no_article', $msgNO['no_article']);
+        }
     }
 
     /**

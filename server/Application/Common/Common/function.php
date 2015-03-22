@@ -59,11 +59,11 @@ function createSignature($arr){
  * @param int $status 返回的错误码
  */ 
 function ajaxReturn($data, $msg, $status){
-    $controller     = A('Index');
     $r              = array(
         'data'      => $data,
         'msg'       => $msg,
         'status'    => $status
     );
-    $controller->ajaxReturn($r);
+    header('Content-Type:application/json; charset=utf-8');
+    exit(json_encode($r));
 }
