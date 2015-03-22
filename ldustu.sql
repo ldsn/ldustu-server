@@ -165,6 +165,15 @@ ALTER TABLE  `ldsn_favour` CHANGE  `favor_id`  `favour_id` INT( 11 ) NOT NULL AU
 -- 2015-03-21 15:10
 ALTER TABLE  `ldsn_user` CHANGE  `passwd`  `password` CHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 
+-- 2015-03-22 09:34
+ALTER TABLE  `ldsn_article` CHANGE  `cnum`  `comment_num` INT( 11 ) NOT NULL COMMENT  '评论数',
+CHANGE  `favor`  `favour_num` INT( 11 ) NOT NULL COMMENT  '点赞数',
+CHANGE  `visit`  `view_num` INT( 11 ) NOT NULL DEFAULT  '0' COMMENT  '访问数',
+CHANGE  `ismake`  `status` SMALLINT( 6 ) NOT NULL DEFAULT  '0' COMMENT  '文章状态，0未审核，1审核通过',
+CHANGE  `image`  `thumbnail` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT  '封面图片',
+CHANGE  `from`  `from_device` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT  '来自何种设备发布';
+
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
