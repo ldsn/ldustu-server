@@ -56,7 +56,7 @@ class RegisterController extends Controller {
 
         if($info){
             $r      = array(
-                'data'      => $info,
+                'data'      => $arr,
                 'msg'       => 'reg_success',
                 'status'    => $msgNO['reg_success']
             );
