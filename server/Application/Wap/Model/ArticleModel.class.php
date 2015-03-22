@@ -21,6 +21,13 @@ class ArticleModel extends RelationModel{
             'mapping_key'       => 'user_id',
             'mapping_fields'    => 'user_id, username, head_pic',
             'foreign_key'       => 'user_id'
+        ),
+        'FavInfo'  => array(
+            'mapping_type'      => self::HAS_ONE,
+            'class_name'        => 'Favour',
+            'mapping_name'      => 'favour_info',
+            'condition'         => 'user_id='.$_SESSION['user_info']['user_id'],
+            'foreign_key'       => 'article_id'
         )
     );
 
