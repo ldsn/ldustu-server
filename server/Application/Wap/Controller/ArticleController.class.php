@@ -35,7 +35,7 @@ class ArticleController extends Controller {
         $result_total       = $article_model->getList($conditions,0,0,'',true);
         $page               = array(
             'total'             => $result_total,
-            'total_page'        => ceil($result_total/$count);
+            'total_page'        => ceil($result_total/$count)
         );
         $r                  = array(
             'list'      = $result,
