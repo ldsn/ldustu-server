@@ -17,6 +17,7 @@ class FavourModel extends Model{
             $num            = count($result);
             $data['favour_num']     = $num;
             M('Article')->where(array('article_id'=>$article_id))->save($data);
+            M('User')->where(array('user_id'=>$user_id))->save($data);
             return $num;
         } else {
             return false;
