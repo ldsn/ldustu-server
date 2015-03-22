@@ -19,10 +19,10 @@ class CommentModel extends RelationModel{
      * @param   order               排序条件
      * @return  false|array
      */
-    public function catchComment($conditions=array(), $offset=0, $count=20, $order='comment_id desc'){
+    public function catchComment($conditions=array(), $offset=0, $count=20, $order='comment_id asc'){
         $offset     = (int)$offset;
         $count      = (int)$count;
-        $result     = $this->relation('UserInfo')
+        $result     = $this->relation(true)
                             ->where($conditions)
                             ->order($order)
                             ->limit($offset, $count)

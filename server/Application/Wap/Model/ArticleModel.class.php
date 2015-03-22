@@ -14,13 +14,11 @@ class ArticleModel extends RelationModel{
             'class_name'=>'ArticleDetail',
             'foreign_key'=>'article_id',
         ),
-        'Comment' =>array(
-            'mapping_type'=>self::HAS_MANY,
-            'mapping_name'=>'comment_list',
-            'class_name'=>'Comment',
-            'foreign_key'=>'article_id',
-            'mapping_limit'=>5,//与CommentController中的limit对应
-            'mapping_order'=>'comment_id desc'
+        'UserInfo'  => array(
+            'mapping_type'      => self::HAS_ONE,
+            'class_name'        => 'User',
+            'mapping_name'      => 'user_info',
+            'foreign_key'       => 'user_id'
         )
     );
 
@@ -33,6 +31,11 @@ class ArticleModel extends RelationModel{
     public function getDetail($aid){
         if(!$aid)return false;
         $result = $this->relation(true)->where(array('article_id'=>$aid))->find();
+        if($result){
+            $comment_model                  = D('Comment');
+            $conditions['article_id']       = $result['article_id'];
+            $result['comment_list']         = $comment_model->catchComment($conditions, 0, 5);
+        }
         return $result;
     }
 
@@ -86,6 +89,13 @@ class ArticleModel extends RelationModel{
                         ->order($order)
                         ->relation(true)
                         ->select();
+            if($result){
+                $comment_model      = D('Comment');
+                foreach ($result as $k => $v) {
+                    $conditions['article_id']       = $v['article_id'];
+                    $result[$k]['comment_list']     = $comment_model->catchComment($conditions, 0, 5);
+                }
+            }
         }
         return  $result;
     }
