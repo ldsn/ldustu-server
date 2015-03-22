@@ -99,10 +99,10 @@ class ArticleModel extends RelationModel{
      */
     public function changeStatus($article_id, $status=-1, $admin=false){
         if(!$article_id)return false;
-        $info   = $this->where(array('article_id'=>$article_id))->select();
-        if($info['user_id']==$_SESSION['user_info']['user_id'] || $admin){
+        $info               = $this->where(array('article_id'=>$article_id))->select();
+        $current_user_id    = $_SESSION['user_info']['user_id'];
+        if($info[0]['user_id']==$current_user_id || $admin){
             $data['status'] = $status;
-            echo 1;
             return $this->where(array('article_id'=>$article_id))->save($data);
         } else {
             return '-1';

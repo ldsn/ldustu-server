@@ -130,6 +130,7 @@ class ArticleController extends Controller {
 
     /**
      * 删除文章
+     * @author ety001
      */
     public function remove(){
         $msgNO          = array(
