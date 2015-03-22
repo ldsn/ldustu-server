@@ -23,10 +23,9 @@ class ArticleModel extends RelationModel{
             'foreign_key'       => 'user_id'
         ),
         'FavInfo'  => array(
-            'mapping_type'      => self::HAS_ONE,
+            'mapping_type'      => self::HAS_MANY,
             'class_name'        => 'Favour',
             'mapping_name'      => 'favour_info',
-            'condition'         => 'user_id='.$_SESSION['user_info']['user_id'],
             'foreign_key'       => 'article_id'
         )
     );
@@ -39,6 +38,8 @@ class ArticleModel extends RelationModel{
      */
     public function getDetail($aid){
         if(!$aid)return false;
+        $user_id        = $_SESSION['user_info']['user_id']?$_SESSION['user_info']['user_id']:0;
+        $this->_link['FavInfo']['condition']    = "user_id={$user_id}";
         $result = $this->relation(true)->where(array('article_id'=>$aid))->find();
         if($result){
             $comment_model                  = D('Comment');
@@ -93,6 +94,8 @@ class ArticleModel extends RelationModel{
         if($is_count){
             $result = $this->where($conditions)->count();
         } else {
+            $user_id        = $_SESSION['user_info']['user_id']?$_SESSION['user_info']['user_id']:0;
+            $this->_link['FavInfo']['condition']    = "user_id={$user_id}";
             $result = $this->limit($offset,$count)
                         ->where($conditions)
                         ->order($order)
