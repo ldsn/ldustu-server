@@ -46,7 +46,7 @@ class ArticleModel extends RelationModel{
         if(!$data){
             $data       = array(
                 'user_id'           => $_SESSION['user_info']['user_id'],
-                'column_id'         => I('post.column_id',1,'int'),
+                'column_id'         => I('post.column_id',0,'int'),
                 'status'            => 1,
                 'title'             => I('post.title'),
                 'description'       => I('post.desc',''),
@@ -58,7 +58,7 @@ class ArticleModel extends RelationModel{
                     'tag'               => I('post.tag','')//这个功能的数据库结构让人很疑惑，不建议先使用
                 )
             );
-            if(!$data['user_id'] || !$data['title'] || !$data['detail']['content'])return false;
+            if(!$data['user_id'] || !$data['column_id'] || !$data['title'] || !$data['detail']['content'])return false;
         }
         $result = $this->relation('detail')->add($data);
         if($result){
@@ -89,5 +89,22 @@ class ArticleModel extends RelationModel{
         }
         return  $result;
     }
-            
+    
+    /**
+     * 改变文章状态
+     * @author  ety001
+     * @param int $article_id 文章id
+     * @param int $status 修改的状态值
+     * @param int $admin 是否管理员操作
+     */
+    public function changeStatus($article_id, $status=-1, $admin=false){
+        if(!$article_id)return false;
+        $info   = $this->where(array('article_id'=>$article_id))->select();
+        if($info['user_id']==$_SESSION['user_info']['user_id'] || $admin){
+            $data['status'] = $status;
+            return $this->where(array('article_id'=>$article_id))->save($data);
+        } else {
+            return -1;
+        }
+    }
 } 

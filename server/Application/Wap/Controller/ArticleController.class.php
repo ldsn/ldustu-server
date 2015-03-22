@@ -79,8 +79,11 @@ class ArticleController extends Controller {
     public function publish(){ //发布文章动作
         $msgNO          = array(
             'not_login'                 => -1,
-            'no_article'                => 0,
-            'get_article_success'       => 1
+            'need_title'                => -2,
+            'need_content'              => -3,
+            'add_failed'                => -4,
+            'need_column_id'            => -5,
+            'add_success'               => 1
         );
 
         $user_id            = $_SESSION['user_info']['user_id'];
@@ -92,7 +95,7 @@ class ArticleController extends Controller {
 
         $data       = array(
             'user_id'           => $_SESSION['user_info']['user_id'],
-            'column_id'         => I('post.column_id',1,'int'),
+            'column_id'         => I('post.column_id',0,'int'),
             'status'            => 1,
             'title'             => I('post.title'),
             'description'       => I('post.desc',''),
@@ -109,6 +112,10 @@ class ArticleController extends Controller {
             ajaxReturn(array(), 'need_title', $msgNO['need_title']);
         }
 
+        if(!$data['column_id']){
+            ajaxReturn(array(), 'need_column_id', $msgNO['need_column_id']);
+        }
+
         if(!$data['detail']['content']){
             ajaxReturn(array(), 'need_content', $msgNO['need_content']);
         }
@@ -118,6 +125,35 @@ class ArticleController extends Controller {
             ajaxReturn($result, 'add_success', $msgNO['add_success']);
         } else {
             ajaxReturn(array(), 'add_failed', $msgNO['add_failed']);
+        }
+    }
+
+    /**
+     * 删除文章
+     */
+    public function remove(){
+        $msgNO          = array(
+            'need_article_id'   => -1,
+            'has_no_auth'       => -2,//没有权限
+            'remove_failed'     => -3,
+            'remove_success'    => 1
+        );
+        $article_id     = I('post.aid',0,'int');
+        if(!$article_id){
+            ajaxReturn(array(), 'need_article_id', $msgNO['need_article_id']);
+        }
+        $article_model  = D('Article');
+        $result         = $article_model->changeStatus($article_id);
+        switch ($result) {
+            case -1:
+                ajaxReturn(array(), 'has_no_auth', $msgNO['has_no_auth']);
+                break;
+            case false:
+                ajaxReturn(array(), 'remove_failed', $msgNO['remove_failed']);
+                break;
+            default:
+                ajaxReturn(array(), 'remove_success', $msgNO['remove_success']);
+                break;
         }
     }
     
@@ -146,4 +182,6 @@ class ArticleController extends Controller {
         }
         $this->ajaxReturn($Data);
     }
+
+
 }
