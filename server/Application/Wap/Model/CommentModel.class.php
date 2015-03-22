@@ -8,6 +8,7 @@ class CommentModel extends RelationModel{
             'mapping_type'      => self::HAS_ONE,
             'class_name'        => 'User',
             'mapping_name'      => 'user_info',
+            'mapping_key'       => 'user_id',
             'mapping_fields'    => 'user_id, username, head_pic',
             'foreign_key'       => 'user_id'
         )
