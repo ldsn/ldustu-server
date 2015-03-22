@@ -24,7 +24,7 @@ class ArticleController extends Controller {
         }
         //用户
         $user_id        = I('post.user_id',0,'int');
-        if($column_id){
+        if($user_id){
             $conditions['user_id']      = $user_id;
         }
         //只列出已审核文章
@@ -145,7 +145,7 @@ class ArticleController extends Controller {
         $article_model  = D('Article');
         $result         = $article_model->changeStatus($article_id);
         switch ($result) {
-            case -1:
+            case '-1':
                 ajaxReturn(array(), 'has_no_auth', $msgNO['has_no_auth']);
                 break;
             case false:

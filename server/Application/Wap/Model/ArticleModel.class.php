@@ -102,9 +102,10 @@ class ArticleModel extends RelationModel{
         $info   = $this->where(array('article_id'=>$article_id))->select();
         if($info['user_id']==$_SESSION['user_info']['user_id'] || $admin){
             $data['status'] = $status;
+            echo 1;
             return $this->where(array('article_id'=>$article_id))->save($data);
         } else {
-            return -1;
+            return '-1';
         }
     }
 } 
