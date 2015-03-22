@@ -29,9 +29,9 @@ class RegisterController extends Controller {
         $arr['qq']              = I('post.qq');
         $arr['qqopenid']        = I('post.openid');
         $arr['head_pic']        = I('post.head_pic');
-        $arr['sign_time']       = I('post.sign_time');
         $arr['telphone']        = I('post.telphone');
         $user_model             = D('user');
+        $arr['sign_time']       = time();
 
         //数据验证
         $auth       = $user_model->create($arr);
