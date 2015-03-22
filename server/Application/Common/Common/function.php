@@ -50,3 +50,20 @@ function authSignature($signature){
 function createSignature($arr){
     return hash('sha256',$arr['username'].$arr['passwd']) . $arr['user_id'];
 }
+
+/**
+ * ajax方法返回
+ * @author ety001
+ * @param mixed $data 要返回的数据
+ * @param string $msg 返回的消息
+ * @param int $status 返回的错误码
+ */ 
+function ajaxReturn($data, $msg, $status){
+    $controller     = A('Index');
+    $r              = array(
+        'data'      => $data,
+        'msg'       => $msg,
+        'status'    => $status
+    );
+    $controller->ajaxReturn($r);
+}
