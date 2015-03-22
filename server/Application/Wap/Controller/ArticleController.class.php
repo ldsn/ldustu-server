@@ -87,11 +87,11 @@ class ArticleController extends Controller {
             'need_column_id'            => -5,
             'add_success'               => 1
         );
-
-        $user_id            = $_SESSION['user_info']['user_id'];
-        if(!$user_id){
+        
+        if(!authLogin()){
             ajaxReturn(array(), 'not_login', $msgNO['not_login']);
         }
+        $user_id            = $_SESSION['user_info']['user_id'];
 
         $article_model      = D('article');  // 初始化文章模型
 
