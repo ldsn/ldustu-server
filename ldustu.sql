@@ -177,6 +177,10 @@ CHANGE  `from`  `from_device` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NO
 ALTER TABLE  `ldsn_article` CHANGE  `comment_num`  `comment_num` INT( 11 ) NOT NULL DEFAULT  '0' COMMENT  '评论数',
 CHANGE  `favour_num`  `favour_num` INT( 11 ) NOT NULL DEFAULT  '0' COMMENT  '点赞数';
 
+-- 2015-03-23 12:46
+ALTER TABLE  `ldsn_user` ADD  `favour_num` INT NOT NULL ,
+ADD  `comment_num` INT NOT NULL;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
