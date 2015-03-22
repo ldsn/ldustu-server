@@ -77,45 +77,48 @@ class ArticleController extends Controller {
      * @author ety001
      */
     public function publish(){ //发布文章动作
-        //文章主表 字段构造
-        $uid =session('id');
-        if($uid){
-            $article = D('article');  // 初始化文章模型
-            $user = D('user'); //初始化用户模型
-            $cid =I('post.cid');
-            $title = I('post.title');
-            $content =I('post.content','','HtmlFilter');
-            $contentCut = substr_cut($content,120);
-            $description = I('post.description')?I('post.description'):$contentCut;
-            $image =I('post.image')?I('post.image'):null;
-            $time = time();
-            $from =I('post.from')?I('post.from'):null;
-            $tag = I('post.tag')?I('post.tag'):null;
-            $data = array(
-                'uid'=>$uid ,
-                'cid'=>$cid,
-                'title' =>$title,
-                'description' => $description,
-                'image' =>$image,
-                'time' =>$time,
-                'from' =>$from,
-                'Article_detial'=>array(
-                    'content'=>$content,
-                    'tag' =>$tag,
-                    ),
-                );
-            $result = $article->publishArticle($data);
+        $msgNO          = array(
+            'not_login'                 => -1,
+            'no_article'                => 0,
+            'get_article_success'       => 1
+        );
 
-            if($result){ //如果存在文章ID和文章细节ID
-                $returnJson['error'] = 0;
-            }else{
-                $returnJson['error'] = 1002;
-            }
-        }else{
-            $returnJson['error'] = 1003;
+        $user_id            = $_SESSION['user_info']['user_id'];
+        if(!$user_id){
+            ajaxReturn(array(), 'not_login', $msgNO['not_login']);
         }
-        
-        $this->ajaxReturn($returnJson);
+
+        $article_model      = D('article');  // 初始化文章模型
+
+        $data       = array(
+            'user_id'           => $_SESSION['user_info']['user_id'],
+            'column_id'         => I('post.column_id',1,'int'),
+            'status'            => 1,
+            'title'             => I('post.title'),
+            'description'       => I('post.desc',''),
+            'thumbnail'         => I('post.thumbnail',''),
+            'create_time'       => time(),
+            'from_device'       => 'wap',
+            'detail'            => array(
+                'content'           => I('post.content'),
+                'tag'               => I('post.tag','')//这个功能的数据库结构让人很疑惑，不建议先使用
+            )
+        );
+
+        if(!$data['title']){
+            ajaxReturn(array(), 'need_title', $msgNO['need_title']);
+        }
+
+        if(!$data['detail']['content']){
+            ajaxReturn(array(), 'need_content', $msgNO['need_content']);
+        }
+
+        $result                 = $article_model->publish($data);
+        if($result){
+            ajaxReturn($result, 'add_success', $msgNO['add_success']);
+        } else {
+            ajaxReturn(array(), 'add_failed', $msgNO['add_failed']);
+        }
     }
     
     /**

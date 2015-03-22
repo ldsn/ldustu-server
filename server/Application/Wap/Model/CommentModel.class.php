@@ -49,8 +49,10 @@ class CommentModel extends RelationModel{
             'create_time'       => $time,
         );
         $result = $this->add($data);
-        M('Article')->where(array('article_id'=>$article_id))->setInc('comment_num');
-        M('User')->where(array('user_id'=>$user_id))->setInc('comment_num');
+        if($result){
+            M('Article')->where(array('article_id'=>$article_id))->setInc('comment_num');
+            M('User')->where(array('user_id'=>$user_id))->setInc('comment_num');
+        }
         return $result;
     }
 
@@ -67,17 +69,20 @@ class CommentModel extends RelationModel{
         $where['user_id']       = $_SESSION['user_info']['user_id'];        
         $result                 = $this->where($where)->delete();
 
-        $article_model  = M('Article');
-        $info           = $article_model->field('comment_num')->find($article_id);
-        if($info['comment_num']>0){
-            $article_model->where(array('article_id'=>$article_id))->setDec('comment_num');
-        }
+        if($result){
+            $article_model  = M('Article');
+            $info           = $article_model->field('comment_num')->find($article_id);
+            if($info['comment_num']>0){
+                $article_model->where(array('article_id'=>$article_id))->setDec('comment_num');
+            }
 
-        $user_model     = M('User');
-        $info           = $user_model->field('comment_num')->find($user_id);
-        if($info['comment_num']>0){
-            $user_model->where(array('user_id'=>$user_id))->setDec('comment_num');
+            $user_model     = M('User');
+            $info           = $user_model->field('comment_num')->find($user_id);
+            if($info['comment_num']>0){
+                $user_model->where(array('user_id'=>$user_id))->setDec('comment_num');
+            }
         }
+        
         return $result;
     }
 }

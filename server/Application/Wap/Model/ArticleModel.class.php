@@ -61,6 +61,9 @@ class ArticleModel extends RelationModel{
             if(!$data['user_id'] || !$data['title'] || !$data['detail']['content'])return false;
         }
         $result = $this->relation('detail')->add($data);
+        if($result){
+            M('User')->where('user_id='.$data['user_id'])->setInc('article_num');
+        }
         return $result;
     }
 
