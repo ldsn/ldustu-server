@@ -38,8 +38,8 @@ class ArticleController extends Controller {
             'total_page'        => ceil($result_total/$count)
         );
         $r                  = array(
-            'list'      = $result,
-            'page'      = $page
+            'list'      => $result,
+            'page'      => $page
         );
 
         if($result){
