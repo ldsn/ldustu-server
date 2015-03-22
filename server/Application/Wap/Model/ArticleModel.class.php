@@ -2,108 +2,89 @@
 namespace Wap\Model;
 use Think\Model\RelationModel;
 class ArticleModel extends RelationModel{
-      /*
-      *关联配置
-      *文章内容页获取文章信息
-      *获取主页、列表获取文章信息
+    /*
+    *关联配置
+    *文章内容页获取文章信息
+    *获取主页、列表获取文章信息
+    */
+    protected $_link = array(
+        'ArticleDetail' =>array(
+            'mapping_type'=>self::HAS_ONE,
+            'mapping_name'=>'detail',
+            'class_name'=>'ArticleDetail',
+            'foreign_key'=>'article_id',
+        ),
+        'Comment' =>array(
+            'mapping_type'=>self::HAS_MANY,
+            'mapping_name'=>'comment_list',
+            'class_name'=>'Comment',
+            'foreign_key'=>'article_id',
+            'mapping_limit'=>5,//与CommentController中的limit对应
+            'mapping_order'=>'comment_id desc'
+        )
+    );
 
-      */
-	protected $_link = array(
-		'Article_detial' =>array(
-				'mapping_type'=>self::HAS_ONE,
-				'mapping_name'=>'Article_detial',
-				'class_name'=>'Article_detial',
-				'foreign_key'=>'aid',		
-			),
-		);
+    /**
+     * 获取指定文章id的文章内容
+     * @author      ety001
+     * @param int $aid 文章id
+     * @return false|array 返回结果或者false
+     */
+    public function getDetail($aid){
+        if(!$aid)return false;
+        $result = $this->relation(true)->where(array('article_id'=>$aid))->find();
+        return $result;
+    }
 
-      public function articleArticle($aid){
-            if(!isset($aid)){
-                    $returnJson=array(
-                      'error'=>1001,
-                      );
-            }else{
-                 $result = $this->relation(true)->find($aid);
-                 $result['content']= $result['Article_detial']['content'];
-                 $result['tag'] = $result['Article_detial']['tag']; 
-                 $result['Article_detial'] = null;
-                 if($result&&$result!=''){
-                      $returnJson=array(
-                      'error'=>0,
-                      );
-                    }else{
-                      $returnJson=array(
-                      'error'=>1002,
-                      );
-                    }
-            }
-            $result['error'] =$returnJson['error'];
-            return $result;
-      }
-      public function publishArticle($data){
-            $uid = session('id');
-            if($uid&&$uid!=''){
-              $result = $this->relation(true)->add($data);
-           }else{
-            $resultU['error'] = 1003;
-            $this->ajaxReturn($resultU);
-           }
-            return $result;
-      }
-	public function getArticle($startid,$getnum,$cid,$comGetNum){ 
-            $user = M('user');
-            $comment = M('comment');
-            $error = 0;
-            $where = array(   //构造取值条件
-                'ismake' => 1,
-                'clu_id' => $cid,
-               );
-            $result =  $this->limit($startid,$getnum)->where($where)->order('time desc')->select();
-            $listNum = count($result);
-            if($listNum<$getnum){   //判断文章能够再取 ，true 不能继续取
-              $end = true;
-            }else{
-              $end = false;
-            }
-            foreach($result as $key=> $value){    
-                       $new[$key]['aid'] = (int)$value['id'];
-                       $new[$key]['uid'] = (int)$value['uid'];
-                       $new[$key]['cid'] = (int)$value['cid'];
-                       $new[$key]['ismake'] = (int)$value['ismake'];
-                       $new[$key]['favour'] = (int)$value['favour'];
-                       $new[$key]['visit'] = (int)$value['visit']; 
-                       $new[$key]['comment'] = (int)$value['comment']; 
-                       $new[$key]['title'] = $value['title'];
-                       $new[$key]['desription'] = $value['desription'];
-                       $new[$key]['image'] = $value['image'];
-                       $new[$key]['time'] = (int)$value['time'];
-                       $new[$key]['from'] = $value['from'];
-                       $where['id'] = $new[$key]['uid'];
-                       $userinfo = $user->where($where)->field('username')->find();
-                       $new[$key]['username'] = $userinfo['username'];
-                       $where1['aid'] = $new[$key]['aid'];
-                       $cominfo = $comment->where($where1)->limit(0,$comGetNum)->order('time desc')->select();
-                       $comListNum = count($cominfo);
-                       if($comListNum<=$comGetNum){
-                            $comEnd = true;
-                        }else{
-                          $comEnd = false;
-                        }
-                       $new[$key]['cominfo'] = $cominfo;
-                       $new[$key]['comEnd'] = $comEnd;
-                       $new[$key]['comListNum'] = $comListNum;
-            }
-                        if(!$result||$result ==''){
-                           $error = 1002;
-                        }
-                        $Output = array(
-                                  'error'=>$error,
-                                  'data' =>$new,
-                                  'artEnd' =>$end,
-                                  'artListNum' =>$listNum,
-                            );	
-                         return  $Output;
-           
-        	}
+    /**
+     * 发布文章
+     * @author      ety001
+     * @param array $data 文章数据
+     * @return false|int 返回插入后的文章id或者false
+     */
+    public function publish($data){
+        if(!$data){
+            $data       = array(
+                'user_id'           => $_SESSION['user_info']['user_id'],
+                'column_id'         => I('post.column_id',1,'int'),
+                'status'            => 1,
+                'title'             => I('post.title'),
+                'description'       => I('post.desc',''),
+                'thumbnail'         => I('post.thumbnail',''),
+                'create_time'       => time(),
+                'from_device'       => 'wap',
+                'detail'            => array(
+                    'content'           => I('post.content'),
+                    'tag'               => I('post.tag','')//这个功能的数据库结构让人很疑惑，不建议先使用
+                )
+            );
+            if(!$data['user_id'] || !$data['title'] || !$data['detail']['content'])return false;
+        }
+        $result = $this->relation('detail')->add($data);
+        return $result;
+    }
+
+    /**
+     * 获取文章列表
+     * @author      ety001
+     * @param array $conditions 条件数组
+     * @param int $offset 查询起始条
+     * @param int $count 每次查询条数
+     * @param string $order 排序规则
+     * @param boolean $is_count 是否返回总数
+     * @return array|false|int 返回文章列表|false|或者符合条件的文章总数
+     */
+    public function getList($conditions=array(), $offset=0, $count=20, $order='article_id desc', $is_count=false){
+        if($is_count){
+            $result = $this->where($conditions)->count();
+        } else {
+            $result = $this->limit($offset,$count)
+                        ->where($conditions)
+                        ->order($order)
+                        ->relation(true)
+                        ->select();
+        }
+        return  $result;
+    }
             
 } 

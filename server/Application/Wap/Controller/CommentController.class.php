@@ -25,9 +25,8 @@ class CommentController extends Controller {
             'get_comments_success'      => 1
         );
 
-        $article_id     = (int)I('post.aid');
-        $p              = (int)I('post.p');
-        $p              = $p?$p:1;
+        $article_id     = I('post.aid',0,'int');
+        $p              = I('post.p',1,'int');
         $count          = 5;
         $offset         = ($p-1)*$count;
 
