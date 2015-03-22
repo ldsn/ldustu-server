@@ -27,6 +27,7 @@ class CommentController extends Controller {
 
         $article_id     = I('post.aid',0,'int');
         $p              = I('post.p',1,'int');
+        $p              = $p?$p:1;
         $count          = 5;
         $offset         = ($p-1)*$count;
 

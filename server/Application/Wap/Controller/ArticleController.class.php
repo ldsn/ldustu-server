@@ -15,6 +15,7 @@ class ArticleController extends Controller {
         );
         //翻页
         $p              = I('post.p',1,'int');
+        $p              = $p?$p:1;
         $count          = 20;
         $offset         = ($p-1)*$count;
         //栏目
