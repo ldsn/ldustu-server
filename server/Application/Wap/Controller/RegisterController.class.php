@@ -29,7 +29,7 @@ class RegisterController extends Controller {
         $arr['qq']              = I('post.qq');
         $arr['qqopenid']        = I('post.openid');
         $arr['head_pic']        = I('post.head_pic');
-        $arr['sign_time']       = I('post.sign_time');
+        $arr['sign_time']       = time();
         $arr['telphone']        = I('post.telphone');
         $user_model             = D('user');
 
