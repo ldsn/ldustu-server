@@ -31,4 +31,5 @@ return array(
     'DB_PREFIX'             =>  'ldsn_',    // 数据库表前缀
     'DB_CHARSET'            =>  'utf8',      // 数据库编码默认采用utf8
 
+    'DEFAULT_FILTER'        => 'strip_tags,htmlspecialchars', //默认过滤器
 );
