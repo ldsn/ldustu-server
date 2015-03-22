@@ -22,8 +22,8 @@ class RegisterController extends Controller {
         );
 
         $arr['verify']          = I('post.verify');
-        $arr['password']        = I('post.password');
-        $arr['repassword']      = I('post.repassword');
+        $arr['password']        = md5( I('post.password') );
+        $arr['repassword']      = md5( I('post.repassword') );
         $arr['email']           = I('post.email');
         $arr['username']        = I('post.username');
         $arr['qq']              = I('post.qq');

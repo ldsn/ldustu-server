@@ -31,9 +31,9 @@ function authSignature($signature){
     $user_id        = substr($signature, 64);
     $condition      = array('user_id'=>$user_id);
     $r              = M('User')->find($condition);
-    $get_sign       = hash('sha256',$r['username'].$r['passwd']);
+    $get_sign       = hash('sha256',$r['username'].$r['password']);
     if($get_sign == $sign){
-        unset($r['passwd']);
+        unset($r['password']);
         $_SESSION['user_info']  = $r;
         return true;
     } else {
@@ -48,7 +48,7 @@ function authSignature($signature){
  * @return  string
  */
 function createSignature($arr){
-    return hash('sha256',$arr['username'].$arr['passwd']) . $arr['user_id'];
+    return hash('sha256',$arr['username'].$arr['password']) . $arr['user_id'];
 }
 
 /**

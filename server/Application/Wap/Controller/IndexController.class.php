@@ -9,7 +9,7 @@ class IndexController extends Controller {
         if($_SESSION['user_info']['user_id']){
             $user_info          = M('User')->where('user_id='.$_SESSION['user_info']['user_id'])->select();
             $user_info          = $user_info[0];
-            unset($user_info['passwd']);
+            unset($user_info['password']);
             $this->assign('user_info', json_encode($user_info));
         }
         $this->assign('column', json_encode($column));
