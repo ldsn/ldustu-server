@@ -49,6 +49,7 @@ class CommentModel extends RelationModel{
             'create_time'       => $time,
         );
         $result = $this->add($data);
+        M('Article')->where(array('article_id'=>$article_id))->setInc('comment_num');
         return $result;
     }
 
@@ -64,6 +65,12 @@ class CommentModel extends RelationModel{
         $where['comment_id']    = $comment_id;
         $where['user_id']       = $_SESSION['user_info']['user_id'];        
         $result                 = $this->where($where)->delete();
+
+        $article_model  = M('Article');
+        $info           = $article_model->field('comment_num')->find($article_id);
+        if($info['comment_num']>0){
+            M('Article')->where(array('article_id'=>$article_id))->setDec('comment_num');
+        }
         return $result;
     }
 }
