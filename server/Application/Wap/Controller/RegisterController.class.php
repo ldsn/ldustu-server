@@ -22,8 +22,8 @@ class RegisterController extends Controller {
         );
 
         $arr['verify']          = I('post.verify');
-        $arr['password']        = md5( I('post.password') );
-        $arr['repassword']      = md5( I('post.repassword') );
+        $arr['password']        = I('post.password');
+        $arr['repassword']      = I('post.repassword');
         $arr['email']           = I('post.email');
         $arr['username']        = I('post.username');
         $arr['qq']              = I('post.qq');
@@ -44,18 +44,15 @@ class RegisterController extends Controller {
             );
             $this->ajaxReturn($r);
         }
-        $info       = $user_model->add($arr);
+        $arr['password']        = md5($arr['password']);
+        $info                   = $user_model->add($arr);
 
-        $arr['user_id']     = $info;     
+        $arr['user_id']         = $info;     
         $sign                   = createSignature($arr);
         cookie('signature', $sign, 3600*24*7);
         unset($arr['password']);
         unset($arr['repassword']);
         $_SESSION['user_info']  = $arr;
-
-        $more['login_time']     = time();
-        $more['login_style']    = LoginStyle();
-        $user_model->where($where)->save($more);
 
         if($info){
             $r      = array(
