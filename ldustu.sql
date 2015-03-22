@@ -173,6 +173,9 @@ CHANGE  `ismake`  `status` SMALLINT( 6 ) NOT NULL DEFAULT  '0' COMMENT  '文章�
 CHANGE  `image`  `thumbnail` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT  '封面图片',
 CHANGE  `from`  `from_device` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT  '来自何种设备发布';
 
+-- 2015-03-23 09:54
+ALTER TABLE  `ldsn_article` CHANGE  `comment_num`  `comment_num` INT( 11 ) NOT NULL DEFAULT  '0' COMMENT  '评论数',
+CHANGE  `favour_num`  `favour_num` INT( 11 ) NOT NULL DEFAULT  '0' COMMENT  '点赞数';
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
