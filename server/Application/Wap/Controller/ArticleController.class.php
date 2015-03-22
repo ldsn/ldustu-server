@@ -15,7 +15,7 @@ class ArticleController extends Controller {
         );
         //翻页
         $p              = I('post.p',1,'int');
-        $count          = 5;
+        $count          = 20;
         $offset         = ($p-1)*$count;
         //栏目
         $column_id      = I('post.column_id',0,'int');
@@ -32,20 +32,21 @@ class ArticleController extends Controller {
 
         $article_model      = D('Article');
         $result             = $article_model->getList($conditions,$offset,$count);
+        $result_total       = $article_model->getList($conditions,0,0,'',true);
+        $page               = array(
+            'total'             => $result_total,
+            'total_page'        => ceil($result_total/$count);
+        );
+        $r                  = array(
+            'list'      = $result,
+            'page'      = $page
+        );
+
         if($result){
-            $r      = array(
-                'data'      => $result,
-                'msg'       => 'get_article_success',
-                'status'    => $msgNO['get_article_success']
-            );
+            ajaxReturn($r, 'get_article_success', $msgNO['get_article_success']);
         } else {
-            $r      = array(
-                'data'      => $result,
-                'msg'       => 'get_article_empty',
-                'status'    => $msgNO['get_article_empty']
-            );
+            ajaxReturn($result, 'get_article_empty', $msgNO['get_article_empty']);
         }
-        $this->ajaxReturn($r);
     }
 
     /**
