@@ -4,13 +4,13 @@ namespace Wap\Model;
 use Think\Model\RelationModel;
 class CommentModel extends RelationModel{
     protected $_link = array(
-            'UserInfo'  => array(
-                'mapping_type'      => self::HAS_ONE,
-                'class_name'        => 'User',
-                'mapping_name'      => 'user_info',
-                'foreign_key'       => 'user_id'
-            )
-        );
+        'UserInfo'  => array(
+            'mapping_type'      => self::HAS_ONE,
+            'class_name'        => 'User',
+            'mapping_name'      => 'user_info',
+            'foreign_key'       => 'user_id'
+        )
+    );
     /**
      * 获取评论列表
      * @param   conditions          查询条件
