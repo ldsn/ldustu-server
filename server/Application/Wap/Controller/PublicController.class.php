@@ -30,7 +30,7 @@ class PublicController extends Controller {
         }
         $user_id            = $_SESSION['user_info']['user_id'];
 
-        $aid = I('get.aid');
+        $aid = I('post.aid');
         if(!$aid){
             $r      = array(
                 'data'      => array(),

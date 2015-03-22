@@ -7,7 +7,8 @@ class IndexController extends Controller {
         $columnModel            = D('column');
         $column                 = $columnModel->getall();
         if($_SESSION['user_info']['user_id']){
-            $user_info          = $_SESSION['user_info'];
+            $user_info          = M('User')->where('user_id='.$_SESSION['user_info']['user_id'])->select();
+            $user_info          = $user_info[0];
             unset($user_info['passwd']);
             $this->assign('user_info', json_encode($user_info));
         }

@@ -65,15 +65,10 @@ class LoginController extends Controller {
             $this->ajaxReturn($r);
         }
 
-        
         $sign                   = createSignature($result);
         cookie('signature', $sign, 3600*24*7);
         unset($result['passwd']);
         $_SESSION['user_info']  = $result;
-
-        $more['login_time']     = time();
-        $more['login_style']    = LoginStyle();
-        $userModel->where($where)->data($more)->save();
 
         $r      = array(
             'data'      => $result,
