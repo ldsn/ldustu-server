@@ -47,12 +47,22 @@ class PublicController extends Controller {
 
         $favourModel        = D('favour');
         if($favourModel->checkFavour($aid, $user_id)){
-            $r      = array(
-                'data'      => array(),
-                'msg'       => 'has_favour',
-                'status'    => $msgNO['has_favour']
-            );
-            $this->ajaxReturn($r);
+            $num    = $favourModel->removeFavour($aid, $user_id);
+            if($num === 0){
+                $r      = array(
+                    'data'      => $num,
+                    'msg'       => 'remove_favour_success',
+                    'status'    => $msgNO['remove_favour_success']
+                );
+                $this->ajaxReturn($r);
+            } else {
+                $r      = array(
+                    'data'      => array(),
+                    'msg'       => 'remove_favour_failed',
+                    'status'    => $msgNO['remove_favour_failed']
+                );
+                $this->ajaxReturn($r);
+            }
         }
 
         $num    = $favourModel->addFavour($aid, $user_id);
