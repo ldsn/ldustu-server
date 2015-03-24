@@ -15,9 +15,10 @@ class PublicController extends Controller {
         $msgNO          = array(
             'need_login'            => -1,//需要登录
             'need_article_id'       => -2,//需要文章id
-            'has_favour'            => -3,//已赞过
+            'remove_favour_failed'  => -3,
             'add_favour_failed'     => -4,
-            'add_favour_success'           => 1
+            'add_favour_success'    => 1
+            'remove_favour_success' => 2
         );
         //检查是否登录
         if(!authLogin()){
