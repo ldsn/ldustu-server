@@ -17,7 +17,7 @@ class PublicController extends Controller {
             'need_article_id'       => -2,//需要文章id
             'remove_favour_failed'  => -3,
             'add_favour_failed'     => -4,
-            'add_favour_success'    => 1
+            'add_favour_success'    => 1,
             'remove_favour_success' => 2
         );
         //检查是否登录
