@@ -67,3 +67,19 @@ function ajaxReturn($data, $msg, $status){
     header('Content-Type:application/json; charset=utf-8');
     exit(json_encode($r));
 }
+
+/**
+ * 字符串截取
+ * @author ety001
+ * @param string $strCut 要截取的字符串
+ * @param int $length 要截取的长度
+ * @param string $encode 要截取字符串的编码
+ */
+function substrCut($strCut,$length=0,$encode='utf-8')
+{
+    if (mb_strlen($strCut,$encode) > $length)
+    {
+        $strCut = mb_substr($strCut,0,$length,$encode)."...";
+    }
+    return $strCut;
+}
