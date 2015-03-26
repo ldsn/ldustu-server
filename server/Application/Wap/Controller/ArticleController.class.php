@@ -100,7 +100,7 @@ class ArticleController extends Controller {
             'column_id'         => I('post.column_id',0,'int'),
             'status'            => 1,
             'title'             => I('post.title'),
-            'description'       => I('post.desc',''),
+            'description'       => substrCut(I('post.content'),50),
             'thumbnail'         => I('post.thumbnail',''),
             'create_time'       => time(),
             'from_device'       => 'wap',
