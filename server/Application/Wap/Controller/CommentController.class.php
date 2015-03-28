@@ -28,7 +28,7 @@ class CommentController extends Controller {
         $article_id     = I('post.aid',0,'int');
         $p              = I('post.p',1,'int');
         $p              = $p?$p:1;
-        $count          = 5;
+        $count          = 20;
         $offset         = ($p-1)*$count;
 
         if(!$article_id){
@@ -46,6 +46,12 @@ class CommentController extends Controller {
 
         $commentModel   = D('Comment');
         $result         = $commentModel->catchComment($conditions,$offset,$count);
+        if ($p == 1) {
+            $i = 0;
+            for ($i; $i<5; $i++) {
+                array_shift($result);
+            }
+        }
         if($result){
             $r      = array(
                 'data'      => $result,
