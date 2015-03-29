@@ -92,7 +92,11 @@ class ArticleController extends Controller {
             ajaxReturn(array(), 'not_login', $msgNO['not_login']);
         }
         $user_id            = $_SESSION['user_info']['user_id'];
+        
+        $article_model      = D('article');  // 初始化文章模型
 
+        $content = $_POST['content'];
+        $content = preg_replace('/<script>.*?<\/script>/is', '', $content);
         $content_str = preg_replace ( "/(\<[^\<]*\>|\r|\n|\s|\[.+?\])/is", ' ', $content);
         $description = mb_substr($content_str,0,140,'utf-8');
         $data       = array(
