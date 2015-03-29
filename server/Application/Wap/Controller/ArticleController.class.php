@@ -93,9 +93,8 @@ class ArticleController extends Controller {
         }
         $user_id            = $_SESSION['user_info']['user_id'];
 
-        $article_model      = D('article');  // 初始化文章模型
-        $content = $_POST['content'];
-        $content = preg_replace('/<script>.*?<\/script>/is', '', $content);
+        $content_str = preg_replace ( "/(\<[^\<]*\>|\r|\n|\s|\[.+?\])/is", ' ', $content);
+        $description = mb_substr($content_str,0,140,'utf-8');
         $data       = array(
             'user_id'           => $_SESSION['user_info']['user_id'],
             'column_id'         => I('post.column_id',0,'int'),
@@ -105,6 +104,7 @@ class ArticleController extends Controller {
             'thumbnail'         => I('post.thumbnail',''),
             'create_time'       => time(),
             'from_device'       => 'wap',
+            'description'       => $description,
             'detail'            => array(
                 'content'           => $content,
                 'tag'               => I('post.tag','')//这个功能的数据库结构让人很疑惑，不建议先使用
