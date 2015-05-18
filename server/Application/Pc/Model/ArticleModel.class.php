@@ -1,5 +1,5 @@
 <?php
-namespace Wap\Model;
+namespace Pc\Model;
 use Think\Model\RelationModel;
 class ArticleModel extends RelationModel{
     /*
@@ -29,7 +29,10 @@ class ArticleModel extends RelationModel{
             'foreign_key'       => 'article_id'
         )
     );
-
+    public function one()
+    {
+        echo 'aaa';
+    }
     /**
      * 获取指定文章id的文章内容
      * @author      ety001
@@ -48,39 +51,7 @@ class ArticleModel extends RelationModel{
         }
         return $result;
     }
-
-    /**
-     * 发布文章
-     * @author      ety001
-     * @param array $data 文章数据
-     * @return false|int 返回插入后的文章id或者false
-     */
-    public function publish($data){
-        if(!$data){
-            $data       = array(
-                'user_id'           => $_SESSION['user_info']['user_id'],
-                'column_id'         => I('post.column_id',0,'int'),
-                'status'            => 1,
-                'title'             => I('post.title'),
-                'description'       => I('post.desc',''),
-                'thumbnail'         => I('post.thumbnail',''),
-                'create_time'       => time(),
-                'from_device'       => 'wap',
-                'detail'            => array(
-                    'content'           => I('post.content'),
-                    'tag'               => I('post.tag','')//这个功能的数据库结构让人很疑惑，不建议先使用
-                )
-            );
-            if(!$data['user_id'] || !$data['column_id'] || !$data['title'] || !$data['detail']['content'])return false;
-        }
-        $result = $this->relation('detail')->add($data);
-        if($result){
-            M('User')->where('user_id='.$data['user_id'])->setInc('article_num');
-        }
-        return $result;
-    }
-
-    /**
+        /**
      * 获取文章列表
      * @author      ety001
      * @param array $conditions 条件数组
@@ -111,23 +82,4 @@ class ArticleModel extends RelationModel{
         }
         return  $result;
     }
-    
-    /**
-     * 改变文章状态
-     * @author  ety001
-     * @param int $article_id 文章id
-     * @param int $status 修改的状态值
-     * @param int $admin 是否管理员操作
-     */
-    public function changeStatus($article_id, $status=-1, $admin=false){
-        if(!$article_id)return false;
-        $info               = $this->where(array('article_id'=>$article_id))->select();
-        $current_user_id    = $_SESSION['user_info']['user_id'];
-        if($info[0]['user_id']==$current_user_id || $admin){
-            $data['status'] = $status;
-            return $this->where(array('article_id'=>$article_id))->save($data);
-        } else {
-            return '-1';
-        }
-    }
-} 
+}
