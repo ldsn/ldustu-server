@@ -5,7 +5,7 @@
  * 写入评论功能
  * 删除评论功能
  */
-namespace Wap\Controller;
+namespace Api\Controller;
 use Think\Controller;
 header('Content-Type: text/html; charset=utf-8;');
 class CommentController extends Controller {

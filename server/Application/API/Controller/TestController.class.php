@@ -1,5 +1,5 @@
 <?php
-namespace Wap\Controller;
+namespace Api\Controller;
 use Think\Controller;
 header('Content-Type: text/html; charset=utf-8;');
 class TestController extends Controller {
