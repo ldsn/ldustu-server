@@ -1,6 +1,6 @@
 <?php
 return array(
-        //'配置项'=>'配置值'
+    //前端模版配置
     'URL_HTML_SUFFIX' =>'',
     'TMPL_ENGINE_TYPE'      =>'Smarty',
     'TMPL_TEMPLATE_SUFFIX'  =>'.tpl',
@@ -10,13 +10,17 @@ return array(
         'left_delimiter'    => '{%',
         'right_delimiter'   => '%}'
     ),
+    //被允许的模块列表
     'MODULE_ALLOW_LIST'     =>  array(
         'Pc',
         'Api',
     ),
     'DEFAULT_MODULE'        =>  'Pc',
-    'APP_SUB_DOMAIN_DEPLOY' =>    1, // 开启子域名或者IP配置
-
+    //路由设置
+    'URL_ROUTER_ON'   => true,          //开启路由
+    'URL_ROUTE_RULES' => array( //定义路由规则
+    'index/listArticle' => 'listArticle',
+     ),
     'URL_MODEL'             =>1,  //url模式  pathinfo
     'URL_CASE_INSENSITIVE'  => true, //URL不区分大小写
     'SESSION_AUTO_START'    => true,//是否开启session
