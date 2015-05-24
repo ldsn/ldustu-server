@@ -5,8 +5,8 @@ return array(
     'TMPL_ENGINE_TYPE'      =>'Smarty',
     'TMPL_TEMPLATE_SUFFIX'  =>'.tpl',
     'TMPL_ENGINE_CONFIG'    =>array(
-        'plugins_dir'       => './Application/Wap/View/Plugins/',
-        'config_dir'        => './Application/Wap/View/Config/',
+        'plugins_dir'       => './Application/Pc/View/Plugins/',
+        'config_dir'        => './Application/Pc/View/Config/',
         'left_delimiter'    => '{%',
         'right_delimiter'   => '%}'
     ),
