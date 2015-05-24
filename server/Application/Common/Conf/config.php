@@ -19,7 +19,7 @@ return array(
     //路由设置
     'URL_ROUTER_ON'   => true,          //开启路由
     'URL_ROUTE_RULES' => array( //定义路由规则
-    'index/listArticle' => 'listArticle',
+    'listArticle' => 'index/listArticle'
      ),
     'URL_MODEL'             =>1,  //url模式  pathinfo
     'URL_CASE_INSENSITIVE'  => true, //URL不区分大小写
