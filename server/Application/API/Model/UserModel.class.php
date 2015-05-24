@@ -1,5 +1,5 @@
 <?php
-namespace Wap\Model;
+namespace Api\Model;
 use Think\Model;
 class UserModel extends Model{
     protected $_validate = array(

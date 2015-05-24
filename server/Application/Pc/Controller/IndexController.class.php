@@ -48,7 +48,7 @@ class IndexController extends Controller{
                 $this->assign('user_info', json_encode($user_info));
             }
             $this->assign('column', json_encode($column));
-            $this->display('');
+            $this->display('ldsn-wap/page/index.tpl');
             return;
         }
         if($result){
