@@ -32,12 +32,12 @@ class IndexController extends Controller{
     public function index(){
         //实例化栏目
         $columnModel            = D('column');
-        //$column                 = $columnModel->getall();
+        $column                 = $columnModel->getall();
 
 
         $article_model      = D('Article');
         $result             = $article_model->getList();
-        //var_dump($result);
+        var_dump($result);
         
         $is_mobile = is_mobile_request();
         if($is_mobile){
@@ -54,7 +54,7 @@ class IndexController extends Controller{
         if($result){
            $this->result =$result;
         } 
-        $this->display('index/index');
+        $this->display('ldsn-pc/page/index');
     }
     /**
      * 文章列表页
