@@ -1,5 +1,5 @@
 <?php
-namespace Wap\Model;
+namespace Api\Model;
 //use Think\Model;
 use Think\Model\RelationModel;
 class CommentModel extends RelationModel{
