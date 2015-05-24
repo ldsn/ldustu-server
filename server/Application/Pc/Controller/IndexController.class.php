@@ -61,17 +61,17 @@ class IndexController extends Controller{
      * @author Jason
      */
     public function listArticle(){
-        $p              = I('post.p',1,'int');
+        $p              = I('get.p',1,'int');
         $p              = $p?$p:1;
         $count          = 20;
         $offset         = ($p-1)*$count;
         //栏目
-        $column_id      = I('post.column_id',0,'int');
+        $column_id      = I('get.column_id',0,'int');
         if($column_id){
             $conditions['column_id']    = $column_id;
         }
         //用户
-        $user_id        = I('post.user_id',0,'int');
+        $user_id        = I('get.user_id',0,'int');
         if($user_id){
             $conditions['user_id']      = $user_id;
         }
