@@ -58,7 +58,7 @@ class IndexController extends Controller{
         var_dump($column);
         $this->user_info        = $user_info;
         $this->column           = $column;
-        $this->display('index/index');
+        $this->display('ldsn-pc/page/index');
     }
     /**
      * 文章列表页
