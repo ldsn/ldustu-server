@@ -37,16 +37,16 @@ class IndexController extends Controller{
 
         $article_model      = D('Article');
         $result             = $article_model->getList();
-        var_dump($result);
-        
-        $is_mobile = is_mobile_request();
-        if($is_mobile){
-            if($_SESSION['user_info']['user_id']){
+        //var_dump($result);
+        //取出用户信息user_info
+        if($_SESSION['user_info']['user_id']){
                 $user_info          = M('User')->where('user_id='.$_SESSION['user_info']['user_id'])->select();
                 $user_info          = $user_info[0];
                 unset($user_info['password']);
-                $this->assign('user_info', json_encode($user_info));
             }
+        $is_mobile = is_mobile_request();
+        if($is_mobile){
+            $this->assign('user_info', json_encode($user_info));
             $this->assign('column', json_encode($column));
             $this->display('ldsn-wap/page/index');
             return;
@@ -54,6 +54,10 @@ class IndexController extends Controller{
         if($result){
            $this->result =$result;
         } 
+        var_dump($user_info);
+        var_dump($column);
+        $this->user_info        = $user_info;
+        $this->column           = $column;
         $this->display('ldsn-pc/page/index');
     }
     /**
@@ -61,17 +65,17 @@ class IndexController extends Controller{
      * @author Jason
      */
     public function listArticle(){
-        $p              = I('post.p',1,'int');
+        $p              = I('get.p',1,'int');
         $p              = $p?$p:1;
         $count          = 20;
         $offset         = ($p-1)*$count;
         //栏目
-        $column_id      = I('post.column_id',0,'int');
+        $column_id      = I('get.column_id',0,'int');
         if($column_id){
             $conditions['column_id']    = $column_id;
         }
         //用户
-        $user_id        = I('post.user_id',0,'int');
+        $user_id        = I('get.user_id',0,'int');
         if($user_id){
             $conditions['user_id']      = $user_id;
         }
