@@ -1,5 +1,5 @@
 <?php
-namespace Wap\Model;
+namespace Pc\Model;
 use Think\Model;
 class ColumnModel extends Model{
     public function getall(){
