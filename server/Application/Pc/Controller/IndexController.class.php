@@ -32,21 +32,21 @@ class IndexController extends Controller{
     public function index(){
         //实例化栏目
         $columnModel            = D('column');
-        //$column                 = $columnModel->getall();
+        $column                 = $columnModel->getall();
 
 
         $article_model      = D('Article');
         $result             = $article_model->getList();
         //var_dump($result);
-        
-        $is_mobile = is_mobile_request();
-        if($is_mobile){
-            if($_SESSION['user_info']['user_id']){
+        //取出用户信息user_info
+        if($_SESSION['user_info']['user_id']){
                 $user_info          = M('User')->where('user_id='.$_SESSION['user_info']['user_id'])->select();
                 $user_info          = $user_info[0];
                 unset($user_info['password']);
-                $this->assign('user_info', json_encode($user_info));
             }
+        $is_mobile = is_mobile_request();
+        if($is_mobile){
+            $this->assign('user_info', json_encode($user_info));
             $this->assign('column', json_encode($column));
             $this->display('ldsn-wap/page/index');
             return;
@@ -54,6 +54,10 @@ class IndexController extends Controller{
         if($result){
            $this->result =$result;
         } 
+        var_dump($user_info);
+        var_dump($column);
+        $this->user_info        = $user_info;
+        $this->column           = $column;
         $this->display('index/index');
     }
     /**
