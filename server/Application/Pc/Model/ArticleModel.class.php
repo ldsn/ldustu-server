@@ -81,7 +81,6 @@ class ArticleModel extends RelationModel{
                     $result[$k]['comment_list']     = $comment_model->catchComment($conditions, 0, 5);
                     $conditions['column_id'] = $v['column_id'];
                     $result[$k]['column_name']     = $column_model->catchColumn($conditions);
-                    $result[$k]['create_time_string'] = date('<b>m/d</b><b>H:i更新</b>', $result[$k]['create_time']);
                 }
             }
         }
