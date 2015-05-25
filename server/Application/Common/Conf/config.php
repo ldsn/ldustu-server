@@ -19,8 +19,8 @@ return array(
     //路由设置
     'URL_ROUTER_ON'   => true,          //开启路由
     'URL_ROUTE_RULES' => array( //定义路由规则
-        'listArticle' => 'index/listArticle',
-        'articleArticle' => 'index/articleArticle'
+        'category/:column_id' => 'index/listArticle',
+        'arc/:aid' => 'index/articleArticle'
      ),
     'URL_MODEL'             =>1,  //url模式  pathinfo
     'URL_CASE_INSENSITIVE'  => true, //URL不区分大小写

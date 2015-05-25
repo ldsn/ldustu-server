@@ -36,7 +36,9 @@ class IndexController extends Controller{
 
 
         $article_model      = D('Article');
-        $result             = $article_model->getList();
+        $articleList             = $article_model->getList();
+        $hotList                = $article_model->getList(null,null,6,'view_num desc');
+
         //var_dump($result);
         //取出用户信息user_info
         if($_SESSION['user_info']['user_id']){
@@ -51,13 +53,10 @@ class IndexController extends Controller{
             $this->display('ldsn-wap/page/index');
             return;
         }
-        if($result){
-           $this->result =$result;
-        } 
-        var_dump($user_info);
-        var_dump($column);
-        $this->user_info        = $user_info;
-        $this->column           = $column;
+        $this->assign('hotList', $hotList);
+        $this->assign('articleList', $articleList);
+        $this->assign('user_info', $user_info);
+        $this->assign('column', $column);
         $this->display('ldsn-pc/page/index');
     }
     /**
