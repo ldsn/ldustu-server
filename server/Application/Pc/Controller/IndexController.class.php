@@ -39,7 +39,7 @@ class IndexController extends Controller{
         $articleList             = $article_model->getList($conditions);
 
         foreach ($articleList as $k => $v) {
-            $result[$k]['create_time_string'] = date('<b>m/d</b><b>H:i更新</b>', $result[$k]['create_time']);
+            $articleList[$k]['create_time_string'] = date('<b>m/d</b><b>H:i更新</b>', $articleList[$k]['create_time']);
         }
 
         $hotList                = $article_model->getList(null,null,6,'view_num desc');
@@ -82,6 +82,11 @@ class IndexController extends Controller{
 
         $article_model          = D('Article');
         $articleList            = $article_model->getList($conditions);
+
+        foreach ($articleList as $k => $v) {
+            $articleList[$k]['create_time_string'] = date('<b>m/d</b><b>H:i更新</b>', $articleList[$k]['create_time']);
+        }
+        
         $hotList                = $article_model->getList(null,null,6,'view_num desc');
 
         //var_dump($result);
