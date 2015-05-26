@@ -29,6 +29,7 @@ class ArticleModel extends RelationModel{
             'foreign_key'       => 'article_id'
         )
     );
+
     /**
      * 获取指定文章id的文章内容
      * @author      ety001
@@ -39,7 +40,9 @@ class ArticleModel extends RelationModel{
         if(!$aid)return false;
         $user_id        = $_SESSION['user_info']['user_id']?$_SESSION['user_info']['user_id']:0;
         $this->_link['FavInfo']['condition']    = "user_id={$user_id}";
-        $result = $this->relation(true)->where(array('article_id'=>$aid))->find();
+        $conditions = array('article_id'=>$aid);
+        $result = $this->relation(true)->where($conditions)->find();
+        $Article->where($conditions)->setInc('view_num',1);
         if($result){
             $comment_model                  = D('Comment');
             $conditions['article_id']       = $result['article_id'];
