@@ -91,6 +91,7 @@ class ArticleModel extends RelationModel{
      * @return array|false|int 返回文章列表|false|或者符合条件的文章总数
      */
     public function getList($conditions=array(), $offset=0, $count=20, $order='article_id desc', $is_count=false){
+
         if($is_count){
             $result = $this->where($conditions)->count();
         } else {
@@ -103,9 +104,12 @@ class ArticleModel extends RelationModel{
                         ->select();
             if($result){
                 $comment_model      = D('Comment');
+                $column_model = D('Column');
                 foreach ($result as $k => $v) {
                     $conditions['article_id']       = $v['article_id'];
                     $result[$k]['comment_list']     = $comment_model->catchComment($conditions, 0, 5);
+                    $conditions['column_id'] = $v['column_id'];
+                    $result[$k]['column_name']     = $column_model->catchColumn($conditions);
                 }
             }
         }
