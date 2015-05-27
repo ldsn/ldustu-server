@@ -122,6 +122,9 @@ class IndexController extends Controller{
         $hotList                = $article_model->getList(null,null,6,'view_num desc');
 
         $article             = $article_model->getDetail($article_id);
+        if ($article) {
+            $article['create_time_string'] = date('m-d H:i:s', $article['create_time']);
+        }
 
         //取出用户信息user_info
         if($_SESSION['user_info']['user_id']){
@@ -129,7 +132,7 @@ class IndexController extends Controller{
                 $user_info          = $user_info[0];
                 unset($user_info['password']);
             }
-        $this->assign('article', $atricle);
+        $this->assign('article', $article);
         $this->assign('hotList', $hotList);
         $this->assign('user_info', $user_info);
         $this->assign('column', $column);
