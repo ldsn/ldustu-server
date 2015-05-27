@@ -42,7 +42,7 @@ class ArticleModel extends RelationModel{
         $this->_link['FavInfo']['condition']    = "user_id={$user_id}";
         $conditions = array('article_id'=>$aid);
         $result = $this->relation(true)->where($conditions)->find();
-        $Article->where($conditions)->setInc('view_num',1);
+        $this->where($conditions)->setInc('view_num',1);
         if($result){
             $comment_model                  = D('Comment');
             $conditions['article_id']       = $result['article_id'];

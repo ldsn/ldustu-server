@@ -10,12 +10,12 @@ class IndexController extends Controller{
         {
             return;
         }
-        $main_url = "http://test.ldustu.com/wap";
+        $main_url = "http://www.ldustu.com/";
         $column = $_GET['column'];
         $aid    = $_GET['aid'];
 
         if($column){
-            $url = $main_url.'#column='.$column;
+            $url = $main_url.'#column_id='.$column;
 
         } 
         if ($aid) {
