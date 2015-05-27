@@ -45,8 +45,12 @@ class ArticleModel extends RelationModel{
         $this->where($conditions)->setInc('view_num',1);
         if($result){
             $comment_model                  = D('Comment');
+            $column_model                   = D('Column');
+
             $conditions['article_id']       = $result['article_id'];
             $result['comment_list']         = $comment_model->catchComment($conditions, 0, 5);
+            $conditions['column_id']        = $result['column_id'];
+            $result['column_name']          = $column_model->catchColumn($conditions);
         }
         return $result;
     }
