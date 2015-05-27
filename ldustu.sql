@@ -188,3 +188,28 @@ ALTER TABLE  `ldsn_user` ADD  `article_num` INT NOT NULL;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+--
+-- 数据库: `ldustu`
+--
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ldsn_ad`
+--
+
+CREATE TABLE IF NOT EXISTS `ldsn_ad` (
+  `ad_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '广告主键ID',
+  `ad_type` varchar(60) NOT NULL COMMENT '类型',
+  `ad_index` int(11) NOT NULL COMMENT '提取序列',
+  `ad_name` varchar(60) NOT NULL COMMENT '广告名称',
+  `create_time` int(11) NOT NULL COMMENT '创建时间',
+  `start_time` int(11) NOT NULL COMMENT '开始时间',
+  `end_time` int(11) NOT NULL COMMENT '结束时间',
+  `ad_content` text NOT NULL COMMENT '广告内容',
+  PRIMARY KEY (`ad_id`),
+  KEY `ad_type` (`ad_type`),
+  KEY `create_time` (`create_time`),
+  KEY `end_time` (`end_time`),
+  KEY `start_time` (`start_time`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
