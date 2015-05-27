@@ -79,6 +79,8 @@ class IndexController extends Controller{
         $columnModel            = D('column');
         $column                 = $columnModel->getall();
 
+        $current_column         = $columnModel->where(array('column_id'=>$column_id))->find();
+        $current_column         = $current_column['column_name'];
 
         $article_model          = D('Article');
         $articleList            = $article_model->getList($conditions);
@@ -100,6 +102,7 @@ class IndexController extends Controller{
         $this->assign('articleList', $articleList);
         $this->assign('user_info', $user_info);
         $this->assign('column', $column);
+        $this->assign('current_column', $current_column);
         $this->assign('column_id', $column_id);
         $this->display('ldsn-pc/page/category');
 
