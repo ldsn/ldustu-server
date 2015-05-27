@@ -11,11 +11,11 @@ class IndexController extends Controller{
             return;
         }
         $main_url = "http://www.ldustu.com/";
-        $column = $_GET['column'];
+        $column = $_GET['column_id'];
         $aid    = $_GET['aid'];
 
         if($column){
-            $url = $main_url.'#column_id='.$column;
+            $url = $main_url.'#column='.$column;
 
         } 
         if ($aid) {
