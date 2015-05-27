@@ -1,3 +1,12 @@
 server/Application/Runtime/
 .DS_Store
 fis/
+server/Application/Pc/Config/
+server/Application/Pc/Plugins/
+server/Application/Pc/View/common/
+server/Application/Pc/View/ldsn-pc/
+server/Application/Pc/View/ldsn-wap/
+server/Application/Pc/View/server-conf/
+server/Application/Pc/View/test/
+server/static/
+
