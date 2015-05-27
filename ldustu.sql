@@ -213,3 +213,5 @@ CREATE TABLE IF NOT EXISTS `ldsn_ad` (
   KEY `end_time` (`end_time`),
   KEY `start_time` (`start_time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+ALTER TABLE  `ldsn_article` ADD  `index_status` INT NOT NULL DEFAULT  '0' COMMENT  '是否在首页显示，显示则为1，默认为0' AFTER  `view_num`;

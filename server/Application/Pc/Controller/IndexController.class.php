@@ -28,7 +28,6 @@ class IndexController extends Controller{
      * @author Jason
      */
     public function index(){
-        echo U();
         //实例化栏目
         $columnModel            = D('column');
         $column                 = $columnModel->getall();
@@ -59,6 +58,8 @@ class IndexController extends Controller{
             $this->display('ldsn-wap/page/index');
             return;
         }
+        $head_article = $article_model->gethead_article();
+        $this->assign('head_article',$head_article);
         $this->assign('hotList', $hotList);
         $this->assign('articleList', $articleList);
         $this->assign('user_info', $user_info);

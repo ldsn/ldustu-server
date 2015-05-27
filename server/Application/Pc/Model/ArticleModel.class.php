@@ -140,4 +140,17 @@ class ArticleModel extends RelationModel{
             return '-1';
         }
     }
+    /**
+     * 取出顶部10篇文章
+     * @author Jason
+     * 
+     */
+    public function gethead_article()
+    {
+        $where['index_status'] = 1;
+
+        $result =$this->where($where)->limit(10)->select();
+        return $result;
+    }
+
 } 
