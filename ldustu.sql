@@ -215,3 +215,6 @@ CREATE TABLE IF NOT EXISTS `ldsn_ad` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 ALTER TABLE  `ldsn_article` ADD  `index_status` INT NOT NULL DEFAULT  '0' COMMENT  '是否在首页显示，显示则为1，默认为0' AFTER  `view_num`;
+
+-- 2015.05.28
+ALTER TABLE  `ldsn_article` ADD  `index_pic_status` INT NOT NULL DEFAULT  '0' COMMENT  '首页顶部两张图片的状态取状态为1的，默认为0' AFTER  `index_status`;

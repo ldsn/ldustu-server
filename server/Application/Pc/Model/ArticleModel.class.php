@@ -149,7 +149,25 @@ class ArticleModel extends RelationModel{
     {
         $where['index_status'] = 1;
 
-        $result =$this->where($where)->limit(10)->select();
+        $result = $this
+                  ->where($where)
+                  ->limit(10)
+                  ->order('article_id desc')
+                  ->select();
+        return $result;
+    }
+    /**
+     * 取出顶部两篇图片文章
+     * @author Jason
+     */
+    public function gethead_pic_two()
+    {
+        $where['index_pic_status'] = 1;
+        $result = $this
+                  ->where($where)
+                  ->limit(2)
+                  ->order('article_id desc')
+                  ->select();
         return $result;
     }
 

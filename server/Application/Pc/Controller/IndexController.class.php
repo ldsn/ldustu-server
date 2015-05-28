@@ -58,8 +58,10 @@ class IndexController extends Controller{
             $this->display('ldsn-wap/page/index');
             return;
         }
-        $head_article = $article_model->gethead_article();
+        $head_article = $article_model->gethead_article();//取出首页顶部10条
+        $head_pic_two = $article_model->gethead_pic_two();//取出首页顶部图片2条
         $this->assign('head_article',$head_article);
+        $this->assign('head_pic_two',$head_pic_two);
         $this->assign('hotList', $hotList);
         $this->assign('articleList', $articleList);
         $this->assign('user_info', $user_info);
