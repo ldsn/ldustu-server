@@ -33,17 +33,6 @@ class IndexController extends Controller{
         $column                 = $columnModel->getall();
 
 
-        $article_model      = D('Article');
-
-        $conditions['status']       = 1;
-        $articleList             = $article_model->getList($conditions);
-
-        foreach ($articleList as $k => $v) {
-            $articleList[$k]['create_time_string'] = date('<b>m/d</b><b>H:i更新</b>', $articleList[$k]['create_time']);
-        }
-
-        $hotList                = $article_model->getList(null,null,6,'view_num desc');
-
         //var_dump($result);
         //取出用户信息user_info
         if($_SESSION['user_info']['user_id']){
@@ -58,6 +47,18 @@ class IndexController extends Controller{
             $this->display('ldsn-wap/page/index');
             return;
         }
+        
+        $article_model      = D('Article');
+
+        $conditions['status']       = 1;
+        $articleList             = $article_model->getList($conditions);
+
+        foreach ($articleList as $k => $v) {
+            $articleList[$k]['create_time_string'] = date('<b>m/d</b><b>H:i更新</b>', $articleList[$k]['create_time']);
+        }
+
+        $hotList                = $article_model->getList(null,null,6,'view_num desc');
+
         $head_article = $article_model->gethead_article();//取出首页顶部10条
         $head_pic_two = $article_model->gethead_pic_two();//取出首页顶部图片2条
         $this->assign('head_article',$head_article);
