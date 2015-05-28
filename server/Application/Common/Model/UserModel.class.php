@@ -18,7 +18,7 @@ class UserModel extends Model{
      */
     public function userinfo($id){
         $where['user_id'] = $id;
-        $result =$this->field('passwd',true)->where($where)->find();
+        $result =$this->field('password',true)->where($where)->find();
         return $result;
     }
 }
