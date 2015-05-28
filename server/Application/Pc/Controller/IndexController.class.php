@@ -102,6 +102,8 @@ class IndexController extends Controller{
                 $user_info          = $user_info[0];
                 unset($user_info['password']);
             }
+        $head_pic_two = $article_model->gethead_pic_two();//取出首页顶部图片2条
+        $this->assign('head_pic_two',$head_pic_two);
         $this->assign('hotList', $hotList);
         $this->assign('articleList', $articleList);
         $this->assign('user_info', $user_info);
