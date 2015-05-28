@@ -29,9 +29,11 @@ class IndexController extends Controller{
      */
     public function index(){
         //实例化栏目
-        $columnModel            = D('column');
+        $columnModel            = D('Column');
+        $user                   = D('User');
         $column                 = $columnModel->getall();
-
+        $userinfo               = $user->userinfo(34);
+        $this->assign('level_status',$userinfo['level_status']);
 
         //var_dump($result);
         //取出用户信息user_info

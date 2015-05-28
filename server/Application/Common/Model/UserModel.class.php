@@ -12,11 +12,10 @@ class UserModel extends Model{
         array('email','','email_has_existed',1,'unique',1), // 在新增的时候验证email字段是否唯一
         array('repassword','password','repassword_err',0,'confirm'), // 验证确认密码是否和密码一致
     );
-    /*
-    *检查用户名
-    *检查邮箱格式
-    *请求用户信息
-    */
+    /**
+     * 提取用户信息
+     * @author Jason
+     */
     public function userinfo($id){
         $where['id'] = $id;
         $result =$this->field('passwd',true)->where($where)->find();

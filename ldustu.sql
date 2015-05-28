@@ -218,3 +218,5 @@ ALTER TABLE  `ldsn_article` ADD  `index_status` INT NOT NULL DEFAULT  '0' COMMEN
 
 -- 2015.05.28
 ALTER TABLE  `ldsn_article` ADD  `index_pic_status` INT NOT NULL DEFAULT  '0' COMMENT  '首页顶部两张图片的状态取状态为1的，默认为0' AFTER  `index_status`;
+-- 2015.05.28
+ALTER TABLE  `ldsn_user` ADD  `level_status` INT NOT NULL DEFAULT  '0' COMMENT  '权限等级普通用户为0，管理员为1';
