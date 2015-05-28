@@ -8,7 +8,7 @@ class AdModel extends Model{
      */
     public function getad($type)
     {
-        $time = 2;//time();
+        $time = time();//time();
         $where['start_time'] = array('lt',$time);
         $where['end_time']   = array('gt',$time);
         $where['ad_type']    = $type;

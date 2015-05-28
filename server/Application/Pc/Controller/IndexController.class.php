@@ -47,8 +47,9 @@ class IndexController extends Controller{
             $this->display('ldsn-wap/page/index');
             return;
         }
-        
+
         $article_model      = D('Article');
+        $ad_model           = D('Ad');
 
         $conditions['status']       = 1;
         $articleList             = $article_model->getList($conditions);
@@ -58,9 +59,12 @@ class IndexController extends Controller{
         }
 
         $hotList                = $article_model->getList(null,null,6,'view_num desc');
-
+        $ad_aside     = $ad_model->getad('aside');
+        $ad_header     = $ad_model->getad('header');
         $head_article = $article_model->gethead_article();//取出首页顶部10条
         $head_pic_two = $article_model->gethead_pic_two();//取出首页顶部图片2条
+        $this->assign('ad_aside',$ad_aside);
+        $this->assign('ad_header',$ad_header);
         $this->assign('head_article',$head_article);
         $this->assign('head_pic_two',$head_pic_two);
         $this->assign('hotList', $hotList);
@@ -104,6 +108,13 @@ class IndexController extends Controller{
                 unset($user_info['password']);
             }
         $head_pic_two = $article_model->gethead_pic_two();//取出首页顶部图片2条
+
+        $ad_aside     = $ad_model->getad('aside');
+        $ad_header     = $ad_model->getad('header');
+
+
+        $this->assign('ad_aside',$ad_aside);
+        $this->assign('ad_header',$ad_header);
         $this->assign('head_pic_two',$head_pic_two);
         $this->assign('hotList', $hotList);
         $this->assign('articleList', $articleList);
@@ -137,7 +148,14 @@ class IndexController extends Controller{
                 $user_info          = M('User')->where('user_id='.$_SESSION['user_info']['user_id'])->select();
                 $user_info          = $user_info[0];
                 unset($user_info['password']);
-            }
+        }
+        $ad_aside     = $ad_model->getad('aside');
+        $ad_header     = $ad_model->getad('header');
+
+        
+        $this->assign('ad_aside',$ad_aside);
+        $this->assign('ad_header',$ad_header);
+        
         $this->assign('article', $article);
         $this->assign('hotList', $hotList);
         $this->assign('user_info', $user_info);
