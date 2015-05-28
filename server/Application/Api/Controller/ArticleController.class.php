@@ -151,7 +151,13 @@ class ArticleController extends Controller {
             ajaxReturn(array(), 'need_article_id', $msgNO['need_article_id']);
         }
         $article_model  = D('Article');
-        $result         = $article_model->changeStatus($article_id);
+        $user_id            = $_SESSION['user_info']['user_id'];
+        $user_model         = D('User');
+        $user_info          = $user_model->where(array('user_id', $user_id))
+                                         ->field('level_status')
+                                         ->select();
+        $admin = !!($user_info[0]['level_status'] > 0);
+        $result         = $article_model->changeStatus($article_id, null, $admin);
         switch ($result) {
             case '-1':
                 ajaxReturn(array(), 'has_no_auth', $msgNO['has_no_auth']);
