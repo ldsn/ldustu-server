@@ -1,5 +1,5 @@
 <?php
-namespace Pc\Model;
+namespace Common\Model;
 use Think\Model;
 class FavourModel extends Model{
     public function addFavour($article_id, $user_id){

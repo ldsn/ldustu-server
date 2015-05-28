@@ -1,5 +1,5 @@
 <?php
-namespace Pc\Model;
+namespace Common\Model;
 use Think\Model;
 class AdModel extends Model{
     /**
@@ -9,8 +9,8 @@ class AdModel extends Model{
     public function getad($type)
     {
         $time = time();//time();
-        $where['start_time'] = array('lt',$time);
-        $where['end_time']   = array('gt',$time);
+        // $where['start_time'] = array('lt',$time);
+        // $where['end_time']   = array('gt',$time);
         $where['ad_type']    = $type;
         $result = $this
                   ->where($where)
