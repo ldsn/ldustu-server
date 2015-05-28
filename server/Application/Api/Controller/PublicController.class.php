@@ -46,7 +46,7 @@ class PublicController extends Controller {
             'article_id'    => $aid,
         );
 
-        $favourModel        = D('favour');
+        $favourModel        = D('Favour');
         if($favourModel->checkFavour($aid, $user_id)){
             $num    = $favourModel->removeFavour($aid, $user_id);
             if($num === 0){

@@ -20,7 +20,7 @@ class LoginController extends Controller {
         $password           = I('post.password');
         $openid             = I('post.openid');
 
-        $userModel          = D('user');
+        $userModel          = D('User');
 
         if($openid){
             $where['qqopenid']  = $openid;

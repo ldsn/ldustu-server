@@ -93,7 +93,7 @@ class ArticleController extends Controller {
         }
         $user_id            = $_SESSION['user_info']['user_id'];
         
-        $article_model      = D('article');  // 初始化文章模型
+        $article_model      = D('Article');  // 初始化文章模型
 
         $content = $_POST['content'];
         $content = preg_replace('/<script>.*?<\/script>/is', '', $content);
