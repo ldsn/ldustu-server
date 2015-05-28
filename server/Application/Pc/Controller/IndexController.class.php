@@ -30,10 +30,7 @@ class IndexController extends Controller{
     public function index(){
         //实例化栏目
         $columnModel            = D('Column');
-        $user                   = D('User');
         $column                 = $columnModel->getall();
-        $userinfo               = $user->userinfo(34);
-        $this->assign('level_status',$userinfo['level_status']);
 
         //var_dump($result);
         //取出用户信息user_info
@@ -42,6 +39,12 @@ class IndexController extends Controller{
                 $user_info          = $user_info[0];
                 unset($user_info['password']);
             }
+        //实例化用户对象取出用户数据
+        $user                   = D('User');
+        $userinfo               = $user->userinfo($_SESSION['user_info']['user_id']);
+        $this->assign('level_status',$userinfo['level_status']);
+
+
         $is_mobile = is_mobile_request();
         if($is_mobile){
             $this->assign('user_info', json_encode($user_info));
@@ -87,7 +90,7 @@ class IndexController extends Controller{
             $conditions['column_id']    = $column_id;
         }
         //实例化栏目
-        $columnModel            = D('column');
+        $columnModel            = D('Column');
         $column                 = $columnModel->getall();
 
         $current_column         = $columnModel->where(array('column_id'=>$column_id))->find();
@@ -109,6 +112,11 @@ class IndexController extends Controller{
                 $user_info          = $user_info[0];
                 unset($user_info['password']);
             }
+        //实例化用户对象取出用户数据
+        $user                   = D('User');
+        $userinfo               = $user->userinfo($_SESSION['user_info']['user_id']);
+        $this->assign('level_status',$userinfo['level_status']);
+        
         $head_pic_two = $article_model->gethead_pic_two();//取出首页顶部图片2条
 
         $ad_model           = D('Ad');
@@ -134,7 +142,7 @@ class IndexController extends Controller{
      */
     public function articleArticle(){
         $article_id         = I('get.aid',0,'int');
-        $columnModel            = D('column');
+        $columnModel            = D('Column');
         $column                 = $columnModel->getall();
 
 
