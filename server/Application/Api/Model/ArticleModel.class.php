@@ -45,8 +45,12 @@ class ArticleModel extends RelationModel{
         $this->where($conditions)->setInc('view_num',1);
         if($result){
             $comment_model                  = D('Comment');
+            $column_model                   = D('Column');
+
             $conditions['article_id']       = $result['article_id'];
             $result['comment_list']         = $comment_model->catchComment($conditions, 0, 5);
+            $conditions['column_id']        = $result['column_id'];
+            $result['column_name']          = $column_model->catchColumn($conditions);
         }
         return $result;
     }
@@ -136,4 +140,35 @@ class ArticleModel extends RelationModel{
             return '-1';
         }
     }
+    /**
+     * 取出顶部10篇文章
+     * @author Jason
+     * 
+     */
+    public function gethead_article()
+    {
+        $where['index_status'] = 1;
+
+        $result = $this
+                  ->where($where)
+                  ->limit(10)
+                  ->order('article_id desc')
+                  ->select();
+        return $result;
+    }
+    /**
+     * 取出顶部两篇图片文章
+     * @author Jason
+     */
+    public function gethead_pic_two()
+    {
+        $where['index_pic_status'] = 1;
+        $result = $this
+                  ->where($where)
+                  ->limit(2)
+                  ->order('article_id desc')
+                  ->select();
+        return $result;
+    }
+
 } 
