@@ -109,6 +109,7 @@ class IndexController extends Controller{
             }
         $head_pic_two = $article_model->gethead_pic_two();//取出首页顶部图片2条
 
+        $ad_model           = D('Ad');
         $ad_aside     = $ad_model->getad('aside');
         $ad_header     = $ad_model->getad('header');
 
@@ -149,13 +150,15 @@ class IndexController extends Controller{
                 $user_info          = $user_info[0];
                 unset($user_info['password']);
         }
+        
+        $ad_model           = D('Ad');
         $ad_aside     = $ad_model->getad('aside');
         $ad_header     = $ad_model->getad('header');
 
         
         $this->assign('ad_aside',$ad_aside);
         $this->assign('ad_header',$ad_header);
-        
+
         $this->assign('article', $article);
         $this->assign('hotList', $hotList);
         $this->assign('user_info', $user_info);
