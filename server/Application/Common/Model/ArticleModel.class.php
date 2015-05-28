@@ -148,7 +148,7 @@ class ArticleModel extends RelationModel{
     public function gethead_article()
     {
         $where['index_status'] = 1;
-
+        $where['status']       = 1;
         $result = $this
                   ->where($where)
                   ->limit(10)
@@ -163,6 +163,7 @@ class ArticleModel extends RelationModel{
     public function gethead_pic_two()
     {
         $where['index_pic_status'] = 1;
+        $where['status']           = 1;
         $result = $this
                   ->where($where)
                   ->limit(2)
