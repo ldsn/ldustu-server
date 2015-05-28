@@ -31,7 +31,7 @@ class RegisterController extends Controller {
         $arr['head_pic']        = I('post.head_pic');
         $arr['sign_time']       = time();
         $arr['telphone']        = I('post.telphone');
-        $user_model             = D('user');
+        $user_model             = D('User');
 
         //数据验证
         $auth       = $user_model->create($arr);
@@ -72,7 +72,7 @@ class RegisterController extends Controller {
 
     public function checkName(){
         $username           = I('post.username');
-        $user_model         = D('user');
+        $user_model         = D('User');
         $where['username']  = $username; 
         $result             = $user_model->where($where)->count();
         if($result){
@@ -103,7 +103,7 @@ class RegisterController extends Controller {
             );
             $this->ajaxReturn($r);
         }
-        $user_model             = D('user');
+        $user_model             = D('User');
         $where['email']         = $email; 
         $result                 = $user_model->where($where)->count();
 
