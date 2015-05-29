@@ -73,7 +73,8 @@ function authSignature($signature){
     $sign           = substr($signature, 0, 64);
     $user_id        = substr($signature, 64);
     $condition      = array('user_id'=>$user_id);
-    $r              = M('User')->find($condition);
+    $r              = M('User')->where($condition)
+                               ->find();
     $get_sign       = hash('sha256',$r['username'].$r['password']);
     if($get_sign == $sign){
         unset($r['password']);
