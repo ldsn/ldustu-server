@@ -49,11 +49,10 @@ class IndexController extends Controller{
 
 
         $is_mobile = is_mobile_request();
-        
-        $this->assign('user_info', json_encode($user_info));
-        $this->assign('column', json_encode($column));
-
-        if($is_mobile){            $this->display('ldsn-wap/page/index');
+        if($is_mobile){
+            $this->assign('user_info', json_encode($user_info));
+            $this->assign('column', json_encode($column));
+            $this->display('ldsn-wap/page/index');
             return;
         }
 
@@ -72,6 +71,8 @@ class IndexController extends Controller{
         $ad_header     = $ad_model->getad('header');
         $head_article = $article_model->gethead_article();//取出首页顶部10条
         $head_pic_two = $article_model->gethead_pic_two();//取出首页顶部图片2条
+        $this->assign('json_user_info', json_encode($user_info));
+        $this->assign('json_column', json_encode($column));
         $this->assign('ad_aside',$ad_aside);
         $this->assign('ad_header',$ad_header);
         $this->assign('head_article',$head_article);
