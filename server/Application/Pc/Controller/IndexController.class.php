@@ -66,7 +66,7 @@ class IndexController extends Controller{
             $articleList[$k]['create_time_string'] = date('<b>m/d</b><b>H:i更新</b>', $articleList[$k]['create_time']);
         }
 
-        $hotList                = $article_model->getList(null,null,6,'view_num desc');
+        $hotList                = $article_model->getList(array('status'=>1),null,6,'view_num desc');
         $ad_aside     = $ad_model->getad('aside');
         $ad_header     = $ad_model->getad('header');
         $head_article = $article_model->gethead_article();//取出首页顶部10条
@@ -108,7 +108,7 @@ class IndexController extends Controller{
             $articleList[$k]['create_time_string'] = date('<b>m/d</b><b>H:i更新</b>', $articleList[$k]['create_time']);
         }
         
-        $hotList                = $article_model->getList(null,null,6,'view_num desc');
+        $hotList                = $article_model->getList(array('status'=>1),null,6,'view_num desc');
 
         //var_dump($result);
         //取出用户信息user_info
@@ -152,7 +152,7 @@ class IndexController extends Controller{
 
 
         $article_model      = D('Article');
-        $hotList                = $article_model->getList(null,null,6,'view_num desc');
+        $hotList                = $article_model->getList(array('status'=>1),null,6,'view_num desc');
 
         $article             = $article_model->getDetail($article_id);
         if ($article) {
