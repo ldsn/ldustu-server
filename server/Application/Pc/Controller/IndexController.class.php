@@ -5,6 +5,9 @@ header('Content-Type: text/html; charset=utf-8;');
 class IndexController extends Controller{
     public function __construct(){
         parent::__construct();
+
+        authLogin()        // 保持用户登录
+        
         $is_mobile = is_mobile_request();
         if(!$is_mobile)
         {
