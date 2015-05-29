@@ -49,10 +49,11 @@ class IndexController extends Controller{
 
 
         $is_mobile = is_mobile_request();
-        if($is_mobile){
-            $this->assign('user_info', json_encode($user_info));
-            $this->assign('column', json_encode($column));
-            $this->display('ldsn-wap/page/index');
+        
+        $this->assign('user_info', json_encode($user_info));
+        $this->assign('column', json_encode($column));
+
+        if($is_mobile){            $this->display('ldsn-wap/page/index');
             return;
         }
 
