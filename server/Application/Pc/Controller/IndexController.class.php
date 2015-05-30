@@ -160,7 +160,7 @@ class IndexController extends Controller{
         if ($article) {
             $article['create_time_string'] = date('m-d H:i:s', $article['create_time']);
             foreach ($article['comment_list'] as $k => $v) {
-                $article[$k]['create_time'] = date('m-d H:i:s', $v['create_time']);
+                $article['comment_list'][$k]['create_time'] = date('m-d H:i:s', $v['create_time']);
             }
         }
 
