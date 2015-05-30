@@ -159,6 +159,9 @@ class IndexController extends Controller{
         $article             = $article_model->getDetail($article_id);
         if ($article) {
             $article['create_time_string'] = date('m-d H:i:s', $article['create_time']);
+            foreach ($article['comment_list'] as $k => $v) {
+                $article[$k]['create_time'] = date('m-d H:i:s', $v['create_time']);
+            }
         }
 
         //取出用户信息user_info
@@ -175,7 +178,7 @@ class IndexController extends Controller{
         
         $this->assign('json_user_info', json_encode($user_info));
         $this->assign('json_column', json_encode($column));
-        
+
         $this->assign('ad_aside',$ad_aside);
         $this->assign('ad_header',$ad_header);
 
