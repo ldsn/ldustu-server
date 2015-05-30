@@ -129,6 +129,8 @@ class IndexController extends Controller{
         $ad_header     = $ad_model->getad('header');
 
 
+        $this->assign('json_user_info', json_encode($user_info));
+        $this->assign('json_column', json_encode($column));
         $this->assign('ad_aside',$ad_aside);
         $this->assign('ad_header',$ad_header);
         $this->assign('head_pic_two',$head_pic_two);
@@ -170,6 +172,9 @@ class IndexController extends Controller{
         $ad_aside     = $ad_model->getad('aside');
         $ad_header     = $ad_model->getad('header');
 
+        
+        $this->assign('json_user_info', json_encode($user_info));
+        $this->assign('json_column', json_encode($column));
         
         $this->assign('ad_aside',$ad_aside);
         $this->assign('ad_header',$ad_header);
