@@ -48,7 +48,7 @@ class ArticleModel extends RelationModel{
             $column_model                   = D('Column');
 
             $conditions['article_id']       = $result['article_id'];
-            $result['comment_list']         = $comment_model->catchComment($conditions, 0, 5);
+            $result['comment_list']         = $comment_model->catchComment($conditions, 0, 10);
             $conditions['column_id']        = $result['column_id'];
             $result['column_name']          = $column_model->catchColumn($conditions);
         }
