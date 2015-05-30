@@ -48,7 +48,7 @@ class CommentController extends Controller {
         $result         = $commentModel->catchComment($conditions,$offset,$count);
         if ($p == 1) {
                 $num = count($result);
-                $result = array_slice($result,5,$num-5);
+                $result = array_slice($result,10,$num-10);
         }
         if($result){
             $r      = array(

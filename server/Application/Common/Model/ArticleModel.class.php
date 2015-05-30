@@ -113,7 +113,7 @@ class ArticleModel extends RelationModel{
                 $column_model = D('Column');
                 foreach ($result as $k => $v) {
                     $conditions['article_id']       = $v['article_id'];
-                    $result[$k]['comment_list']     = $comment_model->catchComment($conditions, 0, 5);
+                    $result[$k]['comment_list']     = $comment_model->catchComment($conditions, 0, 10);
                     $conditions['column_id'] = $v['column_id'];
                     $result[$k]['column_name']     = $column_model->catchColumn($conditions);
                 }
