@@ -48,10 +48,11 @@ class ArticleModel extends RelationModel{
         $update         = M('Article_update');
         $user           = M('User');
         $tb_update      = $update->where('article_id='.$aid)->select();
-        foreach($tb_update as $k => $v)
-        {
-          $tb_update[$k]['user_id'] = $user->where('user_id='.$tb_update[$k]['user_id'])->field('username')->find();
-        }
+        // foreach($tb_update as $k => $v)
+        // {
+        //   $tb_update[$k]['user_id'] = $user->where('user_id='.$tb_update[$k]['user_id'])->field('username')->find();
+        // }
+        var_dump($tb_update);
         $up_username    = $user->where('user_id='.$tb_update['user_id'])->field('username')->find();
         $this->where($conditions)->setInc('view_num',1);
         if($result){

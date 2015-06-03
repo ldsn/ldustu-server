@@ -157,7 +157,7 @@ class IndexController extends Controller{
         $article_model       = D('Article');
         $hotList             = $article_model->getList(array('status'=>1),null,6,'view_num desc');
 
-        $article             = $article_model->getDetail($article_id); //获取文章细节
+        $article             = $article_model->getDetail($article_id);
         if ($article) {
             $article['create_time_string'] = date('m-d H:i:s', $article['create_time']);
             foreach ($article['comment_list'] as $k => $v) {
