@@ -170,6 +170,66 @@ class ArticleController extends Controller {
                 break;
         }
     }
+    /**
+     * 更新文章信息
+     * @author Jason
+     */
+    public function update_article()
+    {
+        $msgNO          = array(
+            'not_login'                 => -1,
+            'need_title'                => -2,
+            'need_content'              => -3,
+            'add_failed'                => -4,
+            'need_column_id'            => -5,
+            'add_success'               => 1
+        );
+        
+        if(!authLogin()){
+            ajaxReturn(array(), 'not_login', $msgNO['not_login']);
+        }
+        $user_id            = $_SESSION['user_info']['user_id'];
+        
+        $article_model      = D('Article');  // 初始化文章模型
+
+        $content = $_POST['content'];
+        $content = preg_replace('/<script>.*?<\/script>/is', '', $content);
+        $content_str = preg_replace ( "/(\<[^\<]*\>|\r|\n|\s|\[.+?\])/is", ' ', $content);
+        $description = mb_substr($content_str,0,140,'utf-8');
+        $data       = array(
+            'user_id'           => $_SESSION['user_info']['user_id'],
+            'column_id'         => I('post.column_id',0,'int'),
+            'status'            => 1,
+            'title'             => I('post.title'),
+            'description'       => substrCut(I('post.content'),50),
+            'thumbnail'         => I('post.thumbnail',''),
+            'from_device'       => 'wap',
+            'description'       => $description,
+            'detail'            => array(
+                'content'           => $content,
+                'tag'               => I('post.tag','')//这个功能的数据库结构让人很疑惑，不建议先使用
+            )
+        );
+
+        if(!$data['title']){
+            ajaxReturn(array(), 'need_title', $msgNO['need_title']);
+        }
+
+        if(!$data['column_id']){
+            ajaxReturn(array(), 'need_column_id', $msgNO['need_column_id']);
+        }
+
+        if(!$data['detail']['content']){
+            ajaxReturn(array(), 'need_content', $msgNO['need_content']);
+        }
+
+        $result                 = $article_model->update_article($data);
+        if($result){
+            ajaxReturn($result, 'add_success', $msgNO['add_success']);
+        } else {
+            ajaxReturn(array(), 'add_failed', $msgNO['add_failed']);
+        }
+    }
     
     /**
      * 获取远程文章

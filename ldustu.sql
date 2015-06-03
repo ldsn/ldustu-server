@@ -220,3 +220,21 @@ ALTER TABLE  `ldsn_article` ADD  `index_status` INT NOT NULL DEFAULT  '0' COMMEN
 ALTER TABLE  `ldsn_article` ADD  `index_pic_status` INT NOT NULL DEFAULT  '0' COMMENT  '首页顶部两张图片的状态取状态为1的，默认为0' AFTER  `index_status`;
 -- 2015.05.28
 ALTER TABLE  `ldsn_user` ADD  `level_status` INT NOT NULL DEFAULT  '0' COMMENT  '权限等级普通用户为0，管理员为1';
+
+--
+-- 数据库: `ldustu`
+--
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ldsn_article_update`
+-- 更新时间2015.06.03
+
+CREATE TABLE IF NOT EXISTS `ldsn_article_update` (
+  `up_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '更新表主键ID',
+  `article_id` int(11) NOT NULL COMMENT '被更新文章ID',
+  `user_id` int(11) NOT NULL COMMENT '更新操作用户',
+  `update_time` int(11) NOT NULL COMMENT '最后更新时间',
+  PRIMARY KEY (`up_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

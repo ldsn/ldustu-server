@@ -85,6 +85,41 @@ class ArticleModel extends RelationModel{
         }
         return $result;
     }
+    /**
+     * 更新文章
+     * @author Jason
+     * @param  $data | 更新的文章数据
+     * @return 返回更新文章ID或者FALSE
+     */
+    public function update_article($data)
+    {
+      if(!$data){
+            $data       = array(
+                'user_id'           => $_SESSION['user_info']['user_id'],
+                'column_id'         => I('post.column_id',0,'int'),
+                'status'            => 1,
+                'title'             => I('post.title'),
+                'description'       => I('post.desc',''),
+                'thumbnail'         => I('post.thumbnail',''),
+                'from_device'       => 'wap',
+                'detail'            => array(
+                    'content'           => I('post.content'),
+                    'tag'               => I('post.tag','')//这个功能的数据库结构让人很疑惑，不建议先使用
+                )
+            );
+            if(!$data['user_id'] || !$data['column_id'] || !$data['title'] || !$data['detail']['content'])return false;
+        }
+        $result = $this->relation('detail')->save($data);
+        if($result){
+            $upinfo = array(
+              'article_id' =>$result,
+              'user_id'    =>$_SESSION['user_info']['user_id'],
+              'update_time'=>time()
+              );
+            M('Article_update')->data($upinfo)->add();
+        }
+        return $result;
+    }
 
     /**
      * 获取文章列表
