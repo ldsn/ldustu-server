@@ -148,15 +148,16 @@ class IndexController extends Controller{
      * @author Jason
      */
     public function articleArticle(){
-        $article_id         = I('get.aid',0,'int');
+
+        $article_id             = I('get.aid',0,'int');
         $columnModel            = D('Column');
-        $column                 = $columnModel->getall();
+        $column                 = $columnModel->getall(); //获取所有栏目
 
 
-        $article_model      = D('Article');
-        $hotList                = $article_model->getList(array('status'=>1),null,6,'view_num desc');
+        $article_model       = D('Article');
+        $hotList             = $article_model->getList(array('status'=>1),null,6,'view_num desc');
 
-        $article             = $article_model->getDetail($article_id);
+        $article             = $article_model->getDetail($article_id); //获取文章细节
         if ($article) {
             $article['create_time_string'] = date('m-d H:i:s', $article['create_time']);
             foreach ($article['comment_list'] as $k => $v) {
@@ -171,6 +172,7 @@ class IndexController extends Controller{
                 unset($user_info['password']);
         }
         
+        //获取广告
         $ad_model           = D('Ad');
         $ad_aside     = $ad_model->getad('aside');
         $ad_header     = $ad_model->getad('header');

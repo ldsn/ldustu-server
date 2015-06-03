@@ -40,8 +40,19 @@ class ArticleModel extends RelationModel{
         if(!$aid)return false;
         $user_id        = $_SESSION['user_info']['user_id']?$_SESSION['user_info']['user_id']:0;
         $this->_link['FavInfo']['condition']    = "user_id={$user_id}";
-        $conditions = array('article_id'=>$aid);
-        $result = $this->relation(true)->where($conditions)->find();
+        $conditions     = array('article_id'=>$aid);
+        $result         = $this
+                          ->relation(true)
+                          ->where($conditions)
+                          ->find();
+        $update         = M('Article_update');
+        $user           = M('User');
+        $tb_update      = $update->where('article_id='.$aid)->select();
+        foreach($tb_update as $k => $v)
+        {
+          $tb_update[$k]['user_id'] = $user->where('user_id='.$tb_update[$k]['user_id'])->field('username')->find();
+        }
+        $up_username    = $user->where('user_id='.$tb_update['user_id'])->field('username')->find();
         $this->where($conditions)->setInc('view_num',1);
         if($result){
             $comment_model                  = D('Comment');
@@ -51,6 +62,7 @@ class ArticleModel extends RelationModel{
             $result['comment_list']         = $comment_model->catchComment($conditions, 0, 10);
             $conditions['column_id']        = $result['column_id'];
             $result['column_name']          = $column_model->catchColumn($conditions);
+            $result['update_list']          = $tb_update;
         }
         return $result;
     }
