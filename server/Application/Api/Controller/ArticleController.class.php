@@ -180,9 +180,10 @@ class ArticleController extends Controller {
             'not_login'                 => -1,
             'need_title'                => -2,
             'need_content'              => -3,
-            'add_failed'                => -4,
+            'update_failed'             => -4,
             'need_column_id'            => -5,
-            'add_success'               => 1
+            'need_article_id'           => -6,
+            'update_success'            => 1
         );
         
         if(!authLogin()){
@@ -196,6 +197,10 @@ class ArticleController extends Controller {
         $content = preg_replace('/<script>.*?<\/script>/is', '', $content);
         $content_str = preg_replace ( "/(\<[^\<]*\>|\r|\n|\s|\[.+?\])/is", ' ', $content);
         $description = mb_substr($content_str,0,140,'utf-8');
+        $article_id  = I('post.article_id');
+        if(!$article_id){
+            ajaxReturn(array(), 'need_article_id', $msgNO['need_article_id']);
+        }
         $data       = array(
             'user_id'           => $_SESSION['user_info']['user_id'],
             'column_id'         => I('post.column_id',0,'int'),
@@ -223,11 +228,11 @@ class ArticleController extends Controller {
             ajaxReturn(array(), 'need_content', $msgNO['need_content']);
         }
 
-        $result                 = $article_model->update_article($data);
+        $result                 = $article_model->update_article($data,$article_id);
         if($result){
-            ajaxReturn($result, 'add_success', $msgNO['add_success']);
+            ajaxReturn($result, 'update_success', $msgNO['update_success']);
         } else {
-            ajaxReturn(array(), 'add_failed', $msgNO['add_failed']);
+            ajaxReturn(array(), 'update_failed', $msgNO['update_failed']);
         }
     }
     

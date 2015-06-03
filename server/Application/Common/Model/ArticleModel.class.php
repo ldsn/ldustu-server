@@ -91,9 +91,14 @@ class ArticleModel extends RelationModel{
      * @param  $data | 更新的文章数据
      * @return 返回更新文章ID或者FALSE
      */
-    public function update_article($data)
+    public function update_article($data,$article_id)
     {
-      if(!$data){
+      if(!$article_id)
+      {
+        $article_id = I('post.article_id');
+      }
+      if(!$data)
+      {
             $data       = array(
                 'user_id'           => $_SESSION['user_info']['user_id'],
                 'column_id'         => I('post.column_id',0,'int'),
@@ -109,7 +114,8 @@ class ArticleModel extends RelationModel{
             );
             if(!$data['user_id'] || !$data['column_id'] || !$data['title'] || !$data['detail']['content'])return false;
         }
-        $result = $this->relation('detail')->save($data);
+        $where['article_id'] = $article_id;
+        $result = $this->where($where)->relation('detail')->save($data);
         if($result){
             $upinfo = array(
               'article_id' =>$result,
