@@ -47,7 +47,7 @@ class ArticleModel extends RelationModel{
                           ->find();
         $update         = M('Article_update');
         $user           = M('User');
-        $tb_update      = $update->where($conditions)->select();
+        $tb_update      = $update->where()->select();
         foreach($tb_update as $k => $v)
         {
           $tb_update[$k]['user_id'] = $user->where('user_id='.$tb_update[$k]['user_id'])->field('username')->find();
