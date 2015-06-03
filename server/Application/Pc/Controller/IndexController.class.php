@@ -171,13 +171,21 @@ class IndexController extends Controller{
                 $user_info          = $user_info[0];
                 unset($user_info['password']);
         }
-        
+        //将更新信息提出
+        $update         = M('Article_update');
+        $user           = M('User');
+        $tb_update      = $update->where()->select();
+        foreach($tb_update as $k => $v)
+        {
+          $tb_update[$k]['user_id'] = $user->where('user_id='.$tb_update[$k]['user_id'])->field('username')->find();
+        }
         //获取广告
         $ad_model           = D('Ad');
         $ad_aside     = $ad_model->getad('aside');
         $ad_header     = $ad_model->getad('header');
 
-        
+        $this->assign('tb_update',$tb_update); 
+
         $this->assign('json_user_info', json_encode($user_info));
         $this->assign('json_column', json_encode($column));
 

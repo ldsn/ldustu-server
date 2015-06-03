@@ -126,10 +126,11 @@ class ArticleModel extends RelationModel{
             if(!$data['user_id'] || !$data['column_id'] || !$data['title'] || !$data['detail']['content'])return false;
         }
         $where['article_id'] = $article_id;
+        
         $result = $this->where($where)->relation('detail')->save($data);
         if($result){
             $upinfo = array(
-              'article_id' =>$result,
+              'article_id' =>$article_id,
               'user_id'    =>$_SESSION['user_info']['user_id'],
               'update_time'=>time()
               );
