@@ -20,7 +20,8 @@ class UserController extends Controller{
 		$comment  = M('Comment');
 		$com_info = $comment->where('user_id='.$user_id)->select();
 		foreach ($com_info as $key => $value) {
-			$com_info[$key]['article_id'] = $article->where('article_id='.$com_info[$key]['article_id'])->find();
+			$article_com 				  = $article->where('article_id='.$com_info[$key]['article_id'])->find();
+			$com_info[$key]['article_id'] = $article_com['title'];
 		}
 		var_dump($com_info);
 		//信息打到模版变量
