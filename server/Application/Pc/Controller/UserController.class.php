@@ -15,10 +15,17 @@ class UserController extends Controller{
 		$user_info= $user->userinfo($user_id);
 		//提取用户发表文章
 		$article  = M('Article');
-		$article  = $article->where('user_id='.$user_id)->select();
-		var_dump($article);
-		//用户信息打到模版变量
-		$this->assign('article',$article);
+		$art_info = $article->where('user_id='.$user_id)->select();
+		//提取评论你
+		$comment  = M('Comment');
+		$com_info = $comment->where('user_id='.$user_id)->select();
+		foreach ($com_info as $key => $value) {
+			$com_info[$key]['article_id'] = $article->where('article_id='.$com_info[$key]['article_id'])->find();
+		}
+		var_dump($com_info);
+		//信息打到模版变量
+		$this->assign('com_info',$com_info);
+		$this->assign('art_info',$art_info);
 		$this->assign('user_info',$user_info);
 		$this->display();
 	}
