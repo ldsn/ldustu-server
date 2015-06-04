@@ -12,6 +12,12 @@ class UserController extends Controller{
 		//提取用户信息
 		$user     = D('User');
 		$user_id  = session('user_info.user_id')?session('user_info.user_id'):0;
+		//判断权限
+		$usercheck= $user->where('user_id='.$user_id)->find();
+		if($usercheck){
+			$is_me = 'is_me';
+			$this->assign('is_me',$is_me);
+		}
 		$user_info= $user->userinfo($user_id);
 		//提取用户发表文章
 		$article  = M('Article');
@@ -36,6 +42,12 @@ class UserController extends Controller{
 	{
 		$user     = D('User');
 		$user_id  = session('user_info.user_id')?session('user_info.user_id'):0;
+		//判断权限
+		$usercheck= $user->where('user_id='.$user_id)->find();
+		if($usercheck){
+			$is_me = 'is_me';
+			$this->assign('is_me',$is_me);
+		}
 		$user_info = $user->userinfo($user_id);
 		//用户信息打到模版变量
 		$this->assign('user_info',$user_info);
