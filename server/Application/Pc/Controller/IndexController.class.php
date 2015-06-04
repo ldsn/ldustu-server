@@ -112,11 +112,10 @@ class IndexController extends Controller{
 
         //var_dump($result);
         //取出用户信息user_info
-        if($_SESSION['user_info']['user_id']){
-                $user_info          = M('User')->where('user_id='.$_SESSION['user_info']['user_id'])->select();
-                $user_info          = $user_info[0];
-                unset($user_info['password']);
-            }
+        if(session('user_info.user_id')){
+                $user_id  = session('user_info.user_id')?session('user_info.user_id'):0;
+                $user_info = $user->userinfo($user_id);
+        }
         //实例化用户对象取出用户数据
         $user                   = D('User');
         $userinfo               = $user->userinfo($_SESSION['user_info']['user_id']);
@@ -166,10 +165,9 @@ class IndexController extends Controller{
         }
 
         //取出用户信息user_info
-        if($_SESSION['user_info']['user_id']){
-                $user_info          = M('User')->where('user_id='.$_SESSION['user_info']['user_id'])->select();
-                $user_info          = $user_info[0];
-                unset($user_info['password']);
+        if(session('user_info.user_id')){
+                $user_id  = session('user_info.user_id')?session('user_info.user_id'):0;
+                $user_info = $user->userinfo($user_id);
         }
         //将更新信息提出
         $update         = M('Article_update');
