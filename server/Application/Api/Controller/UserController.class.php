@@ -29,4 +29,8 @@ class UserController extends Controller {
         }
         $this->ajaxReturn($result);
     }
+    public function up_info()
+    {
+        $
+    }
 }
