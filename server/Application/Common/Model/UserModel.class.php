@@ -28,19 +28,6 @@ class UserModel extends Model{
      */
     public function up_info($data,$user_id)
     {
-        if(!$data){
-            $data = array(
-                'username' => I('post.username');
-                'password' => I('post.password');
-                'head_pic' => I('post.head_pic');
-                'qq'       => I('post.qq');
-                'telphone' => I('post.telphone');
-                'email'    => I('post.email');
-                );
-            if(!$data['password']){
-                unset($data['password']);
-            }
-        }
         $result = $this
                   ->data($data)
                   ->where('user_id='.$user_id)
