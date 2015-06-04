@@ -21,10 +21,8 @@ class UserController extends Controller{
 		$com_info = $comment->where('user_id='.$user_id)->select();
 		foreach ($com_info as $key => $value) {
 			$article_com 				  = $article->where('article_id='.$com_info[$key]['article_id'])->find();
-			var_dump($article_com);
 			$com_info[$key]['article_title'] = $article_com['title'];
 		}
-		var_dump($com_info);
 		//信息打到模版变量
 		$this->assign('com_info',$com_info);
 		$this->assign('art_info',$art_info);
