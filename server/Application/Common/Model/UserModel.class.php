@@ -21,4 +21,30 @@ class UserModel extends Model{
         $result =$this->field('password',true)->where($where)->find();
         return $result;
     }
+    /**
+     * 更新用户信息
+     * @author Jason
+     * @param $data 需要更新的用户信息
+     */
+    public function up_info($data,$user_id)
+    {
+        if(!$data){
+            $data = array(
+                'username' => I('post.username');
+                'password' => I('post.password');
+                'head_pic' => I('post.head_pic');
+                'qq'       => I('post.qq');
+                'telphone' => I('post.telphone');
+                'email'    => I('post.email');
+                );
+            if(!$data['password']){
+                unset($data['password']);
+            }
+        }
+        $result = $this
+                  ->data($data)
+                  ->where('user_id='.$user_id)
+                  ->save();
+        return $result;
+    }
 }
