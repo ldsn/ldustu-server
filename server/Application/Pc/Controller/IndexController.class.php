@@ -217,6 +217,9 @@ class IndexController extends Controller{
             exit();
         }
 
+        $article_model = D('Article');
+        $hotList                = $article_model->getList(array('status'=>1),null,6,'view_num desc');
+
         //获取广告
         $ad_model           = D('Ad');
         $ad_aside     = $ad_model->getad('aside');
@@ -225,6 +228,7 @@ class IndexController extends Controller{
         $columnModel            = D('Column');
         $column                 = $columnModel->getall(); //获取所有栏目
 
+        $this->assign('hotList', $hotList);
         $this->assign('json_user_info', json_encode($user_info));
         $this->assign('json_column', json_encode($column));
         $this->assign('level_status',$userinfo['level_status']);
