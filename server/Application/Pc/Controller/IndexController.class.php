@@ -188,6 +188,7 @@ class IndexController extends Controller{
 
         $this->assign('json_user_info', json_encode($user_info));
         $this->assign('json_column', json_encode($column));
+        $this->assign('level_status',$userinfo['level_status']);
 
         $this->assign('ad_aside',$ad_aside);
         $this->assign('ad_header',$ad_header);
@@ -197,6 +198,37 @@ class IndexController extends Controller{
         $this->assign('user_info', $user_info);
         $this->assign('column', $column);
         $this->assign('column_id', $article['column_id']);
+
+
         $this->display('ldsn-pc/page/article');
+    }
+    /*
+     * 发表文章页面
+     */
+    public function publishArticle () {
+
+        //取出用户信息user_info
+        if(session('user_info.user_id')){
+                $user_id  = session('user_info.user_id')?session('user_info.user_id'):0;
+                $user_info = $user->userinfo($user_id);
+        } else {
+            echo "<script>alert('登陆后即可发布文章！');location.href='/'</script>";
+        }
+
+        //获取广告
+        $ad_model           = D('Ad');
+        $ad_aside     = $ad_model->getad('aside');
+        $ad_header     = $ad_model->getad('header');
+
+        $column                 = $columnModel->getall(); //获取所有栏目
+
+        $this->assign('json_user_info', json_encode($user_info));
+        $this->assign('json_column', json_encode($column));
+        $this->assign('level_status',$userinfo['level_status']);
+        $this->assign('user_info', $user_info);
+        $this->assign('column', $column);
+        $this->assign('ad_aside',$ad_aside);
+        $this->assign('ad_header',$ad_header);
+        $this->display('ldsn-pc/page/publish');
     }
 }
