@@ -154,6 +154,7 @@ class IndexController extends Controller{
 
 
         $article_model       = D('Article');
+        $user                = D('User');
         $hotList             = $article_model->getList(array('status'=>1),null,6,'view_num desc');
 
         $article             = $article_model->getDetail($article_id);
@@ -171,7 +172,7 @@ class IndexController extends Controller{
         }
         //将更新信息提出
         $update         = M('Article_update');
-        $user           = M('User');
+        //$user           = M('User');
         $tb_update      = $update->where()->select();
         foreach($tb_update as $k => $v)
         {
