@@ -104,6 +104,7 @@ class IndexController extends Controller{
         $article_model          = D('Article');
         $articleList            = $article_model->getList($conditions);
 
+        $user                   = D('User');
         foreach ($articleList as $k => $v) {
             $articleList[$k]['create_time_string'] = date('<b>m/d</b><b>H:i更新</b>', $articleList[$k]['create_time']);
         }
