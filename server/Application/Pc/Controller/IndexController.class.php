@@ -214,6 +214,7 @@ class IndexController extends Controller{
                 $user_info = $user->userinfo($user_id);
         } else {
             echo "<script>alert('登陆后即可发布文章！');location.href='/'</script>";
+            return;
         }
 
         //获取广告
