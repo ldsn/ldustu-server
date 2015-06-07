@@ -21,7 +21,7 @@ return array(
     'URL_ROUTE_RULES' => array( //定义路由规则
         'category/:column_id' => 'index/listArticle',
         'arc/:aid' => 'index/articleArticle',
-        'publish/' => 'index/publishArticle'
+        'publish' => 'index/publishArticle'
      ),
     'URL_MODEL'             =>1,  //url模式  pathinfo
     'URL_CASE_INSENSITIVE'  => true, //URL不区分大小写

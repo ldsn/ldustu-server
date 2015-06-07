@@ -208,6 +208,7 @@ class IndexController extends Controller{
     public function publishArticle () {
 
         //取出用户信息user_info
+        $user = D('User');
         if(session('user_info.user_id')){
                 $user_id  = session('user_info.user_id')?session('user_info.user_id'):0;
                 $user_info = $user->userinfo($user_id);
@@ -220,6 +221,7 @@ class IndexController extends Controller{
         $ad_aside     = $ad_model->getad('aside');
         $ad_header     = $ad_model->getad('header');
 
+        $columnModel            = D('Column');
         $column                 = $columnModel->getall(); //获取所有栏目
 
         $this->assign('json_user_info', json_encode($user_info));
