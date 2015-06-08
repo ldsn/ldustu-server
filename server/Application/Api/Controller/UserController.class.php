@@ -70,7 +70,6 @@ class UserController extends Controller {
             'email'    => I('post.email')
         );
         $arr = $data;
-
         // 为了跳过验证 应急方法 todo 
         if(!$arr['password']){
             $arr['password'] = 12345678;
@@ -89,6 +88,8 @@ class UserController extends Controller {
 
         if(!$data['password']){
             unset($data['password']);
+        } else {
+            $data['password'] = md5($data['password']);
         }
         $data['password'] = md5(I('post.password'));
         $result = $user->up_info($data,$user_id);
