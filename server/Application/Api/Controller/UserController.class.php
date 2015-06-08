@@ -96,7 +96,8 @@ class UserController extends Controller {
         {
             $r  = array(
                 'msg'       => 'up_success',
-                'status'    => 1
+                'status'    => 1,
+                'data'      => $result
             );
             $this->ajaxReturn($r);
         }
