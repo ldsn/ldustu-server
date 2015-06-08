@@ -155,9 +155,7 @@ class IndexController extends Controller{
         $hotList             = $article_model->getList(array('status'=>1),null,6,'view_num desc');
 
         $article             = $article_model->getDetail($article_id);
-        if ($article['status'] != 1) {
-            header("HTTP/1.0 404 Not Found");
-        }
+
         if ($article) {
             $article['create_time_string'] = date('m-d H:i:s', $article['create_time']);
             foreach ($article['comment_list'] as $k => $v) {
@@ -172,7 +170,6 @@ class IndexController extends Controller{
         }
         //将更新信息提出
         $update         = M('Article_update');
-        //$user           = M('User');
         $tb_update      = $update->where()->select();
         foreach($tb_update as $k => $v)
         {

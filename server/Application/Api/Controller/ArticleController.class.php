@@ -157,7 +157,7 @@ class ArticleController extends Controller {
                                          ->field('level_status')
                                          ->select();
         $admin = !!($user_info[0]['level_status'] > 0);
-        $result         = $article_model->changeStatus($article_id, null, $admin);
+        $result         = $article_model->changeStatus($article_id, -1, $admin);
         switch ($result) {
             case '-1':
                 ajaxReturn(array(), 'has_no_auth', $msgNO['has_no_auth']);
