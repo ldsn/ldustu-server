@@ -87,7 +87,7 @@ class UserController extends Controller{
         
         $ad_model           = D('Ad');
 
-
+        $article_model 		= D('Article');
         $hotList                = $article_model->getList(array('status'=>1),null,6,'view_num desc');
         $ad_aside     = $ad_model->getad('aside');
         $ad_header     = $ad_model->getad('header');
