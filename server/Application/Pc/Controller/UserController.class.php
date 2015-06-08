@@ -11,7 +11,7 @@ class UserController extends Controller{
 	{	
 		//提取用户信息
 		$user     = D('User');
-		$article_mod  = D('Article');
+		$article_model  = D('Article');
 		$user_id  = I('get.user_id')?I('get.user_id'):0;
 		//判断权限
 		if($user_id == session('user_info.user_id')){
@@ -22,14 +22,14 @@ class UserController extends Controller{
 		$comment_dom  = D('Comment');
 		$comment = $comment_dom->where(array('user_id'=>$user_id))->getList();
 		foreach ($comment as $key => $value) {
-			$article_com 				  = $article_mod->where(array('article_id'=>$comment[$key]['article_id']))->select();
+			$article_com 				  = $article_model->where(array('article_id'=>$comment[$key]['article_id']))->select();
 			$comment[$key]['article_title'] = $article_com[0]['title'];
 		}
 		$home_info= $user->userinfo($user_id);
 		$user_info= $user->userinfo(session('user_info.user_id'));
 		//提取用户发表文章
 		
-		$article = $article_mod->where(array('user_id'=>$user_id))->getList();
+		$article = $article_model->where(array('user_id'=>$user_id))->getList();
         foreach ($article as $k => $v) {
             $article[$k]['create_time_string'] = date('<b>m/d</b><b>H:i更新</b>', $article[$k]['create_time']);
         }
