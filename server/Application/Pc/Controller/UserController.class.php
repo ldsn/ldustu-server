@@ -50,6 +50,7 @@ class UserController extends Controller{
         $this->assign('json_user_info', json_encode($user_info));
         $this->assign('ad_aside',$ad_aside);
         $this->assign('ad_header',$ad_header);
+        $this->assign('column', $column);
         $this->assign('hotList', $hotList);
 // 通用结束
 
@@ -96,6 +97,7 @@ class UserController extends Controller{
         $this->assign('ad_aside',$ad_aside);
         $this->assign('ad_header',$ad_header);
         $this->assign('hotList', $hotList);
+        $this->assign('column', $column);
 // 通用结束
 
 		//用户信息打到模版变量
