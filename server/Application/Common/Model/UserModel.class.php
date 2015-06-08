@@ -32,11 +32,12 @@ class UserModel extends Model{
                   ->data($data)
                   ->where('user_id='.$user_id)
                   ->save();
-        if($result) {
+        if($result !== false) {
             $result = $this
                     ->where('user_id='.$user_id)
                     ->select();
+            $result = $result[0];
         }
-        return $result[0];
+        return $result;
     }
 }

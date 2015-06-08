@@ -76,7 +76,7 @@ class UserController extends Controller {
             $arr['password'] = 12345678;
         }
 
-        $auth = $user->create($arr);
+        $auth = $user->create($arr, 3);
         if(!$auth){
             $err    = $user->getError();
             $r      = array(
@@ -92,7 +92,7 @@ class UserController extends Controller {
         }
         $data['password'] = md5(I('post.password'));
         $result = $user->up_info($data,$user_id);
-        if($result !== false)
+        if($result)
         {
             $r  = array(
                 'msg'       => 'up_success',
