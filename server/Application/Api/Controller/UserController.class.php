@@ -46,6 +46,13 @@ class UserController extends Controller {
         );
         $user      = D('User');
         $user_id   = session('user_info.user_id');
+        if (!$user_id) {
+            $r  = array(
+                'msg'       => 'no_auth',
+                'status'    => -1
+            );
+            $this->ajaxReturn($r);
+        }
         $usercheck = $user->where('user_id='.$user_id)->find();
         if(!$usercheck){
             $r  = array(
