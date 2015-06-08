@@ -19,7 +19,7 @@ class UserController extends Controller{
 			$this->assign('is_me',$is_me);
 			//提取评论你
 		}
-		$comment  = M('Comment');
+		$comment  = D('Comment');
 		$com_info = $comment->where(array('user_id'=>$user_id))->getList();
 		foreach ($com_info as $key => $value) {
 			$article_com 				  = $article->where(array('article_id'=>$com_info[$key]['article_id']))->getList();
