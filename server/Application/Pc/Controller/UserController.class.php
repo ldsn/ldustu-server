@@ -11,6 +11,7 @@ class UserController extends Controller{
 	{	
 		//提取用户信息
 		$user     = D('User');
+		$article  = M('Article');
 		$user_id  = I('get.user_id')?I('get.user_id'):0;
 		//判断权限
 		if($user_id == session('user_info.user_id')){
@@ -27,7 +28,7 @@ class UserController extends Controller{
 		}
 		$user_info= $user->userinfo($user_id);
 		//提取用户发表文章
-		$article  = M('Article');
+		
 		$art_info = $article->where('user_id='.$user_id)->select();
 
 		//信息打到模版变量
