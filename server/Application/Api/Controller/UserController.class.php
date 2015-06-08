@@ -72,7 +72,7 @@ class UserController extends Controller {
         $auth = $user->create($data);
 
         if(!$auth){
-            $err    = $user_model->getError();
+            $err    = $user->getError();
             $r      = array(
                 'data'      => array(),
                 'msg'       => $err,
