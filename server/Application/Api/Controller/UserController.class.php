@@ -32,9 +32,17 @@ class UserController extends Controller {
     public function up_info()
     {
         $msgNO = array(
-            'up_faild'  => 0,
-            'up_success'=> 1,
-            'no_auth'   => -1
+            'up_faild'              => 0,
+            'up_success'            => 1,
+            'auth_code_err'         => -1,
+            'need_auth_code'        => -2,
+            'repassword_err'        => -3,
+            'email_err'             => -4,
+            'email_has_existed'     => -5,
+            'username_has_existed'  => -6,
+            'need_password'         => -7,
+            'pass_not_long'         => -8,//密码不够长
+            'no_auth'               => -9
         );
         $user      = D('User');
         $user_id   = session('user_info.user_id');
@@ -54,10 +62,22 @@ class UserController extends Controller {
             'telphone' => I('post.telphone'),
             'email'    => I('post.email')
         );
+        $auth = $user->create($data);
+
+        if(!$auth){
+            $err    = $user_model->getError();
+            $r      = array(
+                'data'      => array(),
+                'msg'       => $err,
+                'status'    => $msgNO[$err]
+            );
+            $this->ajaxReturn($r);
+        }
+
         if(!$data['password']){
             unset($data['password']);
         }
-        
+        $data['password'] = md5(I('post.password'));
         $result = $user->up_info($data,$user_id);
         if($result)
         {
