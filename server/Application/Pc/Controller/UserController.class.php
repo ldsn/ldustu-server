@@ -36,7 +36,7 @@ class UserController extends Controller{
 		$this->display();
 	}
 	/**
-	 * 用户个人中心
+	 * 用户个人信息
 	 */
 	public function info_center()
 	{

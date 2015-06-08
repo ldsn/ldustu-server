@@ -41,11 +41,9 @@ class IndexController extends Controller{
                 $user_info          = M('User')->where('user_id='.$_SESSION['user_info']['user_id'])->select();
                 $user_info          = $user_info[0];
                 unset($user_info['password']);
-            }
-        //实例化用户对象取出用户数据
-        $user                   = D('User');
-        $userinfo               = $user->userinfo($_SESSION['user_info']['user_id']);
-        $this->assign('level_status',$userinfo['level_status']);
+        }
+        //取出用户等级
+        $this->assign('level_status',$user_info['level_status']);
 
 
         $is_mobile = is_mobile_request();
@@ -117,10 +115,8 @@ class IndexController extends Controller{
                 $user_id  = session('user_info.user_id')?session('user_info.user_id'):0;
                 $user_info = $user->userinfo($user_id);
         }
-        //实例化用户对象取出用户数据
-        $user                   = D('User');
-        $userinfo               = $user->userinfo($_SESSION['user_info']['user_id']);
-        $this->assign('level_status',$userinfo['level_status']);
+        //取出用户等级
+        $this->assign('level_status',$user_info['level_status']);
         
         $head_pic_two = $article_model->gethead_pic_two();//取出首页顶部图片2条
 
@@ -188,7 +184,7 @@ class IndexController extends Controller{
 
         $this->assign('json_user_info', json_encode($user_info));
         $this->assign('json_column', json_encode($column));
-        $this->assign('level_status',$userinfo['level_status']);
+        $this->assign('level_status',$user_info['level_status']);
 
         $this->assign('ad_aside',$ad_aside);
         $this->assign('ad_header',$ad_header);
