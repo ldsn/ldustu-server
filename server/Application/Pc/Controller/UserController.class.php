@@ -20,7 +20,7 @@ class UserController extends Controller{
 			//提取评论你
 		}
 		$comment  = M('Comment');
-		$com_info = $comment->where(array('user_id'=>$user_id))->select();
+		$com_info = $comment->where(array('user_id'=>$user_id))->getList();
 		foreach ($com_info as $key => $value) {
 			$article_com 				  = $article->where(array('article_id'=>$com_info[$key]['article_id']))->getList();
 			$com_info[$key]['article_title'] = $article_com['title'];
@@ -34,7 +34,7 @@ class UserController extends Controller{
 		//信息打到模版变量
 		$this->assign('art_info',$art_info);
 		$this->assign('user_info',$user_info);
-		$this->display();
+		$this->display('ldsn-pc/page/home');
 	}
 	/**
 	 * 用户个人信息
@@ -52,6 +52,6 @@ class UserController extends Controller{
 		$user_info = $user->userinfo($user_id);
 		//用户信息打到模版变量
 		$this->assign('user_info',$user_info);
-		$this->display();
+		$this->display('ldsn-pc/page/info');
 	}
 }
