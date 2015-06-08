@@ -87,4 +87,29 @@ class CommentModel extends RelationModel{
         
         return $result;
     }
+
+    /**
+     * 获取文章列表
+     * @author      ety001
+     * @param array $conditions 条件数组
+     * @param int $offset 查询起始条
+     * @param int $count 每次查询条数
+     * @param string $order 排序规则
+     * @param boolean $is_count 是否返回总数
+     * @return array|false|int 返回文章列表|false|或者符合条件的文章总数
+     */
+    public function getList($conditions=array(), $offset=0, $count=20, $order='comment_id desc', $is_count=false){
+
+        if($is_count){
+            $result = $this->where($conditions)->count();
+        } else {
+            $user_id        = $_SESSION['user_info']['user_id']?$_SESSION['user_info']['user_id']:0;
+            $result = $this->limit($offset,$count)
+                        ->where($conditions)
+                        ->order($order)
+                        ->relation(true)
+                        ->select();
+        }
+        return  $result;
+    }
 }
