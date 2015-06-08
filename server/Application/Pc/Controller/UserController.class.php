@@ -24,7 +24,7 @@ class UserController extends Controller{
 		foreach ($comment as $key => $value) {
 			$article_com 				  = $article_model->where(array('article_id'=>$comment[$key]['article_id']))->select();
 			$comment[$key]['article_title'] = $article_com[0]['title'];
-            $comment[$key]['create_time_string'] = date('<b>m/d</b> <b>H:i</b>', $article[$k]['create_time']);
+            $comment[$key]['create_time_string'] = date('<b>m/d</b> <b>H:i</b>', $comment[$key]['create_time']);
 		}
 		$home_info= $user->userinfo($user_id);
 		$user_info= $user->userinfo(session('user_info.user_id'));
