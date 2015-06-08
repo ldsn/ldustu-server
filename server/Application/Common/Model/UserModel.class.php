@@ -31,8 +31,7 @@ class UserModel extends Model{
         $result = $this
                   ->data($data)
                   ->where('user_id='.$user_id)
-                  ->save()
-                  ->select();
+                  ->save();
         if($result) {
             $result = $this
                     ->where('user_id='.$user_id)

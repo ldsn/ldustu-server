@@ -92,7 +92,7 @@ class UserController extends Controller {
         }
         $data['password'] = md5(I('post.password'));
         $result = $user->up_info($data,$user_id);
-        if($result)
+        if($result !== false)
         {
             $r  = array(
                 'msg'       => 'up_success',
