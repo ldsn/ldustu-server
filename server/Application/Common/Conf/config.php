@@ -5,15 +5,15 @@ return array(
     'TMPL_ENGINE_TYPE'      =>'Smarty',
     'TMPL_TEMPLATE_SUFFIX'  =>'.tpl',
     'TMPL_ENGINE_CONFIG'    =>array(
-        'plugins_dir'       => './Application/Pc/Plugins/',
-        'config_dir'        => './Application/Pc/Config/',
+        'plugins_dir'       => './Application/Pc/View/Plugins/',
+        'config_dir'        => './Application/Pc/View/Config/',
         'left_delimiter'    => '{%',
         'right_delimiter'   => '%}'
     ),
     //被允许的模块列表
     'MODULE_ALLOW_LIST'     =>  array(
         'Pc',
-        'Api',
+        'Api'
     ),
     'DEFAULT_MODULE'        =>  'Pc',
     //路由设置
