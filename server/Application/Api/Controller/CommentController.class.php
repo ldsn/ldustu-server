@@ -83,7 +83,7 @@ class CommentController extends Controller {
             $this->ajaxReturn($r);
         }
 
-        $user_id        = $_SESSION['user_info']['user_id'];
+        $user_id        = session('user_info.user_id');
         $article_id     = (int)I('post.aid');
         $content        = trim(addslashes(htmlspecialchars(strip_tags(I('post.content')))));
 
@@ -135,7 +135,7 @@ class CommentController extends Controller {
             $this->ajaxReturn($r);
         }
 
-        $user_id            = $_SESSION['user_info']['user_id'];
+        $user_id            = session('user_info.user_id');
         $comment_id         = (int)I('post.com_id');
         if(!$comment_id){
             $r      = array(

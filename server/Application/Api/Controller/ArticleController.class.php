@@ -91,7 +91,7 @@ class ArticleController extends Controller {
         if(!authLogin()){
             ajaxReturn(array(), 'not_login', $msgNO['not_login']);
         }
-        $user_id            = $_SESSION['user_info']['user_id'];
+        $user_id            = session('user_info.user_id');
         
         $article_model      = D('Article');  // 初始化文章模型
 
@@ -100,7 +100,7 @@ class ArticleController extends Controller {
         $content_str = preg_replace ( "/(\<[^\<]*\>|\r|\n|\s|\[.+?\])/is", ' ', $content);
         $description = mb_substr($content_str,0,140,'utf-8');
         $data       = array(
-            'user_id'           => $_SESSION['user_info']['user_id'],
+            'user_id'           => session('user_info.user_id'),
             'column_id'         => I('post.column_id',0,'int'),
             'status'            => 1,
             'title'             => I('post.title'),
@@ -151,7 +151,7 @@ class ArticleController extends Controller {
             ajaxReturn(array(), 'need_article_id', $msgNO['need_article_id']);
         }
         $article_model  = D('Article');
-        $user_id            = $_SESSION['user_info']['user_id'];
+        $user_id            = session('user_info.user_id');
         $user_model         = D('User');
         $user_info          = $user_model->where(array('user_id', $user_id))
                                          ->field('level_status')
@@ -189,7 +189,7 @@ class ArticleController extends Controller {
         if(!authLogin()){
             ajaxReturn(array(), 'not_login', $msgNO['not_login']);
         }
-        $user_id            = $_SESSION['user_info']['user_id'];
+        $user_id            = session('user_info.user_id');
         
         $article_model      = D('Article');  // 初始化文章模型
 
@@ -202,7 +202,7 @@ class ArticleController extends Controller {
             ajaxReturn(array(), 'need_article_id', $msgNO['need_article_id']);
         }
         $data       = array(
-            'user_id'           => $_SESSION['user_info']['user_id'],
+            'user_id'           => session('user_info.user_id'),
             'column_id'         => I('post.column_id',0,'int'),
             'status'            => 1,
             'title'             => I('post.title'),

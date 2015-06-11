@@ -68,7 +68,7 @@ class CommentModel extends RelationModel{
             return false;
         }
         $where['comment_id']    = $comment_id;
-        $where['user_id']       = $_SESSION['user_info']['user_id'];        
+        $where['user_id']       = session('user_info.user_id');        
         $result                 = $this->where($where)->delete();
 
         if($result){
@@ -103,7 +103,7 @@ class CommentModel extends RelationModel{
         if($is_count){
             $result = $this->where($conditions)->count();
         } else {
-            $user_id        = $_SESSION['user_info']['user_id']?$_SESSION['user_info']['user_id']:0;
+            $user_id        = session('user_info.user_id')?session('user_info.user_id'):0;
             $result = $this->limit($offset,$count)
                         ->where($conditions)
                         ->order($order)

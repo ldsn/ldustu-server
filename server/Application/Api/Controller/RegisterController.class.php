@@ -52,7 +52,7 @@ class RegisterController extends Controller {
         cookie('signature', $sign, 3600*24*7);
         unset($arr['password']);
         unset($arr['repassword']);
-        $_SESSION['user_info']  = $arr;
+        session('user_info')  = $arr;
 
         if($info){
             $r      = array(

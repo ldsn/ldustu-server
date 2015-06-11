@@ -38,7 +38,7 @@ class ArticleModel extends RelationModel{
      */
     public function getDetail($aid){
         if(!$aid)return false;
-        $user_id        = $_SESSION['user_info']['user_id']?$_SESSION['user_info']['user_id']:0;
+        $user_id        = session('user_info.user_id')?session('user_info.user_id'):0;
         $this->_link['FavInfo']['condition']    = "user_id={$user_id}";
         $conditions     = array('article_id'=>$aid);
         $result         = $this
@@ -75,7 +75,7 @@ class ArticleModel extends RelationModel{
     public function publish($data){
         if(!$data){
             $data       = array(
-                'user_id'           => $_SESSION['user_info']['user_id'],
+                'user_id'           => session('user_info.user_id'),
                 'column_id'         => I('post.column_id',0,'int'),
                 'status'            => 1,
                 'title'             => I('post.title'),
@@ -111,7 +111,7 @@ class ArticleModel extends RelationModel{
       if(!$data)
       {
             $data       = array(
-                'user_id'           => $_SESSION['user_info']['user_id'],
+                'user_id'           => session('user_info.user_id'),
                 'column_id'         => I('post.column_id',0,'int'),
                 'status'            => 1,
                 'title'             => I('post.title'),
@@ -131,7 +131,7 @@ class ArticleModel extends RelationModel{
         if($result){
             $upinfo = array(
               'article_id' =>$article_id,
-              'user_id'    =>$_SESSION['user_info']['user_id'],
+              'user_id'    =>session('user_info.user_id'),
               'update_time'=>time()
               );
             M('Article_update')->data($upinfo)->add();
@@ -154,7 +154,7 @@ class ArticleModel extends RelationModel{
         if($is_count){
             $result = $this->where($conditions)->count();
         } else {
-            $user_id        = $_SESSION['user_info']['user_id']?$_SESSION['user_info']['user_id']:0;
+            $user_id        = session('user_info.user_id')?session('user_info.user_id'):0;
             $this->_link['FavInfo']['condition']    = "user_id={$user_id}";
             $result = $this->limit($offset,$count)
                         ->where($conditions)
@@ -185,7 +185,7 @@ class ArticleModel extends RelationModel{
     public function changeStatus($article_id, $status=-1, $admin=false){
         if(!$article_id)return false;
         $info               = $this->where(array('article_id'=>$article_id))->select();
-        $current_user_id    = $_SESSION['user_info']['user_id'];
+        $current_user_id    = session('user_info.user_id');
         if($info[0]['user_id']==$current_user_id || $admin){
             $data['status'] = $status;
             return $this->where(array('article_id'=>$article_id))->save($data);

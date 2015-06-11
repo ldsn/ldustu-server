@@ -48,7 +48,7 @@ function is_mobile_request()
  * @return  boolean
  */
 function authLogin() {
-    if($_SESSION['user_info']['user_id']){
+    if(session('user_info.user_id')){
         return true;
     } else {
         $signature      = cookie('signature');
@@ -78,7 +78,7 @@ function authSignature($signature){
     $get_sign       = hash('sha256',$r['username'].$r['password']);
     if($get_sign == $sign){
         unset($r['password']);
-        $_SESSION['user_info']  = $r;
+        session('user_info')  = $r;
         return true;
     } else {
         return false;

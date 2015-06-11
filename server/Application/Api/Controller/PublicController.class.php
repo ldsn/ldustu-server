@@ -29,7 +29,7 @@ class PublicController extends Controller {
             );
             $this->ajaxReturn($r);
         }
-        $user_id            = $_SESSION['user_info']['user_id'];
+        $user_id            = session('user_info.user_id');
 
         $aid = I('post.aid');
         if(!$aid){
