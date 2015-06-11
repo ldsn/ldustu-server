@@ -4,6 +4,7 @@ return array(
     'URL_HTML_SUFFIX' =>'',
     'TMPL_ENGINE_TYPE'      =>'Smarty',
     'TMPL_TEMPLATE_SUFFIX'  =>'.tpl',
+    'TMPL_CACHE_ON'  => false,
     'TMPL_ENGINE_CONFIG'    =>array(
         'plugins_dir'       => './Application/Pc/View/Plugins/',
         'config_dir'        => './Application/Pc/View/Config/',

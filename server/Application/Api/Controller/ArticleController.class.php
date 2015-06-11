@@ -54,7 +54,7 @@ class ArticleController extends Controller {
      * 获取当个文章详情
      * @author ety001
      */
-    public function show(){//文章内容页
+    public function showArticle(){//文章内容页
         $msgNO          = array(
             'article_id_empty'          => -1,
             'no_article'                => 0,
