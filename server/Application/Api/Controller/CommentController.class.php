@@ -18,7 +18,7 @@ class CommentController extends Controller {
         $this->index();
     }
 
-    public function get(){
+    public function getComments(){
         $msgNO          = array(
             'article_id_not_empty'      => -1,
             'get_comments_empty'        => 0,

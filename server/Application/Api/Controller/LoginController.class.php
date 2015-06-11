@@ -31,7 +31,7 @@ class LoginController extends Controller {
                 unset($userResult['passwd']);
                 $data['login_time'] = time();
                 $userModel->where($where)->save($data);
-                session('user_info')  = $userResult;
+                session('user_info', $userResult);
                 $r      = array(
                     'data'      => $userResult,
                     'msg'       => 'login_success',
@@ -70,7 +70,7 @@ class LoginController extends Controller {
         $sign                   = createSignature($result);
         cookie('signature', $sign, 3600*24*7);
         unset($result['passwd']);
-        session('user_info')  = $result;
+        session('user_info', $result);
 
         $r      = array(
             'data'      => $result,

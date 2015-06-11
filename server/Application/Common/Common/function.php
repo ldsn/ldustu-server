@@ -78,7 +78,7 @@ function authSignature($signature){
     $get_sign       = hash('sha256',$r['username'].$r['password']);
     if($get_sign == $sign){
         unset($r['password']);
-        session('user_info')  = $r;
+        session('user_info', $r);
         return true;
     } else {
         return false;
