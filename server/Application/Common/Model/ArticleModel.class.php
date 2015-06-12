@@ -111,7 +111,6 @@ class ArticleModel extends RelationModel{
       if(!$data)
       {
             $data       = array(
-                'user_id'           => session('user_info.user_id'),
                 'column_id'         => I('post.column_id',0,'int'),
                 'status'            => 1,
                 'title'             => I('post.title'),
