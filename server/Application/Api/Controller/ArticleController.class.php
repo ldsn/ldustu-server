@@ -198,12 +198,12 @@ class ArticleController extends Controller {
         $content = preg_replace('/<script>.*?<\/script>/is', '', $content);
         $content_str = preg_replace ( "/(\<[^\<]*\>|\r|\n|\s|\[.+?\])/is", ' ', $content);
         $description = mb_substr($content_str,0,140,'utf-8');
+        $description = str_replace('&nbsp;', '', $description);
         $article_id  = I('post.article_id');
         if(!$article_id){
             ajaxReturn(array(), 'need_article_id', $msgNO['need_article_id']);
         }
         $data       = array(
-            'user_id'           => session('user_info.user_id'),
             'column_id'         => I('post.column_id',0,'int'),
             'status'            => 1,
             'title'             => I('post.title'),
