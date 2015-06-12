@@ -99,6 +99,7 @@ class ArticleController extends Controller {
         $content = preg_replace('/<script>.*?<\/script>/is', '', $content);
         $content_str = preg_replace ( "/(\<[^\<]*\>|\r|\n|\s|\[.+?\])/is", ' ', $content);
         $description = mb_substr($content_str,0,140,'utf-8');
+        $description = str_replace('&nbsp;', '', $description);
         $data       = array(
             'user_id'           => session('user_info.user_id'),
             'column_id'         => I('post.column_id',0,'int'),
