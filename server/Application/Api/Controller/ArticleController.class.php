@@ -230,7 +230,7 @@ class ArticleController extends Controller {
         }
 
         $result                 = $article_model->update_article($data,$article_id);
-        if($result){
+        if($result !== false){
             ajaxReturn($result, 'update_success', $msgNO['update_success']);
         } else {
             ajaxReturn(array(), 'update_failed', $msgNO['update_failed']);
