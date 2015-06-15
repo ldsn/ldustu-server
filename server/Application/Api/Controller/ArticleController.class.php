@@ -104,13 +104,14 @@ class ArticleController extends Controller {
         $goal_url    = '/http/';
         $preg_result = preg_match($goal_url, $thumbnail);
         if($preg_result){
-                $access_key = 'W_Lf3TuOZiPuA1FCtCbFEx6AGKZQBV5Sk_yaHyt8';
-                $secret_key = 'qlyHVubJ9rK7UKjyDsk8Z_YDIJSw3YgmgKC8MzY2';
+                $access_key = QINIU_ACCESS_KEY;
+                $secret_key = QINIU_SECRET_KEY;
                   
                   
                   
-                $fetch = urlsafe_base64_encode($goal_url);  
-                $to = urlsafe_base64_encode('ldsn:userUpload/'.time().'000.jpg');
+                $fetch     = urlsafe_base64_encode($goal_url);  
+                $file_name = 'userUpload/'.time().'000.jpg'; 
+                $to        = urlsafe_base64_encode(QINIU_BUCKET_NAME.':'.$file_name);
                   
                 $url  = 'http://iovip.qbox.me/fetch/'. $fetch .'/to/' . $to;  
                   
@@ -122,7 +123,7 @@ class ArticleController extends Controller {
                   
                 $con = qiniu_send('iovip.qbox.me/fetch/'.$fetch.'/to/'.$to, $header);
                 if($con){
-                    $thumbnail = $to;
+                    $thumbnail = $file_name;
                 }
         }
 
