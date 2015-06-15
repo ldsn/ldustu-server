@@ -110,7 +110,7 @@ class ArticleController extends Controller {
                   
                   
                 $fetch     = urlsafe_base64_encode($goal_url);  
-                $file_name = 'userUpload/'.time().'000.jpg'; 
+                $file_name = 'userUpload/'.time().'000'.$user_id.'.jpg'; 
                 $to        = urlsafe_base64_encode(QINIU_BUCKET_NAME.':'.$file_name);
                   
                 $url  = 'http://iovip.qbox.me/fetch/'. $fetch .'/to/' . $to;  
