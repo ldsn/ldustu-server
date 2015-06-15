@@ -100,13 +100,39 @@ class ArticleController extends Controller {
         $content_str = preg_replace ( "/(\<[^\<]*\>|\r|\n|\s|\[.+?\])/is", ' ', $content);
         $description = mb_substr($content_str,0,140,'utf-8');
         $description = str_replace('&nbsp;', '', $description);
+        $thumbnail   = I('post.thumbnail','');
+        $goal_url    = '/http/';
+        $preg_result = preg_match($goal_url, $thumbnail);
+        if($preg_result){
+                $access_key = 'W_Lf3TuOZiPuA1FCtCbFEx6AGKZQBV5Sk_yaHyt8';
+                $secret_key = 'qlyHVubJ9rK7UKjyDsk8Z_YDIJSw3YgmgKC8MzY2';
+                  
+                  
+                  
+                $fetch = urlsafe_base64_encode($goal_url);  
+                $to = urlsafe_base64_encode('ldsn:userUpload/'.time().'000.jpg');
+                  
+                $url  = 'http://iovip.qbox.me/fetch/'. $fetch .'/to/' . $to;  
+                  
+                $access_token = generate_access_token($access_key, $secret_key, $url);
+                  
+                $header[] = 'Content-Type: application/json';  
+                $header[] = 'Authorization: QBox '. $access_token;  
+                  
+                  
+                $con = qiniu_send('iovip.qbox.me/fetch/'.$fetch.'/to/'.$to, $header);
+                if($con){
+                    $thumbnail = $to;
+                }
+        }
+
         $data       = array(
             'user_id'           => session('user_info.user_id'),
             'column_id'         => I('post.column_id',0,'int'),
             'status'            => 1,
             'title'             => I('post.title'),
             'description'       => substrCut(I('post.content'),50),
-            'thumbnail'         => I('post.thumbnail',''),
+            'thumbnail'         => $thumbnail,
             'create_time'       => time(),
             'from_device'       => 'wap',
             'description'       => $description,
