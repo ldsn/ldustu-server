@@ -104,14 +104,14 @@ class ArticleController extends Controller {
         $goal_url    = '/http/';
         $preg_result = preg_match($goal_url, $thumbnail);
         if($preg_result){
-                $access_key = QINIU_ACCESS_KEY;
-                $secret_key = QINIU_SECRET_KEY;
+                $access_key = $_SERVER['QINIU_ACCESS_KEY'];
+                $secret_key = $_SERVER['QINIU_SECRET_KEY'];
                   
                   
                   
                 $fetch     = urlsafe_base64_encode($goal_url);  
                 $file_name = 'userUpload/'.time().'000_'.$user_id.'.jpg'; 
-                $to        = urlsafe_base64_encode(QINIU_BUCKET_NAME.':'.$file_name);
+                $to        = urlsafe_base64_encode($_SERVER['QINIU_BUCKET_NAME'].':'.$file_name);
                   
                 $url  = 'http://iovip.qbox.me/fetch/'. $fetch .'/to/' . $to;  
                   
