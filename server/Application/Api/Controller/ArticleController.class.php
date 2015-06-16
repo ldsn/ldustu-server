@@ -101,17 +101,28 @@ class ArticleController extends Controller {
         $description = mb_substr($content_str,0,140,'utf-8');
         $description = str_replace('&nbsp;', '', $description);
         $thumbnail   = I('post.thumbnail','');
-        echo $thumbnail;
         $goal_url    = '/http/';
         $preg_result = preg_match($goal_url, $thumbnail);
         //if($preg_result){
-                $access_key = 'QUdfupujwdTZ3oUOO4n6pW_-gCCgJXrinwdhilZB';
-                $secret_key = 'B1zEFxB1j-b0wtpAPNAlOjSzU5BTjdz2mlqSuwbk';
+                $access_key = '-whDl59QdzDoavrzKrQy1YOCRWG6Cho_N5i7IYlf';
+                $secret_key = 'updP5BOIsUlLh5MlOCEpSDpfT9oktxs0-KbCAru6';
                 $qiniu_bucket = 'ldsnv6'; 
                   
                   
-                $fetch     = urlsafe_base64_encode($goal_url);  
-                $file_name = 'userUpload/'.time().'000_'.$user_id.'.jpg'; 
+                $fetch     = urlsafe_base64_encode($thumbnail);
+                $suffix    = strrchr($thumbnail,'.');
+                switch ($suffix) {
+                    case '.jpg':
+                        break;
+                    case '.png':
+                        break;
+                    case '.gif':
+                        break;
+                    default:
+                        $suffix = '';
+                        break;
+                }
+                $file_name = 'userUpload/'.time().'000_'.$user_id.$suffix; 
                 $to        = urlsafe_base64_encode($qiniu_bucket.':'.$file_name);
                   
                 $url  = 'http://iovip.qbox.me/fetch/'. $fetch .'/to/' . $to;  
