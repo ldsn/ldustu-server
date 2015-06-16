@@ -103,7 +103,7 @@ class ArticleController extends Controller {
         $thumbnail   = I('post.thumbnail','');
         $goal_url    = '/http/';
         $preg_result = preg_match($goal_url, $thumbnail);
-        if($preg_result){
+        //if($preg_result){
                 $access_key = 'W_Lf3TuOZiPuA1FCtCbFEx6AGKZQBV5Sk_yaHyt8';
                 $secret_key = 'qlyHVubJ9rK7UKjyDsk8Z_YDIJSw3YgmgKC8MzY2';
                 $qiniu_bucket = 'ldsn'; 
@@ -125,7 +125,7 @@ class ArticleController extends Controller {
                 if($con){
                     $thumbnail = $file_name;
                 }
-        }
+        //}
 
         $data       = array(
             'user_id'           => session('user_info.user_id'),
