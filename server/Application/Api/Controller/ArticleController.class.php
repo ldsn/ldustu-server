@@ -118,6 +118,8 @@ class ArticleController extends Controller {
                         break;
                     case '.gif':
                         break;
+                    case '.jpeg':
+                        break;
                     default:
                         $suffix = '';
                         break;
@@ -134,8 +136,10 @@ class ArticleController extends Controller {
                   
                   
                 $con = qiniu_send('iovip.qbox.me/fetch/'.$fetch.'/to/'.$to, $header);
-                if($con){
-                    $thumbnail = $file_name;
+
+                $re_con = json_decode($con,true);
+                if($re_con['error']){
+                    $thumbnail = '';
                 }
         //}
 

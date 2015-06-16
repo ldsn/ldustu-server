@@ -176,7 +176,7 @@ function generate_access_token($access_key, $secret_key, $url, $params = ''){
 function qiniu_send($url, $header = '') {  
     $curl = curl_init($url);  
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);  
-    curl_setopt($curl, CURLOPT_HEADER,1);  
+    curl_setopt($curl, CURLOPT_HEADER,0);  
     curl_setopt($curl, CURLOPT_HTTPHEADER, $header);  
     curl_setopt($curl, CURLOPT_POST, 1);  
   
