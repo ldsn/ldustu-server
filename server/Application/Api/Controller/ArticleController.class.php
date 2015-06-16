@@ -140,6 +140,8 @@ class ArticleController extends Controller {
                 $re_con = json_decode($con,true);
                 if($re_con['error']){
                     $thumbnail = '';
+                }else{
+                    $thumbnail = $file_name;
                 }
         //}
 
