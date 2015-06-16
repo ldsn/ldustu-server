@@ -101,12 +101,13 @@ class ArticleController extends Controller {
         $description = mb_substr($content_str,0,140,'utf-8');
         $description = str_replace('&nbsp;', '', $description);
         $thumbnail   = I('post.thumbnail','');
+        echo $thumbnail;
         $goal_url    = '/http/';
         $preg_result = preg_match($goal_url, $thumbnail);
         //if($preg_result){
-                $access_key = 'W_Lf3TuOZiPuA1FCtCbFEx6AGKZQBV5Sk_yaHyt8';
-                $secret_key = 'qlyHVubJ9rK7UKjyDsk8Z_YDIJSw3YgmgKC8MzY2';
-                $qiniu_bucket = 'ldsn'; 
+                $access_key = 'QUdfupujwdTZ3oUOO4n6pW_-gCCgJXrinwdhilZB';
+                $secret_key = 'B1zEFxB1j-b0wtpAPNAlOjSzU5BTjdz2mlqSuwbk';
+                $qiniu_bucket = 'ldsnv6'; 
                   
                   
                 $fetch     = urlsafe_base64_encode($goal_url);  
