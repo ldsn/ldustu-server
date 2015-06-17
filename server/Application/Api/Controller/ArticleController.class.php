@@ -143,6 +143,8 @@ class ArticleController extends Controller {
                 }else{
                     $thumbnail = $file_name;
                 }
+        }else{
+            $thumbnail   = I('post.thumbnail','');
         }
 
         $data       = array(
