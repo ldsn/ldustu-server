@@ -7,6 +7,7 @@
  * Time: 上午11: 32
  * UEditor编辑器通用上传类
  */
+require_once('');
 class Uploader
 {
     private $fileField; //文件域名
@@ -116,11 +117,16 @@ class Uploader
         }
 
         //移动文件
-        if (!(move_uploaded_file($file["tmp_name"], $this->filePath) && file_exists($this->filePath))) { //移动失败
-            $this->stateInfo = $this->getStateInfo("ERROR_FILE_MOVE");
-        } else { //移动成功
-            $this->stateInfo = $this->stateMap[0];
-        }
+        // if (!(move_uploaded_file($file["tmp_name"], $this->filePath) && file_exists($this->filePath))) { //移动失败
+        //     $this->stateInfo = $this->getStateInfo("ERROR_FILE_MOVE");
+        // } else { //移动成功
+        //     $this->stateInfo = $this->stateMap[0];
+        // }
+        /**
+         * 重写上传文件
+         */
+        //if()
+
     }
 
     /**
