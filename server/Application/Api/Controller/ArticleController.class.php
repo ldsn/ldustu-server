@@ -101,7 +101,7 @@ class ArticleController extends Controller {
         $description = mb_substr($content_str,0,140,'utf-8');
         $description = str_replace('&nbsp;', '', $description);
         $thumbnail   = I('post.thumbnail','');
-        $goal_url    = '/http://ldsnv6.qiniudn.com/';
+        $goal_url    = '/ldsnv6.qiniudn.com/';
         $preg_result = preg_match($goal_url, $thumbnail);
         if(!$preg_result){
                 $access_key = '-whDl59QdzDoavrzKrQy1YOCRWG6Cho_N5i7IYlf';
