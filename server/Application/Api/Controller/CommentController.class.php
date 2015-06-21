@@ -150,10 +150,9 @@ class CommentController extends Controller {
             'comment_id'        => $comment_id
         );
 
-        $commentModel       = D('Comment');
-        $comment_info       = $commentModel->catchComment($conditions);
 
-        if($user_id!=$comment_info['user_id']){
+        $admin = !!session('user_info.levelstatus');
+        if(!$admin){
             $r      = array(
                 'data'      => array(),
                 'msg'       => 'has_no_auth_to_del',
@@ -161,6 +160,17 @@ class CommentController extends Controller {
             );
             $this->ajaxReturn($r);
         }
+
+        $commentModel       = D('Comment');
+        //$comment_info       = $commentModel->catchComment($conditions);
+        // if($user_id!=$comment_info['user_id']){
+        //     $r      = array(
+        //         'data'      => array(),
+        //         'msg'       => 'has_no_auth_to_del',
+        //         'status'    => $msgNO['has_no_auth_to_del']
+        //     );
+        //     $this->ajaxReturn($r);
+        // }
 
         $result     = $comment->deleteComment($comment_id);
         if($result){
