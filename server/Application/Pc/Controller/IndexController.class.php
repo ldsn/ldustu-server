@@ -64,11 +64,19 @@ class IndexController extends Controller{
             $articleList[$k]['create_time_string'] = date('<b>m/d</b><b>H:i更新</b>', $articleList[$k]['create_time']);
         }
 
-        $hotList                = $article_model->getList(array('status'=>1),null,6,'view_num desc');
+        $search_time = time() - 86400;
+        $hot_search['create_time'] = aray('elt',$search_time);
+        //getList(array('status'=>1),null,6,'view_num desc');
+        $hotList                = $article_model->where($hot_search)
+                                                ->order('favour_num desc')
+                                                ->limit('10')
+                                                ->select();
+
         $ad_aside     = $ad_model->getad('aside');
         $ad_header     = $ad_model->getad('header');
         $head_article = $article_model->gethead_article();//取出首页顶部10条
         $head_pic_two = $article_model->gethead_pic_two();//取出首页顶部图片2条
+
         $this->assign('json_user_info', json_encode($user_info));
         $this->assign('json_column', json_encode($column));
         $this->assign('ad_aside',$ad_aside);
