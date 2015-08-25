@@ -65,7 +65,7 @@ class IndexController extends Controller{
         }
 
         $search_time = time() - 86400;
-        $hot_search['create_time'] = aray('elt',$search_time);
+        $hot_search['create_time'] = array('elt',$search_time);
         //getList(array('status'=>1),null,6,'view_num desc');
         $hotList                = $article_model->where($hot_search)
                                                 ->order('favour_num desc')
