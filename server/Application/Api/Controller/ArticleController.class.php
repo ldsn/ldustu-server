@@ -201,7 +201,7 @@ class ArticleController extends Controller {
         $article_model  = D('Article');
         $user_id            = session('user_info.user_id');
         $user_model         = D('User');
-        $user_info          = $user_model->where(array('user_id', $user_id))
+        $user_info          = $user_model->where(array('user_id'=> $user_id))
                                          ->field('level_status')
                                          ->select();
         $admin = !!($user_info[0]['level_status'] > 0);
